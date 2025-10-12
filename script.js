@@ -1,3 +1,4 @@
+// Fade-in animation for features
 const features = document.querySelectorAll('.feature');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -9,8 +10,6 @@ const observer = new IntersectionObserver(entries => {
 });
 
 features.forEach(feature => {
-  feature.style.opacity = 0;
-  feature.style.transform = 'translateY(30px)';
   feature.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   observer.observe(feature);
 });
