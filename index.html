@@ -1,54 +1,91 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BloxOLite</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BloxOLite — Roblox Moderation Hub</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <nav>
-    <div class="logo">BloxOLite</div>
-    <div class="links">
-      <a href="#">Products</a>
-      <a href="#">Docs</a>
-      <a href="#">Socials</a>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="index.html">BloxOLite</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+      </nav>
     </div>
-  </nav>
-
-  <header>
-    <h1>The Future of Roblox Systems</h1>
-    <p>Explore next-generation tools and frameworks built to power your Roblox experience — made by developers, for developers.</p>
-    <button onclick="window.open('https://discord.gg/tcxqKNR649', '_blank')">Join Our Discord</button>
   </header>
 
-  <section class="features">
-    <div class="feature">
-      <h3>🧰 Advanced Systems</h3>
-      <p>Moderation and data systems designed for stability and performance across your games.</p>
-    </div>
-    <div class="feature">
-      <h3>⚙️ Developer Friendly</h3>
-      <p>Built with modular design and simple configuration — customize easily without breaking your workflow.</p>
-    </div>
-    <div class="feature">
-      <h3>💎 Constant Innovation</h3>
-      <p>Frequent updates, feature improvements, and community-driven enhancements for long-term projects.</p>
-    </div>
-  </section>
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <h1 class="glow">BloxOLite — Roblox Moderation Hub</h1>
+        <p class="lead">
+          Professional moderation tools for Roblox — Anti-Cheat, Moderator Call systems, and more.
+          Built for performance, configurability, and regular updates.
+        </p>
+        <div class="hero-cta">
+          <a class="btn" href="products.html">Explore Products</a>
+          <a class="btn ghost" href="#">View on Roblox</a>
+        </div>
+      </div>
+    </section>
 
-  <section class="cta">
-    <h2>Ready to supercharge your Roblox Moderation experience?</h2>
-    <button onclick="window.open('https://discord.gg/tcxqKNR649', '_blank')">Join the Community</button>
-  </section>
+    <section id="highlights" class="highlights">
+      <div class="container">
+        <div class="grid-3">
+          <article class="card">
+            <h3>Fast</h3>
+            <p>Low-latency systems designed to fit in any experience without heavy resource use.</p>
+          </article>
 
-  <footer>
-    <div class="footer-links">
-      <a href="#">Products</a>
-      <a href="#">Docs</a>
-      <a href="https://discord.gg/tcxqKNR649" target="_blank">Socials</a>
+          <article class="card">
+            <h3>Customisable</h3>
+            <p>Settings and behavior can be tuned to match your game's rules and style.</p>
+          </article>
+
+          <article class="card">
+            <h3>Maintained</h3>
+            <p>Frequent updates to keep ahead of new exploit techniques and edge-cases.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="showcase">
+      <div class="container">
+        <div class="showcase-inner">
+          <div class="showcase-text">
+            <h2>Designed for developers</h2>
+            <p>
+              BloxOLite focuses on delivering modular systems that integrate well with existing code,
+              provide clear logging, and make moderation easy for your staff.
+            </p>
+            <a class="btn" href="products.html">See Products</a>
+          </div>
+          <div class="showcase-art">
+            <div class="mockup">
+              <div class="mockup-panel">BloxOLite</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <strong>BloxOLite</strong> — Roblox Moderation Hub
+      </div>
+      <div class="footer-right">
+        <a href="products.html">Products</a>
+        <span>•</span>
+        <span>© 2025 BloxOLite</span>
+      </div>
     </div>
-    <p>© 2025 BloxOLite.</p>
   </footer>
 
   <script src="script.js"></script>
