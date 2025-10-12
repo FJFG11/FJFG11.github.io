@@ -1,127 +1,185 @@
-/* Google font */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-:root{
-  --bg: #0d0f14;
-  --panel: rgba(255,255,255,0.03);
-  --muted: #9aa3b2;
-  --accent-start: #6a5af9;
-  --accent-end: #64dfdf;
-  --glass: rgba(255,255,255,0.04);
+:root {
+  --bg: #0d0e12;
+  --fg: #ffffff;
+  --muted: #9a9a9a;
+  --accent: linear-gradient(90deg, #00c6ff, #0072ff);
 }
 
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-  background: linear-gradient(180deg,#070709 0%, var(--bg) 100%);
-  color:#eaf0ff;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
-  line-height:1.45;
-  min-height:100vh;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
 }
 
-/* layout helpers */
-.container{max-width:1100px;margin:0 auto;padding:0 20px}
+body {
+  background: var(--bg);
+  color: var(--fg);
+  overflow-x: hidden;
+}
 
-/* header */
-.site-header{
-  position:sticky;top:0;z-index:60;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+/* NAVBAR */
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(8px);
-  border-bottom: 1px solid rgba(255,255,255,0.03);
-}
-.header-inner{
-  display:flex;align-items:center;justify-content:space-between;padding:18px 0;
-}
-.brand{
-  font-weight:700;font-size:1.25rem;
-  background: linear-gradient(90deg,var(--accent-start), var(--accent-end));
-  -webkit-background-clip:text;color:transparent;text-decoration:none;
-}
-.nav a{
-  color:var(--muted);text-decoration:none;margin-left:18px;font-weight:600;
-}
-.nav a:hover{color:#fff;}
-
-/* hero */
-.hero{
-  padding:88px 0 56px;
-  text-align:center;
-  background: radial-gradient(400px 200px at 10% 10%, rgba(100,223,223,0.04), transparent 20%),
-              radial-gradient(400px 200px at 90% 90%, rgba(106,90,249,0.03), transparent 20%);
-}
-.hero-inner .glow{
-  font-size:2.4rem;margin-bottom:14px;
-  background: linear-gradient(90deg,var(--accent-start), var(--accent-end));
-  -webkit-background-clip:text;color:transparent;
-}
-.lead{color:var(--muted);max-width:760px;margin:0 auto 20px}
-
-/* buttons */
-.btn{
-  display:inline-block;padding:10px 18px;border-radius:10px;
-  font-weight:700;text-decoration:none;border:0;cursor:pointer;
-  background: linear-gradient(90deg,var(--accent-start), var(--accent-end));
-  color:white;box-shadow:0 6px 18px rgba(106,90,249,0.12);
-}
-.btn.ghost{
-  background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);margin-left:10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* grid helpers */
-.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:24px}
-
-/* cards */
-.card{
-  background:var(--panel);padding:22px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);
-  transition:transform .28s ease, box-shadow .28s ease;
+.logo {
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: var(--accent);
+  -webkit-background-clip: text;
+  color: transparent;
 }
-.card:hover{transform:translateY(-6px);box-shadow:0 18px 40px rgba(0,0,0,0.6)}
 
-/* showcase */
-.showcase{padding:40px 0}
-.showcase-inner{display:flex;gap:40px;align-items:center;justify-content:space-between}
-.showcase-text{flex:1}
-.showcase-art{width:320px}
-.mockup{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:8px;border-radius:12px}
-.mockup-panel{height:200px;border-radius:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.02));display:flex;align-items:center;justify-content:center;color:var(--muted)}
-
-/* products page */
-.products-hero{padding:64px 0 28px;text-align:left}
-.products-list{padding:28px 0 80px}
-.product-card{
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
-  border-radius:12px;padding:22px;border:1px solid rgba(255,255,255,0.03);
-  transition:transform .28s ease, box-shadow .28s ease;
+.links a {
+  color: var(--muted);
+  text-decoration: none;
+  margin: 0 1rem;
+  transition: color 0.3s;
 }
-.product-card:hover{transform:translateY(-8px);box-shadow:0 20px 46px rgba(0,0,0,0.6)}
-.product-header{display:flex;align-items:center;justify-content:space-between}
-.badge{font-size:12px;padding:6px 8px;border-radius:8px;background:linear-gradient(90deg,var(--accent-start),var(--accent-end));color:#fff;font-weight:700}
-.product-desc{color:var(--muted);margin-top:8px}
-.feature-list{margin:12px 0 8px;padding-left:18px;color:#dfe9ff}
-.product-extra{color:var(--muted);margin-bottom:10px}
-.product-actions{display:flex;gap:10px}
 
-/* modal */
-.modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);padding:20px;opacity:0;pointer-events:none;transition:opacity .18s ease}
-.modal[aria-hidden="false"]{opacity:1;pointer-events:auto}
-.modal-panel{background:linear-gradient(180deg, rgba(255,255,255,0.02), transparent);padding:22px;border-radius:12px;max-width:720px;width:100%;position:relative;border:1px solid rgba(255,255,255,0.03)}
-.modal-close{position:absolute;right:14px;top:12px;background:transparent;border:none;color:var(--muted);font-size:18px;cursor:pointer}
+.links a.active,
+.links a:hover {
+  color: #fff;
+}
 
-/* footer */
-.site-footer{padding:22px 0;background:transparent;border-top:1px solid rgba(255,255,255,0.03);color:var(--muted)}
-.footer-inner{display:flex;align-items:center;justify-content:space-between;padding-top:6px}
+/* HEADER */
+header {
+  text-align: center;
+  padding: 8rem 2rem 6rem;
+  background: radial-gradient(circle at 50% 10%, rgba(255,255,255,0.05), transparent 70%);
+}
 
-/* responsive */
-@media (max-width:880px){
-  .grid-3{grid-template-columns:1fr;gap:16px}
-  .grid-2{grid-template-columns:1fr;gap:18px}
-  .showcase-inner{flex-direction:column;}
-  .header-inner{padding:12px 0}
-  .nav a{margin-left:12px;font-size:14px}
-  .hero{padding:56px 0 36px}
+header h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  background: var(--accent);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+header p {
+  font-size: 1.25rem;
+  color: #ccc;
+  margin-bottom: 2rem;
+}
+
+button {
+  background: var(--accent);
+  border: none;
+  padding: 0.9rem 2rem;
+  color: white;
+  font-weight: 600;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+/* FEATURES */
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  padding: 4rem 2rem;
+  max-width: 1000px;
+  margin: auto;
+}
+
+.feature {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2rem;
+  border-radius: 1rem;
+  transition: background 0.3s, transform 0.3s;
+}
+
+.feature:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-5px);
+}
+
+/* DOCS PAGE */
+.docs-container {
+  display: flex;
+  padding: 3rem;
+  gap: 2rem;
+}
+
+.sidebar {
+  width: 250px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  position: sticky;
+  top: 100px;
+  height: fit-content;
+}
+
+.sidebar h3 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar a {
+  display: block;
+  color: #aaa;
+  text-decoration: none;
+  margin: 0.5rem 0;
+  transition: color 0.2s;
+}
+
+.sidebar a:hover {
+  color: #fff;
+}
+
+.docs-content {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.docs-content h2 {
+  margin-top: 2rem;
+  background: var(--accent);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+pre {
+  background: rgba(255, 255, 255, 0.07);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  overflow-x: auto;
+}
+
+code {
+  font-family: monospace;
+  color: #00c6ff;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 2rem;
+  color: #888;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
