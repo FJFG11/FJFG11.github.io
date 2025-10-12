@@ -1,1 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloxOLite Docs</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <div class="logo">BloxOLite</div>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="docs.html" class="active">Docs</a>
+      <a href="https://github.com/FJFG11" target="_blank">GitHub</a>
+    </div>
+  </nav>
+
+  <main class="docs-container">
+    <aside class="sidebar">
+      <h3>Documentation</h3>
+      <ul>
+        <li><a href="#intro">Getting Started</a></li>
+        <li><a href="#install">Installation</a></li>
+        <li><a href="#commands">Command Reference</a></li>
+        <li><a href="#api">API Integration</a></li>
+      </ul>
+    </aside>
+
+    <section class="docs-content">
+      <h2 id="intro">🚀 Getting Started</h2>
+      <p>BloxOLite provides easy-to-use moderation tools for your Roblox games. You can manage bans, kicks, logs, and permissions in one unified system.</p>
+
+      <h2 id="install">⚙️ Installation</h2>
+      <ol>
+        <li>Download the BloxOLite module from the GitHub Releases page.</li>
+        <li>Insert it into your Roblox game’s ServerScriptService.</li>
+        <li>Configure your settings inside the <code>Settings</code> ModuleScript.</li>
+      </ol>
+
+      <h2 id="commands">🧩 Command Reference</h2>
+      <p>Use the console or UI to run moderation commands.</p>
+      <ul>
+        <li><code>!kick [player] [reason]</code> — Kicks a player</li>
+        <li><code>!ban [player] [time] [reason]</code> — Bans a player temporarily</li>
+        <li><code>!debughistory [player]</code> — Views punishment logs</li>
+      </ul>
+
+      <h2 id="api">💡 API Integration</h2>
+      <p>BloxOLite supports simple API endpoints for logging and audit purposes. Example:</p>
+      <pre><code>{
+  "event": "PlayerBanned",
+  "player": "User123",
+  "moderator": "Admin456",
+  "reason": "Exploiting"
+}</code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 BloxOLite Docs. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
