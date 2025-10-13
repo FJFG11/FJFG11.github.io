@@ -1,15 +1,13 @@
-const ACCESS_HASH = "-94374278"; // Hashed key (replace below)
-const loginSection = document.getElementById('login-section');
-const dashboardSection = document.getElementById('dashboard-section');
-const verifyBtn = document.getElementById('verify-key');
-const accessInput = document.getElementById('access-key');
-const loginError = document.getElementById('login-error');
-const logoutBtn = document.getElementById('logout-btn');
-const announcementText = document.getElementById('announcement-text');
-const saveAnnouncementBtn = document.getElementById('save-announcement');
-const statusMsg = document.getElementById('status-msg');
+console.log("✅ Script loaded!");
 
-// --- Simple Hash Function ---
+const ACCESS_HASH = "-94374278"; // Your generated hash
+const verifyBtn = document.getElementById("verify-key");
+const accessInput = document.getElementById("access-key");
+const loginError = document.getElementById("login-error");
+const adminPanel = document.getElementById("admin-panel");
+const postBtn = document.getElementById("post-announcement");
+const statusMsg = document.getElementById("status");
+
 function hashString(str) {
   return Array.from(str).reduce((hash, char) => {
     hash = (hash << 5) - hash + char.charCodeAt(0);
@@ -17,41 +15,28 @@ function hashString(str) {
   }, 0).toString();
 }
 
-// --- Verify access key ---
-verifyBtn.addEventListener('click', () => {
+verifyBtn.addEventListener("click", () => {
+  console.log("🔒 Verify button clicked!");
   const inputKey = accessInput.value.trim();
   if (hashString(inputKey) === ACCESS_HASH) {
-    localStorage.setItem('bloxolite-loggedin', 'true');
-    showDashboard();
+    console.log("✅ Correct key entered!");
+    loginError.style.display = "none";
+    document.querySelector("h1").textContent = "Welcome, Admin 👋";
+    verifyBtn.style.display = "none";
+    accessInput.style.display = "none";
+    adminPanel.style.display = "block";
   } else {
-    loginError.style.display = 'block';
-    setTimeout(() => (loginError.style.display = 'none'), 2000);
+    console.warn("❌ Wrong key entered");
+    loginError.style.display = "block";
   }
 });
 
-// --- Show dashboard if already logged in ---
-if (localStorage.getItem('bloxolite-loggedin') === 'true') {
-  showDashboard();
-}
-
-function showDashboard() {
-  loginSection.style.display = 'none';
-  dashboardSection.style.display = 'block';
-  announcementText.value = localStorage.getItem('bloxolite-announcement') || '';
-}
-
-// --- Save announcement locally ---
-saveAnnouncementBtn.addEventListener('click', () => {
-  const text = announcementText.value.trim();
-  if (text) {
-    localStorage.setItem('bloxolite-announcement', text);
-    statusMsg.style.display = 'block';
-    setTimeout(() => (statusMsg.style.display = 'none'), 2000);
+postBtn.addEventListener("click", () => {
+  const message = document.getElementById("announcement").value.trim();
+  if (message.length > 0) {
+    console.log("📢 Announcement posted:", message);
+    statusMsg.style.display = "block";
+    setTimeout(() => (statusMsg.style.display = "none"), 3000);
+    document.getElementById("announcement").value = "";
   }
-});
-
-// --- Logout ---
-logoutBtn.addEventListener('click', () => {
-  localStorage.removeItem('bloxolite-loggedin');
-  location.reload();
 });
