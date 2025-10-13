@@ -1,4 +1,4 @@
-const ACCESS_HASH = "c9806a5d4db29fd7b1a73384a8e38f0e"; // Hashed key (replace below)
+const ACCESS_HASH = "-94374278"; // Hashed key (replace below)
 const loginSection = document.getElementById('login-section');
 const dashboardSection = document.getElementById('dashboard-section');
 const verifyBtn = document.getElementById('verify-key');
