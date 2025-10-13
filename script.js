@@ -1,6 +1,6 @@
 console.log("✅ Script loaded!");
 
-const ACCESS_HASH = "-94374278"; // Your generated hash
+const ACCESS_HASH = "-94374278"; // Your hash
 const verifyBtn = document.getElementById("verify-key");
 const accessInput = document.getElementById("access-key");
 const loginError = document.getElementById("login-error");
@@ -16,25 +16,28 @@ function hashString(str) {
 }
 
 verifyBtn.addEventListener("click", () => {
-  console.log("🔒 Verify button clicked!");
   const inputKey = accessInput.value.trim();
   if (hashString(inputKey) === ACCESS_HASH) {
-    console.log("✅ Correct key entered!");
-    loginError.style.display = "none";
     document.querySelector("h1").textContent = "Welcome, Admin 👋";
     verifyBtn.style.display = "none";
     accessInput.style.display = "none";
+    loginError.style.display = "none";
     adminPanel.style.display = "block";
   } else {
-    console.warn("❌ Wrong key entered");
     loginError.style.display = "block";
   }
 });
 
+// 🟢 Save the announcement to localStorage
 postBtn.addEventListener("click", () => {
   const message = document.getElementById("announcement").value.trim();
   if (message.length > 0) {
-    console.log("📢 Announcement posted:", message);
+    const date = new Date().toLocaleString();
+    const announcementData = { message, date };
+    let announcements = JSON.parse(localStorage.getItem("bloxolite_announcements")) || [];
+    announcements.unshift(announcementData); // add newest to top
+    localStorage.setItem("bloxolite_announcements", JSON.stringify(announcements));
+
     statusMsg.style.display = "block";
     setTimeout(() => (statusMsg.style.display = "none"), 3000);
     document.getElementById("announcement").value = "";
