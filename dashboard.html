@@ -1,132 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BloxOLite Dashboard</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: #0a0a0a;
-      color: #fff;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.8);
-      display: flex;
-      justify-content: space-between;
-      padding: 1rem 2rem;
-      backdrop-filter: blur(8px);
-      z-index: 10;
-    }
-    .logo {
-      font-size: 1.4rem;
-      font-weight: 700;
-    }
-    .links a {
-      color: #fff;
-      margin-left: 1rem;
-      text-decoration: none;
-      font-weight: 500;
-      opacity: 0.8;
-      transition: opacity 0.2s;
-    }
-    .links a:hover { opacity: 1; }
-
-    .login-box, .dashboard-box {
-      background: #111;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 0 20px rgba(255,255,255,0.05);
-      max-width: 450px;
-      width: 90%;
-      margin-top: 100px;
-      animation: fadeIn 0.6s ease-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    input, textarea {
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background: #0d0d0d;
-      color: #fff;
-      padding: 0.8rem;
-      font-family: inherit;
-      margin-top: 0.5rem;
-    }
-
-    button {
-      background: #fff;
-      color: #000;
-      border: none;
-      padding: 0.8rem 1.4rem;
-      border-radius: 8px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin-top: 1rem;
-      transition: transform 0.2s, background 0.2s;
-    }
-    button:hover {
-      background: #ddd;
-      transform: scale(1.05);
-    }
-
-    footer {
-      margin-top: auto;
-      padding: 1rem 0;
-      color: #777;
-      font-size: 0.9rem;
-    }
-  </style>
-</head>
-<body>
-  <nav>
-    <div class="logo">BloxOLite</div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="docs.html">Docs</a>
-      <a href="dashboard.html" class="active">Dashboard</a>
-    </div>
-  </nav>
-
-  <!-- Login Section -->
-  <div class="login-box" id="login-section">
-    <h2>🔐 Admin Access</h2>
-    <p>Enter your private access key to unlock the dashboard.</p>
-    <input type="password" id="access-key" placeholder="Enter access key..." />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BloxOLite Dashboard</title>
+    <style>
+      body {
+        background: #0d1117;
+        color: #fff;
+        text-align: center;
+        font-family: Inter, sans-serif;
+        padding-top: 120px;
+      }
+      input, button {
+        padding: 10px;
+        border: none;
+        border-radius: 8px;
+        outline: none;
+      }
+      input {
+        width: 220px;
+      }
+      button {
+        background: #6366f1;
+        color: white;
+        margin-left: 10px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      button:hover {
+        background: #4f46e5;
+      }
+      #login-error {
+        display: none;
+        color: #f87171;
+        margin-top: 10px;
+      }
+      #admin-panel {
+        display: none;
+        margin-top: 50px;
+      }
+      .panel {
+        background: #111827;
+        border-radius: 12px;
+        padding: 30px;
+        width: 400px;
+        margin: 0 auto;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>BloxOLite Admin Login</h1>
+    <input type="password" id="access-key" placeholder="Enter Access Key" />
     <button id="verify-key">Verify Access</button>
-    <p id="login-error" style="color:#f77; display:none; margin-top:10px;">❌ Invalid key. Try again.</p>
-  </div>
+    <p id="login-error">❌ Invalid key</p>
 
-  <!-- Dashboard Section -->
-  <div class="dashboard-box" id="dashboard-section" style="display:none;">
-    <h2>📢 Announcement Panel</h2>
-    <textarea id="announcement-text" placeholder="Write your announcement..." rows="5"></textarea>
-    <button id="save-announcement">💾 Save Announcement</button>
-    <p id="status-msg" style="color:#0f0; display:none; margin-top:10px;">✅ Saved successfully!</p>
-    <hr style="margin: 2rem 0; border-color:#222;">
-    <button id="logout-btn">🚪 Logout</button>
-  </div>
+    <div id="admin-panel">
+      <div class="panel">
+        <h2>📢 Announcement Panel</h2>
+        <textarea id="announcement" rows="4" style="width:100%;border-radius:8px;padding:10px;"></textarea>
+        <br><br>
+        <button id="post-announcement">Post Announcement</button>
+        <p id="status" style="margin-top:10px;color:#10b981;display:none;">✅ Announcement posted!</p>
+      </div>
+    </div>
 
-  <footer>
-    © 2025 BloxOLite — All rights reserved.
-  </footer>
-
-  <script src="script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
