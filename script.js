@@ -1,36 +1,67 @@
-// Smooth fade-in animation for features
-const features = document.querySelectorAll('.feature');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = 1;
-      entry.target.style.transform = 'translateY(0)';
+// Smooth reveal animations (AOS-like) + scroll-spy + docs search
+document.addEventListener('DOMContentLoaded', () => {
+  // Reveal animations using IntersectionObserver
+  const revealItems = document.querySelectorAll('.reveal-up, .reveal-right');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(en => {
+      if (en.isIntersecting) {
+        const el = en.target;
+        const delay = parseInt(el.dataset.delay || '0', 10);
+        setTimeout(()=> el.classList.add('revealed'), delay);
+        io.unobserve(el);
+      }
+    });
+  }, {threshold: 0.15});
+
+  revealItems.forEach(item => io.observe(item));
+
+  // docs scroll-spy
+  const sidebar = document.getElementById('sidebarNav') || document.querySelector('.sidebar-nav');
+  const links = sidebar ? Array.from(sidebar.querySelectorAll('a')) : [];
+  const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  function onScrollSpy(){
+    let current = null;
+    const scrollPos = window.scrollY + 140; // offset
+    for (const sec of sections){
+      if (sec.offsetTop <= scrollPos) current = sec.id;
     }
+    links.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+    });
+  }
+  window.addEventListener('scroll', onScrollSpy);
+  onScrollSpy();
+
+  // sidebar search for docs
+  const search = document.getElementById('doc-search');
+  if (search){
+    search.addEventListener('input', (e) => {
+      const q = String(e.target.value || '').trim().toLowerCase();
+      const navLinks = document.querySelectorAll('.sidebar-nav a');
+      navLinks.forEach(a => {
+        const t = a.textContent.trim().toLowerCase();
+        a.style.display = (!q || t.includes(q)) ? '' : 'none';
+      });
+    });
+  }
+
+  // active nav link click smooth offset (works even with anchor)
+  const offset = 80;
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (ev) => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (!target) return;
+      ev.preventDefault();
+      window.scrollTo({
+        top: target.offsetTop - offset,
+        behavior: 'smooth'
+      });
+    });
   });
-});
 
-features.forEach(feature => {
-  feature.style.opacity = 0;
-  feature.style.transform = 'translateY(20px)';
-  feature.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(feature);
-});
-
-// Highlight active doc section in sidebar
-const sections = document.querySelectorAll('.docs-content article');
-const navLinks = document.querySelectorAll('.sidebar a');
-
-window.addEventListener('scroll', () => {
-  let current = '';
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop - 150;
-    if (scrollY >= sectionTop) current = section.getAttribute('id');
-  });
-
-  navLinks.forEach(link => {
-    link.classList.remove('active');
-    if (link.getAttribute('href').includes(current)) {
-      link.classList.add('active');
-    }
-  });
+  // small enhancement: add tabindex focus rings for keyboard users
+  document.body.addEventListener('keyup', (e) => {
+    if (e.key === 'Tab') document.body.classList.add('user-is-tabbing');
+  }, {once:true});
 });
