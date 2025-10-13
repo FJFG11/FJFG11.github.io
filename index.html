@@ -23,32 +23,6 @@
     <a href="docs.html"><button>Get Started →</button></a>
   </header>
 
-  <section class="announcement" id="announcement-box">
-    <h3>📢 Announcement</h3>
-    <section id="announcements" style="background:#0d1117;color:white;padding:60px 20px;text-align:center;">
-  <div id="announcement-list" style="max-width:600px;margin:30px auto;text-align:left;"></div>
-</section>
-
-<script>
-  // 🟢 Load announcements saved from dashboard
-  const list = document.getElementById("announcement-list");
-  const announcements = JSON.parse(localStorage.getItem("bloxolite_announcements")) || [];
-
-  if (announcements.length === 0) {
-    list.innerHTML = "<p>No announcements yet.</p>";
-  } else {
-    announcements.forEach(a => {
-      const item = document.createElement("div");
-      item.style.padding = "15px";
-      item.style.borderBottom = "1px solid #1f2937";
-      item.innerHTML = `<strong>${a.date}</strong><br>${a.message}`;
-      list.appendChild(item);
-    });
-  }
-</script>
-
-  </section>
-
   <section class="features">
     <div class="feature">
       <h3>⚙️ Plug-and-Play</h3>
