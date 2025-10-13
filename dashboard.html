@@ -5,6 +5,108 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BloxOLite Dashboard</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0a;
+      color: #fff;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      backdrop-filter: blur(8px);
+      z-index: 10;
+    }
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+    }
+    .links a {
+      color: #fff;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .links a:hover {
+      opacity: 1;
+    }
+
+    .login-box, .dashboard-box {
+      background: #111;
+      padding: 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.05);
+      max-width: 450px;
+      width: 90%;
+      margin-top: 100px;
+      animation: fadeIn 0.6s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    button {
+      background: #fff;
+      color: #000;
+      border: none;
+      padding: 0.8rem 1.4rem;
+      border-radius: 8px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+    }
+    button:hover {
+      background: #ddd;
+      transform: scale(1.05);
+    }
+
+    #github-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      background: #161b22;
+      color: #fff;
+      border: 1px solid #30363d;
+    }
+    #github-login:hover {
+      background: #21262d;
+    }
+
+    textarea {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #0d0d0d;
+      color: #fff;
+      padding: 0.8rem;
+      font-family: inherit;
+      resize: vertical;
+    }
+
+    footer {
+      margin-top: auto;
+      padding: 1rem 0;
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
 </head>
 <body>
   <nav>
@@ -16,27 +118,29 @@
     </div>
   </nav>
 
-  <main class="dashboard-container">
-    <div id="login-section">
-      <h2>🔐 Admin Login</h2>
-      <p>Enter your password to access the dashboard.</p>
-      <input type="password" id="password-input" placeholder="Enter password..." />
-      <button id="login-btn">Login</button>
-      <p id="login-error" style="color:#f77; display:none;">Incorrect password.</p>
-    </div>
+  <!-- Login Section -->
+  <div class="login-box" id="login-section">
+    <h2>🔐 Admin Login</h2>
+    <p>Sign in with your GitHub account to access the announcement panel.</p>
+    <button id="github-login">
+      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" height="20" />
+      Sign in with GitHub
+    </button>
+    <p id="login-error" style="color:#f77; display:none; margin-top:10px;">Access denied.</p>
+  </div>
 
-    <div id="dashboard-section" style="display:none;">
-      <h2>📢 Announcement Panel</h2>
-      <textarea id="announcement-text" placeholder="Write your announcement..." rows="5"></textarea>
-      <button id="save-announcement">Save Announcement</button>
-      <p id="status-msg" style="color:#0f0; display:none;">✅ Saved successfully!</p>
-      <hr>
-      <button id="logout-btn" class="logout">Logout</button>
-    </div>
-  </main>
+  <!-- Dashboard Section -->
+  <div class="dashboard-box" id="dashboard-section" style="display:none;">
+    <h2>📢 Announcement Panel</h2>
+    <textarea id="announcement-text" placeholder="Write your announcement..." rows="5"></textarea>
+    <button id="save-announcement" style="margin-top:1rem;">💾 Save Announcement</button>
+    <p id="status-msg" style="color:#0f0; display:none; margin-top:10px;">✅ Saved successfully!</p>
+    <hr style="margin: 2rem 0; border-color:#222;">
+    <button id="logout-btn">🚪 Logout</button>
+  </div>
 
   <footer>
-    <p>© 2025 BloxOLite Dashboard. All rights reserved.</p>
+    © 2025 BloxOLite — All rights reserved.
   </footer>
 
   <script src="script.js"></script>
