@@ -25,7 +25,7 @@ const logoutBtn = document.getElementById('logout-btn');
 const announcementText = document.getElementById('announcement-text');
 const saveAnnouncementBtn = document.getElementById('save-announcement');
 const statusMsg = document.getElementById('status-msg');
-const ADMIN_PASSWORD = "Ciderg105272_11";
+const ADMIN_PASSWORD = "Ciderg1010";
 
 if (loginBtn) {
   loginBtn.addEventListener('click', () => {
