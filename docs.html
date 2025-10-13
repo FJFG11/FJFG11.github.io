@@ -1,40 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BloxOLite Docs</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="description" content="Documentation for BloxOLite moderation tools for Roblox." />
+  <link rel="stylesheet" href="style.css">
+  <!-- PrismJS for highlighted code blocks -->
+  <link href="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/themes/prism-tomorrow.css" rel="stylesheet" />
 </head>
-<body>
-  <nav>
-    <div class="logo">BloxOLite</div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="docs.html" class="active">Docs</a>
-      <a href="https://github.com/FJFG11" target="_blank">GitHub</a>
-    </div>
-  </nav>
+<body class="docs-page">
+  <header class="site-nav">
+    <div class="container nav-inner">
+      <a class="logo" href="index.html">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" aria-hidden>
+          <rect x="2.5" y="2.5" width="19" height="19" rx="4" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M7 12h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span>BloxOLite</span>
+      </a>
 
-  <main class="docs-container">
-    <aside class="sidebar">
-      <h3>📚 Documentation</h3>
-      <ul>
-        <li><a href="#intro">Getting Started</a></li>
-      </ul>
+      <nav class="links">
+        <a href="index.html" class="nav-link">Home</a>
+        <a href="docs.html" class="nav-link active">Docs</a>
+        <a href="https://github.com/FJFG11" class="nav-link" target="_blank">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="docs-main container">
+    <aside class="docs-sidebar" id="docsSidebar">
+      <div class="sidebar-head">
+        <h3>Docs</h3>
+        <input id="doc-search" type="search" placeholder="Search docs…" aria-label="Search docs">
+      </div>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <a href="#getting-started">Getting Started</a>
+        <a href="#installation">Installation</a>
+        <a href="#settings">Settings</a>
+        <a href="#commands">Command Reference</a>
+        <a href="#api">API Integration</a>
+        <a href="#faq">FAQ</a>
+      </nav>
     </aside>
 
-    <section class="docs-content">
-      <article id="intro">
-        <h2>🚀 Getting Started</h2>
-        <p>⚠️ Currently Unavailable.</p>
-        <p> </p>
-      </article
+    <section class="docs-content" id="docsContent">
+      <article id="getting-started" class="doc-section reveal-up">
+        <h1>Getting Started</h1>
+        <p>BloxOLite is a lightweight moderation toolkit for Roblox. This guide helps you add it to your game, configure permissions, and run commands.</p>
+      </article>
 
-  <footer>
-    <p>© 2025 BloxOLite Docs. All rights reserved.</p>
+      <article id="installation" class="doc-section reveal-up" data-delay="60">
+        <h2>Installation</h2>
+        <ol>
+          <li>Download the package from <a href="https://github.com/FJFG11/BloxOLite/releases" target="_blank">GitHub Releases</a>.</li>
+          <li>Open Roblox Studio and insert the Module into <code>ServerScriptService</code>.</li>
+          <li>Edit <code>Settings.lua</code> or the ModuleScript named <code>Settings</code> to set your group IDs and permissions.</li>
+        </ol>
+      </article>
+
+      <article id="settings" class="doc-section reveal-up" data-delay="120">
+        <h2>Settings</h2>
+        <p>The <code>Settings</code> module controls roles, DataStores, and command permissions. Example:</p>
+
+        <pre class="language-js"><code class="language-js">// Settings sample (simplified)
+return {
+  GroupId = 1234567,
+  Roles = {
+    Owner = { "Kick", "Ban", "ManageSettings" },
+    Staff = { "Kick", "Warn" }
+  },
+  DataStores = {
+    Punishes = "BloxOLite_PunishLog"
+  }
+}
+        </code></pre>
+      </article>
+
+      <article id="commands" class="doc-section reveal-up" data-delay="180">
+        <h2>Command Reference</h2>
+        <p>Run moderation commands through the UI or chat console. A few common commands:</p>
+        <table>
+          <thead><tr><th>Command</th><th>Description</th></tr></thead>
+          <tbody>
+            <tr><td><code>!kick &lt;player&gt; &lt;reason&gt;</code></td><td>Kicks a player immediately.</td></tr>
+            <tr><td><code>!ban &lt;player&gt; &lt;duration&gt; &lt;reason&gt;</code></td><td>Bans a player for a duration (supports m/h/d).</td></tr>
+            <tr><td><code>!debughistory &lt;player&gt;</code></td><td>Shows punishment history for a player.</td></tr>
+          </tbody>
+        </table>
+      </article>
+
+      <article id="api" class="doc-section reveal-up" data-delay="240">
+        <h2>API Integration</h2>
+        <p>Emit logs to an external service or use the built-in JSON events for auditing.</p>
+
+        <pre class="language-json"><code class="language-json">{
+  "event": "PlayerBanned",
+  "player": "User123",
+  "moderator": "Admin456",
+  "reason": "Exploiting"
+}</code></pre>
+      </article>
+
+      <article id="faq" class="doc-section reveal-up" data-delay="300">
+        <h2>FAQ</h2>
+        <h3>Is BloxOLite safe for production?</h3>
+        <p>Yes — it uses Roblox DataStores responsibly and provides configurable permissions for staff workflows.</p>
+      </article>
+    </section>
+  </main>
+
+  <footer class="site-footer small">
+    <div class="container">
+      <div class="muted">© 2025 BloxOLite • <a href="mailto:hello@bloxolite.dev">hello@bloxolite.dev</a></div>
+    </div>
   </footer>
 
-  <script src="script.js"></script>
+  <!-- Prism.js -->
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/prism.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/prismjs@1.29.0/components/prism-lua.min.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
