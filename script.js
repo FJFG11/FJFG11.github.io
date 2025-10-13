@@ -15,3 +15,55 @@ features.forEach(feature => {
   feature.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
   observer.observe(feature);
 });
+
+const dashboardSection = document.getElementById('dashboard-section');
+const loginSection = document.getElementById('login-section');
+const loginBtn = document.getElementById('login-btn');
+const passwordInput = document.getElementById('password-input');
+const loginError = document.getElementById('login-error');
+const logoutBtn = document.getElementById('logout-btn');
+const announcementText = document.getElementById('announcement-text');
+const saveAnnouncementBtn = document.getElementById('save-announcement');
+const statusMsg = document.getElementById('status-msg');
+
+// Change this password to your own
+const ADMIN_PASSWORD = "Test123"; 
+
+if (loginBtn) {
+  loginBtn.addEventListener('click', () => {
+    if (passwordInput.value === ADMIN_PASSWORD) {
+      localStorage.setItem('bloxolite-loggedin', 'true');
+      showDashboard();
+    } else {
+      loginError.style.display = 'block';
+    }
+  });
+}
+
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('bloxolite-loggedin');
+    location.reload();
+  });
+}
+
+function showDashboard() {
+  loginSection.style.display = 'none';
+  dashboardSection.style.display = 'block';
+  announcementText.value = localStorage.getItem('bloxolite-announcement') || '';
+}
+
+if (localStorage.getItem('bloxolite-loggedin') === 'true') {
+  showDashboard();
+}
+
+if (saveAnnouncementBtn) {
+  saveAnnouncementBtn.addEventListener('click', () => {
+    const text = announcementText.value.trim();
+    if (text) {
+      localStorage.setItem('bloxolite-announcement', text);
+      statusMsg.style.display = 'block';
+      setTimeout(() => statusMsg.style.display = 'none', 2000);
+    }
+  });
+}
