@@ -1,7 +1,4 @@
-// --- GitHub OAuth Login System for BloxOLite Dashboard ---
-// Works 100% on GitHub Pages without exposing your password
-
-const GITHUB_CLIENT_ID = "YOUR_CLIENT_ID_HERE"; // <-- Replace this
+const GITHUB_CLIENT_ID = "Ov23li7zZWQ0BMEBZw4j"; // <-- Replace this
 const OWNER_USERNAME = "FJFG11"; // Only this GitHub username can access
 
 const loginSection = document.getElementById('login-section');
