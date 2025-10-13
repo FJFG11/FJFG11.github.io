@@ -1,4 +1,4 @@
-// Smooth fade-in for features
+// Smooth animations for features
 const features = document.querySelectorAll('.feature');
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
@@ -8,7 +8,6 @@ const observer = new IntersectionObserver(entries => {
     }
   });
 });
-
 features.forEach(feature => {
   feature.style.opacity = 0;
   feature.style.transform = 'translateY(20px)';
@@ -16,6 +15,7 @@ features.forEach(feature => {
   observer.observe(feature);
 });
 
+// Dashboard login + announcement
 const dashboardSection = document.getElementById('dashboard-section');
 const loginSection = document.getElementById('login-section');
 const loginBtn = document.getElementById('login-btn');
@@ -25,9 +25,7 @@ const logoutBtn = document.getElementById('logout-btn');
 const announcementText = document.getElementById('announcement-text');
 const saveAnnouncementBtn = document.getElementById('save-announcement');
 const statusMsg = document.getElementById('status-msg');
-
-// Change this password to your own
-const ADMIN_PASSWORD = "Test123"; 
+const ADMIN_PASSWORD = "blox123";
 
 if (loginBtn) {
   loginBtn.addEventListener('click', () => {
@@ -66,4 +64,13 @@ if (saveAnnouncementBtn) {
       setTimeout(() => statusMsg.style.display = 'none', 2000);
     }
   });
+}
+
+// Display announcement on homepage
+const announcementBox = document.getElementById('announcement-text-display');
+if (announcementBox) {
+  const savedAnnouncement = localStorage.getItem('bloxolite-announcement');
+  if (savedAnnouncement) {
+    announcementBox.textContent = savedAnnouncement;
+  }
 }
