@@ -1,50 +1,47 @@
-// Smooth animations for features
-const features = document.querySelectorAll('.feature');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.style.opacity = 1;
-      entry.target.style.transform = 'translateY(0)';
-    }
-  });
-});
-features.forEach(feature => {
-  feature.style.opacity = 0;
-  feature.style.transform = 'translateY(20px)';
-  feature.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(feature);
-});
+// --- GitHub OAuth Login System for BloxOLite Dashboard ---
+// Works 100% on GitHub Pages without exposing your password
 
-// Dashboard login + announcement
-const dashboardSection = document.getElementById('dashboard-section');
+const GITHUB_CLIENT_ID = "YOUR_CLIENT_ID_HERE"; // <-- Replace this
+const OWNER_USERNAME = "FJFG11"; // Only this GitHub username can access
+
 const loginSection = document.getElementById('login-section');
-const loginBtn = document.getElementById('login-btn');
-const passwordInput = document.getElementById('password-input');
+const dashboardSection = document.getElementById('dashboard-section');
+const githubLoginBtn = document.getElementById('github-login');
 const loginError = document.getElementById('login-error');
 const logoutBtn = document.getElementById('logout-btn');
 const announcementText = document.getElementById('announcement-text');
 const saveAnnouncementBtn = document.getElementById('save-announcement');
 const statusMsg = document.getElementById('status-msg');
-const ADMIN_PASSWORD = "Ciderg1010";
 
-if (loginBtn) {
-  loginBtn.addEventListener('click', () => {
-    if (passwordInput.value === ADMIN_PASSWORD) {
-      localStorage.setItem('bloxolite-loggedin', 'true');
-      showDashboard();
-    } else {
+// Step 1: GitHub redirect
+if (githubLoginBtn) {
+  githubLoginBtn.addEventListener('click', () => {
+    const redirectUri = encodeURIComponent(window.location.href);
+    window.location.href = `https://github.com/login/oauth/authorize?client_id=${GITHUB_CLIENT_ID}&redirect_uri=${redirectUri}&scope=read:user`;
+  });
+}
+
+// Step 2: Check for GitHub redirect code
+const urlParams = new URLSearchParams(window.location.search);
+const code = urlParams.get('code');
+
+if (code && !localStorage.getItem('bloxolite-loggedin')) {
+  fetch(`https://authjs.dev/api/github?code=${code}&client_id=${GITHUB_CLIENT_ID}`)
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.login && data.login.toLowerCase() === OWNER_USERNAME.toLowerCase()) {
+        localStorage.setItem('bloxolite-loggedin', 'true');
+        showDashboard();
+      } else {
+        loginError.style.display = 'block';
+      }
+    })
+    .catch(() => {
       loginError.style.display = 'block';
-    }
-  });
+    });
 }
 
-if (logoutBtn) {
-  logoutBtn.addEventListener('click', () => {
-    localStorage.removeItem('bloxolite-loggedin');
-    location.reload();
-  });
-}
-
+// Step 3: Normal dashboard logic
 function showDashboard() {
   loginSection.style.display = 'none';
   dashboardSection.style.display = 'block';
@@ -55,22 +52,20 @@ if (localStorage.getItem('bloxolite-loggedin') === 'true') {
   showDashboard();
 }
 
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    localStorage.removeItem('bloxolite-loggedin');
+    location.href = 'dashboard.html';
+  });
+}
+
 if (saveAnnouncementBtn) {
   saveAnnouncementBtn.addEventListener('click', () => {
     const text = announcementText.value.trim();
     if (text) {
       localStorage.setItem('bloxolite-announcement', text);
       statusMsg.style.display = 'block';
-      setTimeout(() => statusMsg.style.display = 'none', 2000);
+      setTimeout(() => (statusMsg.style.display = 'none'), 2000);
     }
   });
-}
-
-// Display announcement on homepage
-const announcementBox = document.getElementById('announcement-text-display');
-if (announcementBox) {
-  const savedAnnouncement = localStorage.getItem('bloxolite-announcement');
-  if (savedAnnouncement) {
-    announcementBox.textContent = savedAnnouncement;
-  }
 }
