@@ -42,9 +42,7 @@
       opacity: 0.8;
       transition: opacity 0.2s;
     }
-    .links a:hover {
-      opacity: 1;
-    }
+    .links a:hover { opacity: 1; }
 
     .login-box, .dashboard-box {
       background: #111;
@@ -61,6 +59,17 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    input, textarea {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #333;
+      background: #0d0d0d;
+      color: #fff;
+      padding: 0.8rem;
+      font-family: inherit;
+      margin-top: 0.5rem;
+    }
+
     button {
       background: #fff;
       color: #000;
@@ -69,35 +78,12 @@
       border-radius: 8px;
       font-size: 1rem;
       cursor: pointer;
+      margin-top: 1rem;
       transition: transform 0.2s, background 0.2s;
     }
     button:hover {
       background: #ddd;
       transform: scale(1.05);
-    }
-
-    #github-login {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.6rem;
-      background: #161b22;
-      color: #fff;
-      border: 1px solid #30363d;
-    }
-    #github-login:hover {
-      background: #21262d;
-    }
-
-    textarea {
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #333;
-      background: #0d0d0d;
-      color: #fff;
-      padding: 0.8rem;
-      font-family: inherit;
-      resize: vertical;
     }
 
     footer {
@@ -120,20 +106,18 @@
 
   <!-- Login Section -->
   <div class="login-box" id="login-section">
-    <h2>🔐 Admin Login</h2>
-    <p>Sign in with your GitHub account to access the announcement panel.</p>
-    <button id="github-login">
-      <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" width="20" height="20" />
-      Sign in with GitHub
-    </button>
-    <p id="login-error" style="color:#f77; display:none; margin-top:10px;">Access denied.</p>
+    <h2>🔐 Admin Access</h2>
+    <p>Enter your private access key to unlock the dashboard.</p>
+    <input type="password" id="access-key" placeholder="Enter access key..." />
+    <button id="verify-key">Verify Access</button>
+    <p id="login-error" style="color:#f77; display:none; margin-top:10px;">❌ Invalid key. Try again.</p>
   </div>
 
   <!-- Dashboard Section -->
   <div class="dashboard-box" id="dashboard-section" style="display:none;">
     <h2>📢 Announcement Panel</h2>
     <textarea id="announcement-text" placeholder="Write your announcement..." rows="5"></textarea>
-    <button id="save-announcement" style="margin-top:1rem;">💾 Save Announcement</button>
+    <button id="save-announcement">💾 Save Announcement</button>
     <p id="status-msg" style="color:#0f0; display:none; margin-top:10px;">✅ Saved successfully!</p>
     <hr style="margin: 2rem 0; border-color:#222;">
     <button id="logout-btn">🚪 Logout</button>
