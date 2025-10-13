@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloxOLite Dashboard</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <div class="logo">BloxOLite</div>
+    <div class="links">
+      <a href="index.html">Home</a>
+      <a href="docs.html">Docs</a>
+      <a href="dashboard.html" class="active">Dashboard</a>
+    </div>
+  </nav>
+
+  <main class="dashboard-container">
+    <div id="login-section">
+      <h2>🔐 Admin Login</h2>
+      <p>Enter your password to access the dashboard.</p>
+      <input type="password" id="password-input" placeholder="Enter password..." />
+      <button id="login-btn">Login</button>
+      <p id="login-error" style="color:#f77; display:none;">Incorrect password.</p>
+    </div>
+
+    <div id="dashboard-section" style="display:none;">
+      <h2>📢 Announcement Panel</h2>
+      <textarea id="announcement-text" placeholder="Write your announcement..." rows="5"></textarea>
+      <button id="save-announcement">Save Announcement</button>
+      <p id="status-msg" style="color:#0f0; display:none;">✅ Saved successfully!</p>
+      <hr>
+      <button id="logout-btn" class="logout">Logout</button>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2025 BloxOLite Dashboard. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
