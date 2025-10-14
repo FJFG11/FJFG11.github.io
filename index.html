@@ -7,197 +7,251 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
-    body {
-      background: #0d1117;
-      color: #fff;
-      font-family: "Inter", sans-serif;
-      margin: 0;
-      scroll-behavior: smooth;
+    :root {
+      --bg: #0d1117;
+      --card-bg: #111827;
+      --border: #1f2937;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --text: #fff;
+      --muted: #9ca3af;
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* === NAVBAR === */
     nav {
-      background: #111827;
-      padding: 20px 50px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid #1f2937;
       position: sticky;
       top: 0;
       z-index: 100;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 18px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
     }
-    .logo { font-weight: 700; font-size: 22px; color: #6366f1; }
+
+    .logo {
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+
     .links a {
-      color: #9ca3af;
-      margin-left: 20px;
+      color: var(--muted);
+      margin-left: 25px;
       text-decoration: none;
-      transition: 0.2s;
+      transition: 0.2s ease;
     }
-    .links a:hover { color: white; }
+    .links a:hover {
+      color: var(--text);
+    }
 
-    /* Announcements section */
+    /* === ANNOUNCEMENTS === */
     #announcements {
+      background: var(--card-bg);
+      padding: 70px 20px;
+      border-bottom: 1px solid var(--border);
       text-align: center;
-      background: #111827;
-      padding: 40px 20px 50px;
-      border-bottom: 1px solid #1f2937;
-    }
-    #announcements h2 {
-      color: #6366f1;
-      font-size: 22px;
-      margin-bottom: 20px;
-    }
-    #announcement-list {
-      max-width: 800px;
-      margin: 0 auto;
-      text-align: left;
-      background: #0d1117;
-      border-radius: 10px;
-      padding: 20px 30px;
-      border: 1px solid #1f2937;
-    }
-    #announcement-list div {
-      padding: 15px 0;
-      border-bottom: 1px solid #1f2937;
     }
 
+    #announcements h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 35px;
+      letter-spacing: -0.5px;
+    }
+
+    #announcement-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .announcement {
+      text-align: left;
+      background: var(--bg);
+      padding: 25px 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease, border-color 0.3s;
+    }
+    .announcement:hover {
+      transform: translateY(-5px);
+      border-color: var(--accent);
+    }
+
+    .announcement h4 {
+      color: var(--accent-light);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .announcement p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* === HERO === */
     header {
       text-align: center;
-      padding: 80px 20px;
+      padding: 100px 20px 80px;
     }
+
     header h1 {
-      font-size: 48px;
-      background: linear-gradient(to right, #6366f1, #3b82f6);
+      font-size: 54px;
+      line-height: 1.1;
+      background: linear-gradient(to right, var(--accent), #3b82f6);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
+
     header p {
-      color: #9ca3af;
-      max-width: 600px;
+      max-width: 650px;
+      color: var(--muted);
       margin: 0 auto;
       font-size: 18px;
     }
+
     header button {
-      margin-top: 30px;
-      background: #6366f1;
+      margin-top: 35px;
+      background: var(--accent);
       color: white;
       border: none;
-      padding: 14px 30px;
-      border-radius: 8px;
-      font-size: 16px;
+      padding: 14px 35px;
+      border-radius: 10px;
+      font-size: 17px;
+      font-weight: 600;
       cursor: pointer;
       transition: 0.3s;
     }
-    header button:hover { background: #4f46e5; }
+    header button:hover { background: var(--accent-light); }
 
+    /* === FEATURES === */
     section {
       padding: 80px 20px;
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto;
     }
+
+    section h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 50px;
+      color: var(--accent);
+    }
+
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 35px;
     }
+
     .feature {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 12px;
-      padding: 30px;
-      text-align: left;
-      transition: transform 0.3s;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 35px;
+      transition: 0.3s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
     }
-    .feature:hover { transform: translateY(-5px); }
-    .feature h3 { color: #6366f1; }
 
-    #products .product {
-      background: #111827;
-      border: 1px solid #1f2937;
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 25px;
-    }
-    .product h2 { color: #3b82f6; }
+    .feature:hover { transform: translateY(-7px); border-color: var(--accent); }
+    .feature h3 { color: var(--accent-light); margin-bottom: 10px; }
+    .feature p { color: var(--muted); line-height: 1.5; }
 
+    /* === FOOTER === */
     footer {
       text-align: center;
-      padding: 40px;
-      color: #9ca3af;
-      border-top: 1px solid #1f2937;
+      padding: 50px 20px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 50px;
     }
-    footer a { color: #6366f1; text-decoration: none; }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    footer a:hover { color: var(--accent-light); }
   </style>
 </head>
+
 <body>
   <nav>
     <div class="logo">BloxOLite</div>
     <div class="links">
-      <a href="index.html" class="active">Home</a>
+      <a href="index.html">Home</a>
       <a href="docs.html">Docs</a>
       <a href="dashboard.html">Dashboard</a>
       <a href="https://github.com/FJFG11" target="_blank">GitHub</a>
     </div>
   </nav>
 
-  <!-- 📢 Announcements moved to top -->
+  <!-- ANNOUNCEMENTS -->
   <section id="announcements" data-aos="fade-down">
-    <h2>📢 Latest Announcements</h2>
-    <div id="announcement-list"><p>Loading announcements...</p></div>
+    <h2>Announcements</h2>
+    <div id="announcement-list">
+      <p style="color:var(--muted)">Loading announcements...</p>
+    </div>
   </section>
 
+  <!-- HERO -->
   <header data-aos="fade-up">
     <h1>Modern Roblox Moderation Tools</h1>
-    <p>BloxOLite provides powerful, plug-and-play moderation and security tools for Roblox developers.</p>
+    <p>BloxOLite provides secure, optimized, and cloud-powered moderation systems for your Roblox experiences.</p>
     <button onclick="window.location='docs.html'">View Documentation</button>
   </header>
 
-  <section id="features" data-aos="fade-up">
-    <h2>✨ Key Features</h2>
+  <!-- FEATURES -->
+  <section data-aos="fade-up">
+    <h2>✨ Core Features</h2>
     <div class="features">
       <div class="feature">
-        <h3>🛡️ Anti-Cheat Engine</h3>
-        <p>Detects and blocks speed, jump, and fly exploits with minimal false positives.</p>
+        <h3>🛡️ Anti-Exploit Engine</h3>
+        <p>Prevent speed, fly, and noclip exploits with next-gen detection powered by adaptive analysis.</p>
       </div>
       <div class="feature">
-        <h3>🔓 Moderation System (MAES)</h3>
-        <p>Manage player punishments with a sleek UI and built-in logging.</p>
+        <h3>🧠 Smart Moderation</h3>
+        <p>Automatically detect rule-breaking behavior and sync punishments across servers.</p>
       </div>
       <div class="feature">
-        <h3>⚡ Cloud Synced</h3>
-        <p>All your moderation data is synced and secure in the cloud.</p>
+        <h3>⚙️ Clean Setup</h3>
+        <p>Clean and easy setup with lots of settings.</p>
       </div>
     </div>
   </section>
 
-  <section id="products" data-aos="fade-up">
-    <h2>🧩 Products</h2>
-    <div class="product">
-      <h2>🛡️ BloxOLite Anti-Cheat</h2>
-      <p>Protects against speed, jump, and fly hacks.</p>
-      <p><strong>Price:</strong> R$ 175</p>
-    </div>
-    <div class="product">
-      <h2>🔓 BloxOLite MAES</h2>
-      <p>Full-featured moderation suite for Roblox games.</p>
-      <p><strong>Price:</strong> R$ 200 (Unreleased)</p>
-    </div>
-  </section>
-
+  <!-- FOOTER -->
   <footer>
     <p>© 2025 BloxOLite. All rights reserved. | <a href="https://github.com/FJFG11">GitHub</a></p>
   </footer>
 
+  <!-- Animation -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>AOS.init({ duration: 800, once: true });</script>
 
-  <!-- Firebase Integration -->
+  <!-- Firebase Script -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
     import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-    // 🔒 Replace with your Firebase config
     const firebaseConfig = {
       apiKey: "AIzaSyBZJa5yjFeCmAPOQOHUKCZpq_yEyCJtdPI",
       authDomain: "bloxolite.firebaseapp.com",
@@ -207,30 +261,39 @@
       appId: "1:261033706903:web:241f50fbaf65209dfa30d2"
     };
 
+
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
     const list = document.getElementById("announcement-list");
 
-    try {
-      const q = query(collection(db, "announcements"), orderBy("date", "desc"), limit(5));
-      const snap = await getDocs(q);
+    async function loadAnnouncements() {
+      try {
+        const q = query(collection(db, "announcements"), orderBy("date", "desc"), limit(5));
+        const snap = await getDocs(q);
 
-      if (snap.empty) {
-        list.innerHTML = "<p>No announcements yet.</p>";
-      } else {
-        list.innerHTML = "";
-        snap.forEach(doc => {
-          const a = doc.data();
-          const div = document.createElement("div");
-          div.innerHTML = `<strong>${a.date}</strong><br>${a.message}`;
-          list.appendChild(div);
-        });
+        if (snap.empty) {
+          list.innerHTML = "<p style='color:#9ca3af'>No announcements yet.</p>";
+        } else {
+          list.innerHTML = "";
+          snap.forEach(doc => {
+            const a = doc.data();
+            const card = document.createElement("div");
+            card.className = "announcement";
+            card.innerHTML = `
+              <h4>${a.title || "Update"}</h4>
+              <p>${a.message}</p>
+              <small style="color:#6b7280">${a.date}</small>
+            `;
+            list.appendChild(card);
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        list.innerHTML = "<p style='color:red'>Failed to load announcements.</p>";
       }
-    } catch (err) {
-      console.error(err);
-      list.innerHTML = "<p>Failed to load announcements.</p>";
     }
+
+    loadAnnouncements();
   </script>
 </body>
 </html>
