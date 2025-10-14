@@ -1,54 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BloxOLite Docs</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BloxOLite — Documentation</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #111827;
+      --border: #1f2937;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --text: #fff;
+      --muted: #9ca3af;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* === NAVBAR === */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 18px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--accent);
+    }
+
+    .links a {
+      color: var(--muted);
+      margin-left: 25px;
+      text-decoration: none;
+      transition: 0.2s ease;
+    }
+    .links a:hover { color: var(--text); }
+
+    /* === HEADER === */
+    header {
+      text-align: center;
+      padding: 100px 20px 60px;
+    }
+
+    header h1 {
+      font-size: 48px;
+      background: linear-gradient(to right, var(--accent), #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 15px;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 18px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* === SECTIONS === */
+    section {
+      max-width: 900px;
+      margin: 60px auto;
+      background: var(--card-bg);
+      padding: 40px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    section h2 {
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-size: 26px;
+    }
+
+    section p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+
+    code {
+      background: #1f2937;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-family: monospace;
+      color: var(--accent-light);
+    }
+
+    pre {
+      background: #1a1f29;
+      padding: 20px;
+      border-radius: 8px;
+      overflow-x: auto;
+      position: relative;
+      border: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: var(--accent);
+      border: none;
+      color: white;
+      padding: 6px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 13px;
+      transition: 0.3s;
+    }
+    .copy-btn:hover { background: var(--accent-light); }
+
+    /* === FOOTER === */
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    footer a:hover { color: var(--accent-light); }
+  </style>
 </head>
 <body>
   <nav>
     <div class="logo">BloxOLite</div>
     <div class="links">
       <a href="index.html">Home</a>
-      <a href="docs.html" class="active">Docs</a>
+      <a href="docs.html">Docs</a>
       <a href="dashboard.html">Dashboard</a>
-      <a href="https://github.com/FJFG11" target="_blank">GitHub</a>
+      <a href="https://discord.gg/tcxqKNR649" target="_blank">Discord</a>
     </div>
   </nav>
 
-  <main class="docs-container">
-    <aside class="sidebar">
-      <h3>Documentation</h3>
-      <ul>
-        <li><a href="#anticheat">BloxOLite Anti-Cheat</a></li>
-        <li><a href="#maes">BloxOLite MAES</a></li>
-      </ul>
-    </aside>
+  <header data-aos="fade-up">
+    <h1>📚 BloxOLite Documentation</h1>
+    <p>Learn how to set up, configure, and customize your moderation system easily.</p>
+  </header>
 
-    <section class="docs-content">
-      <article id="anticheat">
-        <h2>🛡️ BloxOLite Anti-Cheat</h2>
-        <p>Monitors players in real-time to detect and prevent Speed, Jump, and Fly hacks.</p>
-        <p><strong>Price:</strong> <span class="price">R$ 175</span></p>
-      </article>
+  <section data-aos="fade-up">
+    <h2>⚙️ Getting Started</h2>
+    <p>To begin, download the latest <code>BloxOLite.rbxm</code> file from our Discord or GitHub and insert it into your Roblox Studio workspace.</p>
+    <pre><button class="copy-btn">Copy</button><code>-- Initialize BloxOLite
+local BloxOLite = require(game.ServerScriptService.BloxOLite)
+BloxOLite:Start()</code></pre>
+    <p>Make sure the module is parented correctly and accessible by your main server script.</p>
+  </section>
 
-      <article id="maes">
-        <h2>🔓 BloxOLite MAES</h2>
-        <p>A custom-built moderation system that allows your staff to easily manage and moderate players in your game.</p>
-        <p><strong>Price:</strong> <span class="price">R$ 200</span> <em>[Unreleased]</em></p>
-      </article>
-    </section>
-  </main>
+  <section data-aos="fade-up">
+    <h2>🛡️ Permissions Setup</h2>
+    <p>You can control who can execute moderation commands by editing the <code>Settings</code> module inside <code>ServerScriptService.BloxOLite</code>.</p>
+    <pre><button class="copy-btn">Copy</button><code>Settings.BaseRolePermissions = {
+  ["Staff"] = {"kick", "ban"},
+  ["Developer"] = {"kick", "ban", "debug"},
+  ["Owner"] = {"*"} -- All commands
+}</code></pre>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>📢 Announcements System</h2>
+    <p>Announcements on your site are loaded automatically from Firebase.  
+    You can add or edit them in your Firestore collection <code>announcements</code>.</p>
+    <pre><button class="copy-btn">Copy</button><code>{
+  title: "New Update!",
+  message: "Added rank-based punishment logging system.",
+  date: "2025-10-14"
+}</code></pre>
+  </section>
+
+  <section data-aos="fade-up">
+    <h2>❓ Troubleshooting</h2>
+    <p>Here are a few common issues:</p>
+    <ul style="color: var(--muted); line-height: 1.7; margin-left: 20px;">
+      <li>🧩 <b>Announcements not showing?</b> — Check your Firestore rules and that “date” is a string or timestamp.</li>
+      <li>🔑 <b>Access Code not working?</b> — Make sure the hash matches the one in <code>dashboard.js</code>.</li>
+      <li>⚡ <b>Nothing loads?</b> — Ensure Firebase SDK URLs are correct and your project config is valid.</li>
+    </ul>
+  </section>
 
   <footer>
-    <p>© 2025 BloxOLite Docs. All rights reserved.</p>
-    <div class="socials">
-      <a href="https://github.com/FJFG11" target="_blank">GitHub</a>
-      <a href="#">Discord</a>
-    </div>
+    <p>© 2025 BloxOLite. All rights reserved. | <a href="https://github.com/FJFG11">GitHub</a></p>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 700, once: true });</script>
+
+  <script>
+    // Copy code buttons
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const code = btn.nextElementSibling.innerText;
+        navigator.clipboard.writeText(code);
+        btn.innerText = "Copied!";
+        setTimeout(() => btn.innerText = "Copy", 1500);
+      });
+    });
+  </script>
 </body>
 </html>
