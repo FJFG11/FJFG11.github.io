@@ -27,7 +27,7 @@
       overflow-x: hidden;
     }
 
-    /* === NAVBAR === */
+    /* NAVBAR */
     nav {
       position: sticky;
       top: 0;
@@ -45,7 +45,6 @@
       font-weight: 700;
       font-size: 24px;
       color: var(--accent);
-      letter-spacing: -0.5px;
     }
 
     .links a {
@@ -60,7 +59,7 @@
       color: var(--text);
     }
 
-    /* === HERO === */
+    /* HERO */
     header {
       text-align: center;
       padding: 120px 20px 60px;
@@ -98,7 +97,7 @@
 
     header button:hover { background: var(--accent-light); }
 
-    /* === ANNOUNCEMENTS === */
+    /* ANNOUNCEMENTS */
     #announcements {
       background: var(--card-bg);
       margin: 60px auto;
@@ -115,7 +114,6 @@
       color: var(--accent);
       text-align: center;
       margin-bottom: 25px;
-      letter-spacing: -0.5px;
     }
 
     #announcement-list {
@@ -142,30 +140,23 @@
     .announcement h4 {
       color: var(--accent-light);
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .announcement p {
       color: var(--muted);
       line-height: 1.6;
-      margin-bottom: 5px;
+      margin-bottom: 10px;
     }
 
-    .announcement code {
-      background: rgba(99, 102, 241, 0.15);
-      color: var(--accent-light);
-      padding: 2px 6px;
-      border-radius: 6px;
-      font-family: monospace;
-      font-size: 14px;
+    .announcement img {
+      max-width: 100%;
+      border-radius: 10px;
+      margin-top: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.3);
     }
 
-    .announcement a {
-      color: var(--accent);
-      text-decoration: underline;
-    }
-
-    /* === FEATURES === */
+    /* FEATURES */
     .features-section {
       padding: 100px 20px;
       max-width: 1100px;
@@ -209,7 +200,7 @@
       line-height: 1.5;
     }
 
-    /* === FOOTER === */
+    /* FOOTER */
     footer {
       text-align: center;
       padding: 50px 20px;
@@ -221,7 +212,6 @@
     footer a {
       color: var(--accent);
       text-decoration: none;
-      transition: 0.2s;
     }
 
     footer a:hover { color: var(--accent-light); }
@@ -240,14 +230,12 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <header data-aos="fade-up">
     <h1>BloxOLite — Roblox Moderation Tools</h1>
     <p>Making Moderation Easy for Roblox Developers.</p>
     <button onclick="window.location='docs.html'">View Documentation</button>
   </header>
 
-  <!-- ANNOUNCEMENTS -->
   <section id="announcements" data-aos="fade-up">
     <h2>🔔 Notifications</h2>
     <div id="announcement-list">
@@ -255,7 +243,6 @@
     </div>
   </section>
 
-  <!-- FEATURES -->
   <section class="features-section" data-aos="fade-up">
     <h2>✨ Core Features</h2>
     <div class="features">
@@ -269,21 +256,18 @@
       </div>
       <div class="feature">
         <h3>⚙️ Easy Setup</h3>
-        <p>Drop our file into your game, follow the setup guide, and boom — start moderating.</p>
+        <p>Drop our file into your game, follow the setup guide, and start moderating instantly.</p>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
     <p>© 2025 BloxOLite. All rights reserved. | <a href="https://github.com/FJFG11">GitHub</a></p>
   </footer>
 
-  <!-- Animation -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>AOS.init({ duration: 800, once: true });</script>
 
-  <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
     import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
@@ -301,36 +285,33 @@
     const db = getFirestore(app);
     const list = document.getElementById("announcement-list");
 
-    // Sanitize text (basic protection)
-    function sanitizeHTML(str) {
-      const temp = document.createElement("div");
-      temp.textContent = str;
-      return temp.innerHTML;
+    function formatMessage(text) {
+      if (!text) return "";
+      return text
+        .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")
+        .replace(/\*(.*?)\*/g, "<i>$1</i>")
+        .replace(/__(.*?)__/g, "<u>$1</u>")
+        .replace(/`(.*?)`/g, "<code>$1</code>")
+        .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank">$1</a>')
+        .replace(/\n/g, "<br>");
     }
 
     async function loadAnnouncements() {
       try {
         const q = query(collection(db, "announcements"), orderBy("createdAt", "desc"), limit(5));
         const snap = await getDocs(q);
-
         if (snap.empty) {
           list.innerHTML = "<p style='color:#9ca3af'>No announcements yet.</p>";
         } else {
           list.innerHTML = "";
           snap.forEach(doc => {
             const a = doc.data();
-            const safeMsg = sanitizeHTML(a.message)
-              .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")  // bold
-              .replace(/\*(.*?)\*/g, "<i>$1</i>")      // italic
-              .replace(/__(.*?)__/g, "<u>$1</u>")      // underline
-              .replace(/`(.*?)`/g, "<code>$1</code>")  // code
-              .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>'); // link
-
             const card = document.createElement("div");
             card.className = "announcement";
             card.innerHTML = `
-              <h4>${sanitizeHTML(a.title || "Update")}</h4>
-              <p>${safeMsg}</p>
+              <h4>${a.title || "Update"}</h4>
+              <p>${formatMessage(a.message)}</p>
+              ${a.image ? `<img src="${a.image}" alt="Announcement Image">` : ""}
               <small style="color:#6b7280">${a.date || ""}</small>
             `;
             list.appendChild(card);
