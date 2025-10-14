@@ -3,65 +3,223 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BloxOLite Dashboard</title>
+    <title>BloxOLite Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
       body {
         background: #0d1117;
         color: #fff;
-        text-align: center;
-        font-family: Inter, sans-serif;
-        padding-top: 120px;
+        font-family: "Inter", sans-serif;
+        margin: 0;
+        padding: 0;
       }
-      input, button {
-        padding: 10px;
-        border: none;
-        border-radius: 8px;
-        outline: none;
+
+      nav {
+        background: #111827;
+        padding: 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #1f2937;
       }
-      input {
-        width: 220px;
+
+      .logo {
+        font-weight: 700;
+        font-size: 22px;
+        color: #6366f1;
       }
-      button {
-        background: #6366f1;
+
+      .nav-links a {
+        color: #9ca3af;
+        margin-left: 20px;
+        text-decoration: none;
+        transition: 0.2s;
+      }
+
+      .nav-links a:hover {
         color: white;
-        margin-left: 10px;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        min-height: calc(100vh - 70px);
+      }
+
+      aside {
+        background: #111827;
+        padding: 30px 20px;
+        border-right: 1px solid #1f2937;
+      }
+
+      aside h3 {
+        color: #9ca3af;
+        text-transform: uppercase;
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+      }
+
+      aside ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      aside ul li {
+        padding: 10px 0;
+        color: #d1d5db;
         cursor: pointer;
         transition: 0.3s;
       }
-      button:hover {
-        background: #4f46e5;
+
+      aside ul li:hover {
+        color: #6366f1;
       }
-      #login-error {
-        display: none;
-        color: #f87171;
+
+      main {
+        padding: 40px;
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 30px;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .card {
+        background: #111827;
+        border: 1px solid #1f2937;
+        border-radius: 12px;
+        padding: 25px;
+        transition: 0.3s;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+        border-color: #6366f1;
+      }
+
+      .card h2 {
+        margin: 0 0 10px;
+        font-size: 20px;
+        color: #fff;
+      }
+
+      .card p {
+        color: #9ca3af;
+        font-size: 14px;
+      }
+
+      .footer {
+        text-align: center;
+        color: #6b7280;
+        padding: 30px 0;
+        border-top: 1px solid #1f2937;
+        font-size: 14px;
+      }
+
+      .status {
+        display: flex;
+        align-items: center;
+        gap: 8px;
         margin-top: 10px;
       }
-      #admin-panel {
-        display: none;
-        margin-top: 50px;
-      }
-      .panel {
-        background: #111827;
-        border-radius: 12px;
-        padding: 30px;
-        width: 400px;
-        margin: 0 auto;
+
+      .dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: #10b981;
       }
     </style>
   </head>
   <body>
-    <h1>BloxOLite Admin Login</h1>
-    <input type="password" id="access-key" placeholder="Enter Access Key" />
-    <button id="verify-key">Verify Access</button>
-    <p id="login-error">❌ Invalid key</p>
-
-    <div id="admin-panel">
-      <div class="panel">
-        <h2>Unfinished</h2>
-        <br><br>
+    <nav>
+      <div class="logo">BloxOLite Admin</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="docs.html">Docs</a>
+        <a href="#">Settings</a>
       </div>
+    </nav>
+
+    <div class="dashboard">
+      <aside>
+        <h3>Navigation</h3>
+        <ul>
+          <li>Dashboard</li>
+          <li>Announcements</li>
+          <li>Moderation Logs</li>
+          <li>Users</li>
+          <li>System Status</li>
+          <li>Settings</li>
+        </ul>
+      </aside>
+
+      <main>
+        <h1>Welcome back, Admin 👋</h1>
+
+        <div class="grid">
+          <div class="card">
+            <h2>🧑‍💻 Active Moderators</h2>
+            <p>12 moderators currently online.</p>
+          </div>
+
+          <div class="card">
+            <h2>🚨 Reports Today</h2>
+            <p>37 new player reports have been submitted today.</p>
+          </div>
+
+          <div class="card">
+            <h2>🛡️ System Status</h2>
+            <div class="status">
+              <div class="dot"></div>
+              <p>All systems operational</p>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>📢 Announcements</h2>
+            <p>No new announcements posted today.</p>
+          </div>
+
+          <div class="card">
+            <h2>📊 Server Analytics</h2>
+            <p>Average session time: 14m 23s</p>
+          </div>
+
+          <div class="card">
+            <h2>🧾 Punishment Logs</h2>
+            <p>Recent actions: 2 Bans, 5 Kicks, 1 Warning</p>
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top: 40px;">
+          <div class="card">
+            <h2>⚙️ Tools</h2>
+            <p>- Manage Commands<br>- Adjust Permissions<br>- Reload Modules</p>
+          </div>
+
+          <div class="card">
+            <h2>💾 Data Storage</h2>
+            <p>TBDS, MCPH, and Logs are all synced with DataStores.</p>
+          </div>
+
+          <div class="card">
+            <h2>📈 Player Count</h2>
+            <p>Current players: 85 / 120</p>
+          </div>
+        </div>
+      </main>
     </div>
 
-    <script src="script.js"></script>
+    <div class="footer">
+      © 2025 BloxOLite Dashboard. All rights reserved.
+    </div>
   </body>
 </html>
