@@ -58,59 +58,11 @@
       color: var(--text);
     }
 
-    /* === ANNOUNCEMENTS === */
-    #announcements {
-      background: var(--card-bg);
-      padding: 70px 20px;
-      border-radius: 12px;
-      border-bottom: 1px solid var(--border);
-      text-align: center;
-    }
-
-    #announcements h2 {
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--accent);
-      margin-bottom: 35px;
-      letter-spacing: -0.5px;
-    }
-
-    #announcement-list {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      max-width: 900px;
-      margin: 0 auto;
-    }
-
-    .announcement {
-      text-align: left;
-      background: var(--bg);
-      padding: 25px 30px;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      transition: transform 0.2s ease, border-color 0.3s;
-    }
-    .announcement:hover {
-      transform: translateY(-5px);
-      border-color: var(--accent);
-    }
-
-    .announcement h4 {
-      color: var(--accent-light);
-      font-weight: 600;
-      margin-bottom: 8px;
-    }
-    .announcement p {
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
     /* === HERO === */
     header {
       text-align: center;
-      padding: 100px 20px 80px;
+      padding: 120px 20px 50px;
+      position: relative;
     }
 
     header h1 {
@@ -143,14 +95,65 @@
     }
     header button:hover { background: var(--accent-light); }
 
+    /* === ANNOUNCEMENTS (new placement under hero) === */
+    #announcements {
+      background: var(--card-bg);
+      margin: 80px auto 40px;
+      border-radius: 16px;
+      padding: 50px 25px;
+      max-width: 900px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 30px rgba(99, 102, 241, 0.15);
+    }
+
+    #announcements h2 {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 35px;
+      letter-spacing: -0.5px;
+    }
+
+    #announcement-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .announcement {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 25px 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    .announcement:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.15);
+    }
+
+    .announcement h4 {
+      color: var(--accent-light);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .announcement p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 5px;
+    }
+
     /* === FEATURES === */
-    section {
-      padding: 80px 20px;
+    section.features-section {
+      padding: 100px 20px;
       max-width: 1100px;
       margin: 0 auto;
     }
 
-    section h2 {
+    section.features-section h2 {
       text-align: center;
       font-size: 28px;
       margin-bottom: 50px;
@@ -205,14 +208,6 @@
     </div>
   </nav>
 
-  <!-- ANNOUNCEMENTS -->
-  <section id="announcements" data-aos="fade-down">
-    <h2>Announcements</h2>
-    <div id="announcement-list">
-      <p style="color:var(--muted)">Loading announcements...</p>
-    </div>
-  </section>
-
   <!-- HERO -->
   <header data-aos="fade-up">
     <h1>Modern Roblox Moderation Tools</h1>
@@ -220,8 +215,16 @@
     <button onclick="window.location='docs.html'">View Documentation</button>
   </header>
 
+  <!-- ANNOUNCEMENTS (moved here) -->
+  <section id="announcements" data-aos="fade-up">
+    <h2>📢 Latest Announcements</h2>
+    <div id="announcement-list">
+      <p style="color:var(--muted)">Loading announcements...</p>
+    </div>
+  </section>
+
   <!-- FEATURES -->
-  <section data-aos="fade-up">
+  <section class="features-section" data-aos="fade-up">
     <h2>✨ Core Features</h2>
     <div class="features">
       <div class="feature">
