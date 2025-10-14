@@ -52,11 +52,28 @@
 
     .links a:hover { color: var(--text); }
 
+    .signout-btn {
+      background: transparent;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-left: 20px;
+      transition: 0.2s;
+    }
+
+    .signout-btn:hover {
+      color: white;
+      border-color: var(--accent);
+    }
+
     /* === LOGIN OVERLAY === */
     #login-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -194,6 +211,7 @@
       <a href="index.html">Home</a>
       <a href="docs.html">Docs</a>
       <a href="dashboard.html" class="active">Dashboard</a>
+      <button class="signout-btn" id="signOutBtn" style="display:none;">Sign Out</button>
     </div>
   </nav>
 
@@ -235,11 +253,9 @@
   </footer>
 
   <script type="module">
-    // === Firebase Import ===
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
     import { getFirestore, addDoc, collection, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-    // === Your Firebase Config ===
     const firebaseConfig = {
       apiKey: "AIzaSyBZJa5yjFeCmAPOQOHUKCZpq_yEyCJtdPI",
       authDomain: "bloxolite.firebaseapp.com",
@@ -248,7 +264,7 @@
       messagingSenderId: "261033706903",
       appId: "1:261033706903:web:241f50fbaf65209dfa30d2"
     };
-    
+
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
@@ -256,8 +272,9 @@
     const dashboard = document.getElementById("dashboard");
     const errorText = document.getElementById("error");
     const verifyBtn = document.getElementById("verifyBtn");
+    const signOutBtn = document.getElementById("signOutBtn");
 
-    const ACCESS_HASH = "-94374278"; // from your hash function
+    const ACCESS_HASH = "-94374278"; // your hashed code
 
     verifyBtn.onclick = () => {
       const input = document.getElementById("accessInput").value;
@@ -267,17 +284,26 @@
         localStorage.setItem("bloxoliteAccess", "true");
         overlay.style.display = "none";
         dashboard.classList.add("active");
+        signOutBtn.style.display = "inline-block";
       } else {
         errorText.textContent = "Incorrect access code.";
       }
     };
 
+    // If already logged in
     if (localStorage.getItem("bloxoliteAccess") === "true") {
       overlay.style.display = "none";
       dashboard.classList.add("active");
+      signOutBtn.style.display = "inline-block";
     }
 
-    // === Post Announcement ===
+    // Sign Out button
+    signOutBtn.onclick = () => {
+      localStorage.removeItem("bloxoliteAccess");
+      location.reload();
+    };
+
+    // Post Announcement
     document.getElementById("postAnnBtn").onclick = async () => {
       const title = document.getElementById("annTitle").value;
       const message = document.getElementById("annMessage").value;
