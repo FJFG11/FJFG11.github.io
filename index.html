@@ -35,9 +35,35 @@
     }
     .links a:hover { color: white; }
 
+    /* Announcements section */
+    #announcements {
+      text-align: center;
+      background: #111827;
+      padding: 40px 20px 50px;
+      border-bottom: 1px solid #1f2937;
+    }
+    #announcements h2 {
+      color: #6366f1;
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    #announcement-list {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: left;
+      background: #0d1117;
+      border-radius: 10px;
+      padding: 20px 30px;
+      border: 1px solid #1f2937;
+    }
+    #announcement-list div {
+      padding: 15px 0;
+      border-bottom: 1px solid #1f2937;
+    }
+
     header {
       text-align: center;
-      padding: 100px 20px;
+      padding: 80px 20px;
     }
     header h1 {
       font-size: 48px;
@@ -95,27 +121,6 @@
     }
     .product h2 { color: #3b82f6; }
 
-    #announcements {
-      text-align: center;
-      background: #111827;
-      padding: 60px 20px;
-      border-top: 1px solid #1f2937;
-      border-bottom: 1px solid #1f2937;
-    }
-    #announcement-list {
-      max-width: 600px;
-      margin: 30px auto 0;
-      text-align: left;
-      background: #0d1117;
-      border-radius: 10px;
-      padding: 20px;
-      border: 1px solid #1f2937;
-    }
-    #announcement-list div {
-      padding: 15px 0;
-      border-bottom: 1px solid #1f2937;
-    }
-
     footer {
       text-align: center;
       padding: 40px;
@@ -135,6 +140,12 @@
       <a href="https://github.com/FJFG11" target="_blank">GitHub</a>
     </div>
   </nav>
+
+  <!-- 📢 Announcements moved to top -->
+  <section id="announcements" data-aos="fade-down">
+    <h2>📢 Latest Announcements</h2>
+    <div id="announcement-list"><p>Loading announcements...</p></div>
+  </section>
 
   <header data-aos="fade-up">
     <h1>Modern Roblox Moderation Tools</h1>
@@ -174,11 +185,6 @@
     </div>
   </section>
 
-  <section id="announcements" data-aos="fade-up">
-    <h2>📢 Latest Announcements</h2>
-    <div id="announcement-list"><p>Loading announcements...</p></div>
-  </section>
-
   <footer>
     <p>© 2025 BloxOLite. All rights reserved. | <a href="https://github.com/FJFG11">GitHub</a></p>
   </footer>
@@ -193,18 +199,19 @@
 
     // 🔒 Replace with your Firebase config
     const firebaseConfig = {
-     apiKey: "AIzaSyBZJa5yjFeCmAPOQOHUKCZpq_yEyCJtdPI",
-     authDomain: "bloxolite.firebaseapp.com",
-     projectId: "bloxolite",
-     storageBucket: "bloxolite.firebasestorage.app",
-     messagingSenderId: "261033706903",
-     appId: "1:261033706903:web:241f50fbaf65209dfa30d2"
+      apiKey: "AIzaSyBZJa5yjFeCmAPOQOHUKCZpq_yEyCJtdPI",
+      authDomain: "bloxolite.firebaseapp.com",
+      projectId: "bloxolite",
+      storageBucket: "bloxolite.firebasestorage.app",
+      messagingSenderId: "261033706903",
+      appId: "1:261033706903:web:241f50fbaf65209dfa30d2"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
     const list = document.getElementById("announcement-list");
+
     try {
       const q = query(collection(db, "announcements"), orderBy("date", "desc"), limit(5));
       const snap = await getDocs(q);
