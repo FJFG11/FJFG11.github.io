@@ -1,82 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BloxOLite Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloxOLite — Roblox Moderation Tools</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --card-bg: #111827;
+      --border: #1f2937;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --text: #fff;
+      --muted: #9ca3af;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* === NAVBAR === */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 18px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--accent);
+      letter-spacing: -0.5px;
+    }
+
+    .links a {
+      color: var(--muted);
+      margin-left: 25px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.2s ease;
+    }
+
+    .links a:hover {
+      color: var(--text);
+    }
+
+    /* === HERO === */
+    header {
+      text-align: center;
+      padding: 120px 20px 60px;
+    }
+
+    header h1 {
+      font-size: 48px;
+      line-height: 1.2;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--accent), #3b82f6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 20px;
+    }
+
+    header p {
+      max-width: 600px;
+      color: var(--muted);
+      margin: 0 auto;
+      font-size: 18px;
+    }
+
+    header button {
+      margin-top: 35px;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 14px 35px;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    header button:hover { background: var(--accent-light); }
+
+    /* === ANNOUNCEMENTS === */
+    #announcements {
+      background: var(--card-bg);
+      margin: 60px auto;
+      border-radius: 16px;
+      padding: 40px 25px;
+      max-width: 900px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.1);
+    }
+
+    #announcements h2 {
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 25px;
+      letter-spacing: -0.5px;
+    }
+
+    #announcement-list {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .announcement {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 25px 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .announcement:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent);
+      box-shadow: 0 6px 20px rgba(99,102,241,0.15);
+    }
+
+    .announcement h4 {
+      color: var(--accent-light);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .announcement p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 5px;
+    }
+
+    .announcement code {
+      background: rgba(99, 102, 241, 0.15);
+      color: var(--accent-light);
+      padding: 2px 6px;
+      border-radius: 6px;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    .announcement a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    /* === FEATURES === */
+    .features-section {
+      padding: 100px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .features-section h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 50px;
+      color: var(--accent);
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 35px;
+    }
+
+    .feature {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 35px;
+      transition: 0.3s;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    }
+
+    .feature:hover {
+      transform: translateY(-7px);
+      border-color: var(--accent);
+    }
+
+    .feature h3 {
+      color: var(--accent-light);
+      margin-bottom: 10px;
+    }
+
+    .feature p {
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* === FOOTER === */
+    footer {
+      text-align: center;
+      padding: 50px 20px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    footer a:hover { color: var(--accent-light); }
+  </style>
 </head>
+
 <body>
   <nav>
-    <div class="logo">🧩 BloxOLite Dashboard</div>
+    <div class="logo">BloxOLite</div>
     <div class="links">
-      <a href="index.html">Home</a>
+      <a href="index.html" class="active">Home</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="https://discord.gg/tcxqKNR649" target="_blank">Discord</a>
+      <a href="https://discord.com/channels/1337955702538502196/1347272174104350761" target="_blank">Support</a>
       <a href="docs.html">Docs</a>
-      <button id="logout-btn" class="logout">Sign Out</button>
     </div>
   </nav>
 
-  <!-- LOGIN PANEL -->
-  <main id="login-section" class="centered">
-    <div class="card" data-aos="zoom-in">
-      <h2>🔐 Access Required</h2>
-      <input id="accessCode" type="password" placeholder="Enter Access Code">
-      <button id="verifyBtn">Verify</button>
-      <p id="loginStatus"></p>
+  <!-- HERO -->
+  <header data-aos="fade-up">
+    <h1>BloxOLite — Roblox Moderation Tools</h1>
+    <p>Making Moderation Easy for Roblox Developers.</p>
+    <button onclick="window.location='docs.html'">View Documentation</button>
+  </header>
+
+  <!-- ANNOUNCEMENTS -->
+  <section id="announcements" data-aos="fade-up">
+    <h2>🔔 Notifications</h2>
+    <div id="announcement-list">
+      <p style="color:var(--muted)">Loading notifications...</p>
     </div>
-  </main>
+  </section>
 
-  <!-- DASHBOARD -->
-  <main id="dashboard" style="display:none;">
-    <header data-aos="fade-down">
-      <h1>Welcome to the BloxOLite Control Center</h1>
-      <p>Manage announcements, review logs, and customize your system.</p>
-    </header>
-
-    <!-- Announcement Panel -->
-    <section class="announcement-panel" data-aos="fade-up">
-      <h2>📢 Announcements</h2>
-      <div class="card">
-        <input id="announceTitle" placeholder="Title (e.g., New Update Released)">
-        <textarea id="announceText" placeholder="Message content... supports *bold*, _italic_, and #headings"></textarea>
-        <button id="publishAnnounce">Publish Announcement</button>
+  <!-- FEATURES -->
+  <section class="features-section" data-aos="fade-up">
+    <h2>✨ Core Features</h2>
+    <div class="features">
+      <div class="feature">
+        <h3>🛡️ Anti-Exploit Engine</h3>
+        <p>Automatically detects speed, fly, noclip, and other client-side exploits.</p>
       </div>
-      <div id="announcementList" class="announcement-list"></div>
-    </section>
-
-    <!-- Kick Logs Panel -->
-    <section id="kick-logs" data-aos="fade-up">
-      <h2>🚨 Kick Logs</h2>
-      <div id="kick-log-list" class="log-list">
-        <p>Loading logs...</p>
+      <div class="feature">
+        <h3>🛠️ Custom Moderation Tool</h3>
+        <p>Centralized moderation control with staff ranks, punishment logging, and UI-based tools.</p>
       </div>
-    </section>
-
-    <!-- Settings Panel -->
-    <section id="settings" data-aos="fade-up">
-      <h2>⚙️ Customization (Preview)</h2>
-      <div class="grid">
-        <div class="card"><p>Theme Selector (Coming Soon)</p></div>
-        <div class="card"><p>Role Access Control (Coming Soon)</p></div>
-        <div class="card"><p>Webhook Sync (Coming Soon)</p></div>
+      <div class="feature">
+        <h3>⚙️ Easy Setup</h3>
+        <p>Drop our file into your game, follow the setup guide, and boom — start moderating.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <footer data-aos="fade-up">
-      <p>© 2025 BloxOLite Dashboard. All rights reserved.</p>
-    </footer>
-  </main>
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 BloxOLite. All rights reserved. | <a href="https://github.com/FJFG11">GitHub</a></p>
+  </footer>
 
+  <!-- Animation -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>AOS.init({ duration: 800, once: true });</script>
+
+  <!-- Firebase -->
   <script type="module">
-    AOS.init();
-
-    // Firebase imports
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, orderBy, query, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+    import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-    // 🔥 Your Firebase Configuration
     const firebaseConfig = {
       apiKey: "AIzaSyBZJa5yjFeCmAPOQOHUKCZpq_yEyCJtdPI",
       authDomain: "bloxolite.firebaseapp.com",
@@ -88,101 +299,49 @@
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const list = document.getElementById("announcement-list");
 
-    const loginSection = document.getElementById("login-section");
-    const dashboard = document.getElementById("dashboard");
-    const verifyBtn = document.getElementById("verifyBtn");
-    const loginStatus = document.getElementById("loginStatus");
-    const logoutBtn = document.getElementById("logout-btn");
-
-    const ACCESS_HASH = "-94374278"; // your access hash
-
-    // 🧠 Access Verification
-    verifyBtn.addEventListener("click", () => {
-      const input = document.getElementById("accessCode").value;
-      const hash = Array.from(input).reduce((h,c)=>{h=(h<<5)-h+c.charCodeAt(0);return h&h},0).toString();
-      if (hash === ACCESS_HASH) {
-        loginSection.style.display = "none";
-        dashboard.style.display = "block";
-        localStorage.setItem("loggedIn", "true");
-      } else {
-        loginStatus.textContent = "❌ Incorrect Access Code";
-        loginStatus.style.color = "red";
-      }
-    });
-
-    // Auto-login if previously verified
-    if (localStorage.getItem("loggedIn") === "true") {
-      loginSection.style.display = "none";
-      dashboard.style.display = "block";
+    // Sanitize text (basic protection)
+    function sanitizeHTML(str) {
+      const temp = document.createElement("div");
+      temp.textContent = str;
+      return temp.innerHTML;
     }
-
-    // 🔓 Sign Out
-    logoutBtn.addEventListener("click", () => {
-      localStorage.removeItem("loggedIn");
-      dashboard.style.display = "none";
-      loginSection.style.display = "flex";
-    });
-
-    // 📢 ANNOUNCEMENTS
-    const announceList = document.getElementById("announcementList");
-    const publishBtn = document.getElementById("publishAnnounce");
-
-    publishBtn.addEventListener("click", async () => {
-      const title = document.getElementById("announceTitle").value.trim();
-      const text = document.getElementById("announceText").value.trim();
-
-      if (!title || !text) return alert("Please fill out all fields.");
-
-      await addDoc(collection(db, "announcements"), {
-        title, text, createdAt: serverTimestamp()
-      });
-
-      alert("✅ Announcement published!");
-      document.getElementById("announceTitle").value = "";
-      document.getElementById("announceText").value = "";
-      loadAnnouncements();
-    });
 
     async function loadAnnouncements() {
-      const q = query(collection(db, "announcements"), orderBy("createdAt", "desc"));
-      const snapshot = await getDocs(q);
-      announceList.innerHTML = "";
+      try {
+        const q = query(collection(db, "announcements"), orderBy("createdAt", "desc"), limit(5));
+        const snap = await getDocs(q);
 
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const div = document.createElement("div");
-        div.className = "announcement";
-        div.innerHTML = `
-          <h3>${data.title}</h3>
-          <p>${data.text}</p>
-          <small>${data.createdAt?.toDate ? data.createdAt.toDate().toLocaleString() : ""}</small>
-        `;
-        announceList.appendChild(div);
-      });
+        if (snap.empty) {
+          list.innerHTML = "<p style='color:#9ca3af'>No announcements yet.</p>";
+        } else {
+          list.innerHTML = "";
+          snap.forEach(doc => {
+            const a = doc.data();
+            const safeMsg = sanitizeHTML(a.message)
+              .replace(/\*\*(.*?)\*\*/g, "<b>$1</b>")  // bold
+              .replace(/\*(.*?)\*/g, "<i>$1</i>")      // italic
+              .replace(/__(.*?)__/g, "<u>$1</u>")      // underline
+              .replace(/`(.*?)`/g, "<code>$1</code>")  // code
+              .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" target="_blank">$1</a>'); // link
+
+            const card = document.createElement("div");
+            card.className = "announcement";
+            card.innerHTML = `
+              <h4>${sanitizeHTML(a.title || "Update")}</h4>
+              <p>${safeMsg}</p>
+              <small style="color:#6b7280">${a.date || ""}</small>
+            `;
+            list.appendChild(card);
+          });
+        }
+      } catch (err) {
+        console.error(err);
+        list.innerHTML = "<p style='color:red'>⚠️ Failed to load announcements. Check your Firestore index.</p>";
+      }
     }
 
-    // 🚨 KICK LOGS
-    const logList = document.getElementById("kick-log-list");
-    async function loadKickLogs() {
-      const q = query(collection(db, "kickLogs"), orderBy("timestamp", "desc"));
-      const snap = await getDocs(q);
-      logList.innerHTML = "";
-      snap.forEach(doc => {
-        const data = doc.data();
-        const card = document.createElement("div");
-        card.className = "announcement";
-        card.innerHTML = `
-          <h4>👤 ${data.player}</h4>
-          <p><b>Reason:</b> ${data.reason}</p>
-          <small>🕒 ${data.timestamp}</small>
-        `;
-        logList.appendChild(card);
-      });
-    }
-
-    // Init
-    loadKickLogs();
     loadAnnouncements();
   </script>
 </body>
