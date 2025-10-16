@@ -3,9 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BloxOLite — Dashboard</title>
+  <title>BloxOLite Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     :root {
       --bg: #0d1117;
@@ -23,14 +22,10 @@
       background: var(--bg);
       color: var(--text);
       font-family: "Inter", sans-serif;
-      scroll-behavior: smooth;
       overflow-x: hidden;
     }
 
     nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
       background: rgba(17, 24, 39, 0.95);
       backdrop-filter: blur(10px);
       padding: 18px 60px;
@@ -44,205 +39,144 @@
       font-weight: 700;
       font-size: 24px;
       color: var(--accent);
-      letter-spacing: -0.5px;
     }
 
-    .links a {
-      color: var(--muted);
-      margin-left: 25px;
-      text-decoration: none;
-      font-size: 15px;
-      transition: 0.2s ease;
+    .logout-btn {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
     }
 
-    .links a:hover { color: var(--text); }
+    .logout-btn:hover {
+      background: var(--accent-light);
+    }
 
     main {
       max-width: 1000px;
-      margin: 60px auto;
-      padding: 0 20px;
-    }
-
-    h2 {
-      color: var(--accent);
-      margin-bottom: 15px;
-      font-size: 22px;
+      margin: 40px auto;
+      padding: 20px;
     }
 
     section {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 30px;
-      box-shadow: 0 0 25px rgba(99,102,241,0.1);
-      margin-bottom: 40px;
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
 
-    input, textarea, button {
+    section h2 {
+      color: var(--accent);
+      font-size: 22px;
+      margin-bottom: 15px;
+    }
+
+    input, textarea, select {
       width: 100%;
       background: var(--bg);
-      border: 1px solid var(--border);
       color: var(--text);
-      font-family: "Inter";
-      border-radius: 10px;
-      padding: 12px;
-      font-size: 14px;
-      margin-bottom: 15px;
-      transition: 0.2s;
-    }
-
-    input:focus, textarea:focus {
-      outline: none;
-      border-color: var(--accent);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 8px;
+      font-size: 15px;
     }
 
     button {
       background: var(--accent);
+      color: white;
       border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
     }
 
     button:hover { background: var(--accent-light); }
 
-    /* === LOGS === */
-    .logs-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 15px;
-    }
-
-    .search-bar {
-      width: 65%;
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(30,30,30,0.8);
-      color: white;
-      outline: none;
-      font-size: 14px;
-      transition: all 0.2s ease;
-    }
-
-    .search-bar:focus { border-color: var(--accent); }
-
-    .filter-select {
-      padding: 10px 12px;
-      border-radius: 10px;
-      border: 1px solid var(--border);
-      background: rgba(30,30,30,0.8);
-      color: white;
-      font-size: 14px;
-      outline: none;
-    }
-
-    .log {
+    .log-card {
       background: var(--bg);
-      padding: 20px;
-      border-radius: 12px;
       border: 1px solid var(--border);
-      box-shadow: 0 3px 10px rgba(0,0,0,0.25);
-      transition: all 0.3s ease;
+      border-radius: 10px;
+      padding: 15px;
       margin-bottom: 12px;
+      transition: 0.2s;
     }
 
-    .log:hover {
+    .log-card:hover {
       border-color: var(--accent);
-      transform: translateY(-3px);
-      box-shadow: 0 4px 16px rgba(99,102,241,0.15);
     }
 
-    .log-header {
+    /* === Access Code Overlay === */
+    #access-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: var(--bg);
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 8px;
+      justify-content: center;
+      flex-direction: column;
+      z-index: 100;
     }
 
-    .log-header strong {
+    #access-screen h1 { color: var(--accent); margin-bottom: 15px; }
+
+    #access-screen input {
+      width: 260px;
+      text-align: center;
       font-size: 16px;
-      color: var(--accent-light);
+      letter-spacing: 2px;
     }
 
-    .log-action {
-      background: rgba(99,102,241,0.15);
-      color: var(--accent-light);
-      padding: 4px 10px;
-      border-radius: 6px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-
-    .log-details {
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.5;
-    }
-
-    .log-footer {
-      color: #6b7280;
-      font-size: 12px;
-      margin-top: 6px;
+    #access-screen button {
+      width: 260px;
+      margin-top: 10px;
     }
   </style>
 </head>
 
 <body>
+  <div id="access-screen">
+    <h1>Enter Access Code</h1>
+    <input type="password" id="accessInput" placeholder="Access Code">
+    <button id="accessBtn">Enter</button>
+    <p id="accessMsg" style="color:red;margin-top:10px;"></p>
+  </div>
+
   <nav>
-    <div class="logo">BloxOLite</div>
-    <div class="links">
-      <a href="index.html">Home</a>
-      <a href="dashboard.html" class="active">Dashboard</a>
-      <a href="https://discord.gg/tcxqKNR649" target="_blank">Discord</a>
-      <a href="https://discord.com/channels/1337955702538502196/1347272174104350761" target="_blank">Support</a>
-      <a href="docs.html">Docs</a>
-    </div>
+    <div class="logo">BloxOLite Dashboard</div>
+    <button class="logout-btn" id="logoutBtn">Sign Out</button>
   </nav>
 
-  <main>
-    <!-- ACCESS -->
-    <section id="access">
-      <h2>🔐 Dashboard Access</h2>
-      <input type="password" id="accessInput" placeholder="Enter access key..." />
-      <button id="accessBtn">Unlock Dashboard</button>
-      <p id="accessStatus" style="color:var(--muted); margin-top:10px;">Access required to manage data.</p>
-    </section>
-
-    <!-- POST ANNOUNCEMENT -->
-    <section id="announceSection" style="display:none;">
+  <main id="dashboard" style="display:none;">
+    <section id="announce-section">
       <h2>📢 Post Announcement</h2>
-      <input type="text" id="annTitle" placeholder="Title" />
-      <textarea id="annMsg" rows="4" placeholder="Message (supports <b>, <i>, <u>, <br>)"></textarea>
-      <button id="postAnnBtn">Post Announcement</button>
-      <p id="annStatus" style="margin-top:10px; color:var(--muted);"></p>
+      <input id="announceTitle" placeholder="Title">
+      <textarea id="announceMsg" rows="4" placeholder="Write your message..."></textarea>
+      <button id="postAnnouncement">Post</button>
+      <p id="announceStatus" style="margin-top:10px;color:#9ca3af;"></p>
     </section>
 
-    <!-- LOGS -->
-    <section id="logsSection" style="display:none;">
-      <h2>📜 Logs</h2>
-      <div class="logs-header">
-        <input type="text" id="searchInput" class="search-bar" placeholder="Search logs..." />
-        <select id="filterSelect" class="filter-select">
-          <option value="all">All Actions</option>
-          <option value="Kicked by Anti-Cheat">Kicked</option>
-          <option value="Banned">Banned</option>
-          <option value="Warned">Warned</option>
-        </select>
-      </div>
-      <div id="logList"></div>
+    <section id="logs-section">
+      <h2>🧾 Logs</h2>
+      <div id="logsList"><p style="color:#9ca3af">Loading logs...</p></div>
     </section>
   </main>
 
-  <footer style="text-align:center; padding:40px; color:var(--muted); border-top:1px solid var(--border);">
-    © 2025 BloxOLite. All rights reserved.
-  </footer>
-
   <!-- Firebase -->
   <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
-    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyBZJa5yjFeCmAPOQOHUKCZpq_yEyCJtdPI",
@@ -258,117 +192,91 @@
     const db = getFirestore(app);
     const rtdb = getDatabase(app);
 
-    // UI
+    const dashboard = document.getElementById("dashboard");
+    const accessScreen = document.getElementById("access-screen");
     const accessInput = document.getElementById("accessInput");
     const accessBtn = document.getElementById("accessBtn");
-    const accessStatus = document.getElementById("accessStatus");
-    const announceSection = document.getElementById("announceSection");
-    const logsSection = document.getElementById("logsSection");
+    const accessMsg = document.getElementById("accessMsg");
+    const logoutBtn = document.getElementById("logoutBtn");
 
-    const HASH_KEY = "-94374278"; // access check
+    const ACCESS_HASH = "-94374278";
 
     accessBtn.onclick = () => {
-      if (accessInput.value.trim() === HASH_KEY) {
-        accessStatus.innerText = "✅ Access granted!";
-        announceSection.style.display = "block";
-        logsSection.style.display = "block";
-        document.getElementById("access").style.display = "none";
+      if (accessInput.value === ACCESS_HASH) {
+        accessScreen.style.display = "none";
+        dashboard.style.display = "block";
+        localStorage.setItem("accessGranted", "true");
       } else {
-        accessStatus.innerText = "❌ Invalid access key.";
+        accessMsg.textContent = "Incorrect Access Code.";
       }
     };
 
-    // === ANNOUNCEMENTS ===
-    const postAnnBtn = document.getElementById("postAnnBtn");
-    const annTitle = document.getElementById("annTitle");
-    const annMsg = document.getElementById("annMsg");
-    const annStatus = document.getElementById("annStatus");
+    if (localStorage.getItem("accessGranted") === "true") {
+      accessScreen.style.display = "none";
+      dashboard.style.display = "block";
+    }
 
-    postAnnBtn.onclick = async () => {
+    logoutBtn.onclick = () => {
+      localStorage.removeItem("accessGranted");
+      window.location.reload();
+    };
+
+    // === ANNOUNCEMENTS ===
+    const postBtn = document.getElementById("postAnnouncement");
+    const titleInput = document.getElementById("announceTitle");
+    const msgInput = document.getElementById("announceMsg");
+    const announceStatus = document.getElementById("announceStatus");
+
+    postBtn.onclick = async () => {
+      const title = titleInput.value.trim();
+      const msg = msgInput.value.trim();
+      if (!title || !msg) return alert("Please fill out all fields.");
+
       try {
         await addDoc(collection(db, "announcements"), {
-          title: annTitle.value,
-          message: annMsg.value,
+          title: title,
+          message: msg,
           date: new Date().toLocaleString(),
           createdAt: serverTimestamp()
         });
-        annStatus.innerHTML = "✅ Announcement posted!";
-        annTitle.value = "";
-        annMsg.value = "";
-      } catch (e) {
-        annStatus.innerHTML = "⚠️ Failed to post announcement.";
-        console.error(e);
+        announceStatus.textContent = "✅ Announcement posted successfully.";
+        titleInput.value = "";
+        msgInput.value = "";
+      } catch (err) {
+        console.error(err);
+        announceStatus.textContent = "❌ Failed to post announcement.";
       }
     };
 
     // === LOGS ===
-    const logList = document.getElementById("logList");
-    const searchInput = document.getElementById("searchInput");
-    const filterSelect = document.getElementById("filterSelect");
-    let allLogs = [];
+    const logsList = document.getElementById("logsList");
+    const logsRef = ref(rtdb, "logs");
 
-    function displayLogs(filteredLogs) {
-      logList.innerHTML = "";
-      if (!filteredLogs.length) {
-        logList.innerHTML = "<p style='color:#9ca3af'>No logs found.</p>";
+    onValue(logsRef, (snapshot) => {
+      logsList.innerHTML = "";
+      if (!snapshot.exists()) {
+        logsList.innerHTML = "<p style='color:#9ca3af'>No logs found.</p>";
         return;
       }
 
-      filteredLogs.forEach(log => {
-        const playerName = log.player || "Unknown Player";
-        const action = log.action || "Unknown Action";
-        const moderator = log.moderator || "System";
-        const details = log.reason || "No details.";
-        const time = new Date(log.time || Date.now()).toLocaleString();
+      const data = snapshot.val();
+      const entries = Object.entries(data).reverse();
 
+      for (const [key, log] of entries) {
         const div = document.createElement("div");
-        div.className = "log";
-  logCard.innerHTML = `
-  <div class="log-card">
-    <h3>${log.player || "Unknown Player"} (${log.userId || "N/A"})</h3>
-    <p><strong>Moderator:</strong> ${log.moderator || "Unknown"}</p>
-    <p><strong>Action:</strong> ${log.action || "Unknown"}</p>
-    <p><strong>Reason:</strong> ${log.reason || "No reason"}</p>
-    <p><strong>Server:</strong> ${log.serverJobId || "N/A"}</p>
-    <p><strong>Place:</strong> ${log.placeId || "N/A"}</p>
-    <p><strong>Time:</strong> ${new Date(log.time || 0).toLocaleString()}</p>
-  </div>
-`;
-
-        logList.appendChild(div);
-      });
-    }
-
-    function loadLogs() {
-      const logsRef = ref(rtdb, "logs");
-      onValue(logsRef, (snapshot) => {
-        if (!snapshot.exists()) {
-          logList.innerHTML = "<p style='color:#9ca3af'>No logs yet.</p>";
-          return;
-        }
-
-        allLogs = Object.values(snapshot.val()).reverse();
-        displayLogs(allLogs);
-      });
-    }
-
-    searchInput.addEventListener("input", () => {
-      const term = searchInput.value.toLowerCase();
-      const filtered = allLogs.filter(log =>
-        (log.player || "").toLowerCase().includes(term) ||
-        (log.action || "").toLowerCase().includes(term) ||
-        (log.moderator || "").toLowerCase().includes(term)
-      );
-      displayLogs(filtered);
+        div.className = "log-card";
+        div.innerHTML = `
+          <h3>${log.player || "Unknown Player"} (${log.userId || "N/A"})</h3>
+          <p><strong>Moderator:</strong> ${log.moderator || "Unknown"}</p>
+          <p><strong>Action:</strong> ${log.action || "Unknown"}</p>
+          <p><strong>Reason:</strong> ${log.reason || "No reason"}</p>
+          <p><strong>Server:</strong> ${log.serverJobId || "N/A"}</p>
+          <p><strong>Place:</strong> ${log.placeId || "N/A"}</p>
+          <p><strong>Time:</strong> ${new Date(log.time || 0).toLocaleString()}</p>
+        `;
+        logsList.appendChild(div);
+      }
     });
-
-    filterSelect.addEventListener("change", () => {
-      const filter = filterSelect.value;
-      if (filter === "all") displayLogs(allLogs);
-      else displayLogs(allLogs.filter(log => log.action === filter));
-    });
-
-    loadLogs();
   </script>
 </body>
 </html>
