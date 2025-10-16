@@ -133,9 +133,7 @@
 
     button:hover { background: var(--accent-light); }
 
-    .hidden {
-      display: none;
-    }
+    .hidden { display: none; }
 
     #login-section {
       max-width: 400px;
@@ -198,7 +196,7 @@
   <!-- Firebase -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
     import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
     const firebaseConfig = {
@@ -215,8 +213,6 @@
     const db = getFirestore(app);
     const rtdb = getDatabase(app);
 
-    const ACCESS_CODE = "-94374278"; // 🔐 Change this to your real access code
-
     const loginSection = document.getElementById("login-section");
     const dashboard = document.getElementById("dashboard");
     const loginButton = document.getElementById("loginButton");
@@ -228,10 +224,21 @@
     const announceMessage = document.getElementById("announce-message");
     const announcementList = document.getElementById("announcement-list");
 
-    // === ACCESS CODE ===
+    // ✅ Hash function (same as your old one)
+    function hashString(str) {
+      return Array.from(str).reduce((h, c) => {
+        h = (h << 5) - h + c.charCodeAt(0);
+        return h & h;
+      }, 0).toString();
+    }
+
+    const ACCESS_HASH = "-94374278"; // 👈 your hash for "Ciderg1010"
+
     loginButton.addEventListener("click", () => {
       const code = document.getElementById("accessCode").value;
-      if (code === ACCESS_CODE) {
+      const hash = hashString(code);
+
+      if (hash === ACCESS_HASH) {
         loginSection.classList.add("hidden");
         dashboard.classList.remove("hidden");
         loadLogs();
@@ -247,7 +254,6 @@
       document.getElementById("accessCode").value = "";
     });
 
-    // === LOAD LOGS FROM REALTIME DATABASE ===
     function loadLogs() {
       const logsRef = ref(rtdb, "logs");
       onValue(logsRef, (snapshot) => {
@@ -256,7 +262,6 @@
           logList.innerHTML = "<p style='color:#9ca3af'>No logs yet.</p>";
           return;
         }
-
         const logs = Object.values(snapshot.val()).reverse();
         logs.forEach(log => {
           const div = document.createElement("div");
@@ -270,7 +275,6 @@
       });
     }
 
-    // === ANNOUNCEMENTS ===
     async function loadAnnouncements() {
       const q = query(collection(db, "announcements"), orderBy("createdAt", "desc"), limit(5));
       const snap = await getDocs(q);
@@ -292,16 +296,13 @@
     postBtn.addEventListener("click", async () => {
       const title = announceTitle.value.trim();
       const message = announceMessage.value.trim();
-
       if (!title || !message) return alert("Please fill in all fields.");
-
       await addDoc(collection(db, "announcements"), {
         title,
         message,
         createdAt: serverTimestamp(),
         date: new Date().toLocaleString()
       });
-
       announceTitle.value = "";
       announceMessage.value = "";
       loadAnnouncements();
