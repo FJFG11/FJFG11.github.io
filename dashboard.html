@@ -177,19 +177,21 @@
     <button class="logout-btn" id="logoutButton">Sign Out</button>
     <h1>👋 Welcome to Your Dashboard</h1>
 
-    <div class="section">
-      <h2>📜 Recent Logs</h2>
-      <div id="log-list" class="log-list">
-        <p style="color:var(--muted)">Loading logs...</p>
-      </div>
-    </div>
-
+    <!-- 📢 Announcements Section -->
     <div class="section">
       <h2>📢 Announcements</h2>
       <input id="announce-title" placeholder="Title">
       <textarea id="announce-message" rows="3" placeholder="Message (supports <b>, <i>, <u>, <img>)"></textarea>
       <button id="postAnnouncement">Post Announcement</button>
       <div id="announcement-list" class="announcement-list" style="margin-top:20px;"></div>
+    </div>
+
+    <!-- 📜 Logs Section (Moved Below) -->
+    <div class="section">
+      <h2>📜 Recent Logs</h2>
+      <div id="log-list" class="log-list">
+        <p style="color:var(--muted)">Loading logs...</p>
+      </div>
     </div>
   </div>
 
@@ -224,7 +226,7 @@
     const announceMessage = document.getElementById("announce-message");
     const announcementList = document.getElementById("announcement-list");
 
-    // ✅ Hash function (same as your old one)
+    // ✅ Hash function (same as before)
     function hashString(str) {
       return Array.from(str).reduce((h, c) => {
         h = (h << 5) - h + c.charCodeAt(0);
@@ -232,7 +234,7 @@
       }, 0).toString();
     }
 
-    const ACCESS_HASH = "-94374278"; // 👈 your hash for "Ciderg1010"
+    const ACCESS_HASH = "-94374278";
 
     loginButton.addEventListener("click", () => {
       const code = document.getElementById("accessCode").value;
@@ -241,8 +243,8 @@
       if (hash === ACCESS_HASH) {
         loginSection.classList.add("hidden");
         dashboard.classList.remove("hidden");
-        loadLogs();
         loadAnnouncements();
+        loadLogs();
       } else {
         errorMsg.style.display = "block";
       }
@@ -253,27 +255,6 @@
       loginSection.classList.remove("hidden");
       document.getElementById("accessCode").value = "";
     });
-
-    function loadLogs() {
-      const logsRef = ref(rtdb, "logs");
-      onValue(logsRef, (snapshot) => {
-        logList.innerHTML = "";
-        if (!snapshot.exists()) {
-          logList.innerHTML = "<p style='color:#9ca3af'>No logs yet.</p>";
-          return;
-        }
-        const logs = Object.values(snapshot.val()).reverse();
-        logs.forEach(log => {
-          const div = document.createElement("div");
-          div.className = "log";
-          div.innerHTML = `
-            <strong>${log.player || "Unknown Player"}</strong> — ${log.reason || "No reason"}
-            <br><small style="color:#6b7280">${new Date(log.time || Date.now()).toLocaleString()}</small>
-          `;
-          logList.appendChild(div);
-        });
-      });
-    }
 
     async function loadAnnouncements() {
       const q = query(collection(db, "announcements"), orderBy("createdAt", "desc"), limit(5));
@@ -290,6 +271,29 @@
           <small style="color:#6b7280">${data.date || "Unknown Date"}</small>
         `;
         announcementList.appendChild(card);
+      });
+    }
+
+    async function loadLogs() {
+      const logsRef = ref(rtdb, "logs");
+      onValue(logsRef, (snapshot) => {
+        logList.innerHTML = "";
+        if (!snapshot.exists()) {
+          logList.innerHTML = "<p style='color:#9ca3af'>No logs yet.</p>";
+          return;
+        }
+        const logs = Object.values(snapshot.val()).reverse();
+        logs.forEach(log => {
+          const playerName = log.player || log.username || log.user || "Unknown Player";
+          const reason = log.reason || "No reason provided";
+          const div = document.createElement("div");
+          div.className = "log";
+          div.innerHTML = `
+            <strong>${playerName}</strong> — ${reason}
+            <br><small style="color:#6b7280">${new Date(log.time || Date.now()).toLocaleString()}</small>
+          `;
+          logList.appendChild(div);
+        });
       });
     }
 
