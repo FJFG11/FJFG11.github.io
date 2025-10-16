@@ -2,540 +2,310 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BloxOLite — Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloxOLite Dashboard</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
   <style>
-    /* ----- EXACT UI STYLES FROM YOUR SCREENSHOT ----- */
     :root {
       --bg: #0d1117;
-      --card-bg: #0f1720; /* slightly darker for panels */
-      --panel-bg: rgba(15,23,32,0.6);
-      --border: rgba(255,255,255,0.03);
-      --accent: #6b63ff;
-      --accent-strong: #8b84ff;
-      --text: #dfe6ff;
+      --card-bg: #111827;
+      --border: #1f2937;
+      --accent: #6366f1;
+      --accent-light: #818cf8;
+      --text: #fff;
       --muted: #9ca3af;
     }
 
-    *{box-sizing:border-box;margin:0;padding:0}
-    html,body{height:100%}
-    body{
-      font-family:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
-      background: linear-gradient(180deg,#0b0f14 0%, #0d1117 60%);
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      overflow-y:auto;
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
     }
 
-    nav{
-      height:64px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 40px;
-      border-bottom:1px solid var(--border);
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0));
-      position:sticky;
-      top:0;
-      z-index:30;
-    }
-    .logo{color:var(--accent);font-weight:700;font-size:20px}
-    .nav-links{display:flex;gap:24px;align-items:center}
-    .nav-links a{color:var(--muted);text-decoration:none;font-size:15px}
-    .signout-btn{
-      background:transparent;border:1px solid rgba(255,255,255,0.04);color:var(--muted);
-      padding:8px 12px;border-radius:8px;font-size:14px;cursor:pointer;
+    nav {
+      background: rgba(17, 24, 39, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 18px 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
     }
 
-    main{
-      max-width:1000px;
-      margin:50px auto;
-      padding:0 24px 80px;
+    .logo {
+      font-weight: 700;
+      font-size: 24px;
+      color: var(--accent);
     }
 
-    h1{
-      text-align:center;
-      color:var(--accent);
-      font-size:36px;
-      margin-bottom:28px;
-      text-shadow: 0 1px 0 rgba(0,0,0,0.6);
+    .links a {
+      color: var(--muted);
+      margin-left: 25px;
+      text-decoration: none;
+      font-size: 15px;
+      transition: 0.2s ease;
     }
 
-    /* Panel container */
-    .panel {
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));
-      border-radius:12px;
-      border:1px solid var(--border);
-      padding:26px;
-      margin:18px auto 28px;
-      box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+    .links a:hover { color: var(--text); }
+
+    .container {
+      max-width: 1000px;
+      margin: 50px auto;
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 40px;
+      border: 1px solid var(--border);
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.1);
     }
 
-    /* Inputs match screenshot */
-    .input, textarea, select {
-      width:100%;
-      background: rgba(0,0,0,0.35);
-      border:1px solid rgba(255,255,255,0.03);
-      color:var(--text);
-      padding:12px 14px;
-      border-radius:8px;
-      outline:none;
-      margin-bottom:14px;
-      font-size:14px;
-      resize:vertical;
-    }
-    textarea { min-height:120px; }
-
-    .small-row { display:flex; gap:12px; align-items:center; }
-    .small-row .input { flex:1 }
-
-    .label-row { display:flex; align-items:center; gap:10px; margin:8px 0 14px; color:var(--muted) }
-    .badge {
-      display:inline-block;padding:6px 10px;border-radius:999px;font-weight:600;font-size:13px;
-      background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(0,0,0,0.25));
-      color:var(--text); border:1px solid rgba(255,255,255,0.02)
+    h1 {
+      text-align: center;
+      color: var(--accent);
+      margin-bottom: 30px;
     }
 
-    .actions { display:flex; gap:12px; margin-top:10px }
-    .btn {
-      background:var(--accent);
-      color:white;padding:10px 18px;border-radius:10px;border:none;font-weight:600;cursor:pointer;
-      box-shadow: 0 8px 22px rgba(107,99,255,0.12);
+    .logout-btn {
+      float: right;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
     }
-    .btn.secondary { background:#2b3140;color:var(--text);border:1px solid rgba(255,255,255,0.03) }
+    .logout-btn:hover { background: var(--accent-light); }
 
-    /* Announcement list area */
-    .ann-list { margin-top:18px; display:flex; flex-direction:column; gap:14px; }
-    .ann-card {
-      background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.06));
-      border-radius:10px; padding:14px 18px; border:1px solid rgba(255,255,255,0.02);
+    .section {
+      margin-top: 40px;
     }
-    .ann-top { display:flex; justify-content:space-between; align-items:center; gap:12px; }
-    .ann-title { color:var(--accent-strong); font-weight:700; }
-    .ann-meta { color:var(--muted); font-size:13px; }
 
-    .ann-tag { display:inline-block; padding:6px 10px; border-radius:999px; font-weight:700; font-size:13px; color:#fff; margin-left:8px; }
-
-    .ann-image { width:100%; max-height:320px; object-fit:cover; border-radius:8px; margin-top:10px; }
-
-    /* Collapsible logs section */
-    .logs-toggle { display:flex; justify-content:flex-end; margin-top:8px; }
-    .logs-panel { display:none; margin-top:12px; gap:12px; flex-direction:column; }
-    .log-card { background: rgba(255,255,255,0.02); padding:12px;border-radius:8px;border:1px solid rgba(255,255,255,0.02); color:var(--muted) }
-
-    /* responsive */
-    @media (max-width:760px){
-      nav{padding:0 16px}
-      main{padding:0 16px}
-      h1{font-size:28px}
+    .section h2 {
+      margin-bottom: 20px;
+      color: var(--accent-light);
     }
+
+    .log-list, .announcement-list {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .log, .announcement {
+      background: var(--bg);
+      padding: 20px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .log:hover, .announcement:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      transition: 0.2s ease;
+    }
+
+    input, textarea {
+      width: 100%;
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    button {
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover { background: var(--accent-light); }
+
+    .hidden {
+      display: none;
+    }
+
+    #login-section {
+      max-width: 400px;
+      margin: 100px auto;
+      background: var(--card-bg);
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      text-align: center;
+      box-shadow: 0 0 20px rgba(99,102,241,0.15);
+    }
+
+    #login-section input {
+      margin-bottom: 15px;
+    }
+
+    #login-section button {
+      width: 100%;
+    }
+
   </style>
 </head>
 <body>
   <nav>
-    <div class="logo">BloxOLite</div>
-    <div class="nav-links">
+    <div class="logo">BloxOLite Dashboard</div>
+    <div class="links">
       <a href="index.html">Home</a>
       <a href="docs.html">Docs</a>
-      <a href="dashboard.html">Dashboard</a>
-      <button id="signOutBtn" class="signout-btn" style="display:none">Sign Out</button>
+      <a href="https://discord.gg/tcxqKNR649" target="_blank">Discord</a>
     </div>
   </nav>
 
-  <main>
-    <h1>Website Administrator Dashboard</h1>
+  <section id="login-section">
+    <h1>Access Code Required</h1>
+    <input type="password" id="accessCode" placeholder="Enter Access Code">
+    <button id="loginButton">Enter</button>
+    <p id="errorMsg" style="color:red;display:none;margin-top:10px;">Invalid Access Code.</p>
+  </section>
 
-    <!-- Login overlay (keeps the exact page UI; overlay hides when logged in) -->
-    <div id="loginOverlay" class="panel" style="max-width:720px;margin:10px auto 26px;">
-      <div style="display:flex;flex-direction:column;gap:12px">
-        <div style="font-weight:700;color:var(--accent);font-size:18px">🔐 Access Required</div>
-        <input id="accessInput" class="input" type="password" placeholder="Enter Access Code">
-        <div style="display:flex;gap:8px">
-          <button id="verifyBtn" class="btn">Verify</button>
-          <div style="flex:1"></div>
-        </div>
-        <div id="accessError" style="color:#f97373;font-size:13px;height:18px"></div>
+  <div id="dashboard" class="container hidden">
+    <button class="logout-btn" id="logoutButton">Sign Out</button>
+    <h1>👋 Welcome to Your Dashboard</h1>
+
+    <div class="section">
+      <h2>📜 Recent Logs</h2>
+      <div id="log-list" class="log-list">
+        <p style="color:var(--muted)">Loading logs...</p>
       </div>
     </div>
 
-    <!-- Announcement creation panel (UI preserved pixel-perfect) -->
-    <div id="mainPanel" style="display:none;">
-      <div class="panel" style="max-width:760px;margin:24px auto;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:6px">
-          <div style="font-weight:800;color:var(--accent);font-size:18px">📢 Post New Announcement</div>
-        </div>
-
-        <input id="annTitle" class="input" placeholder="Announcement Title">
-        <textarea id="annMessage" class="input" placeholder="Supports Markdown: **bold**, *italic*, [link](https://...), lists"></textarea>
-
-        <input id="annTag" class="input" placeholder="Tag (e.g., Update, Alert, Info)">
-        <div class="small-row" style="margin-bottom:8px">
-          <input id="annColor" type="color" value="#6366f1" style="height:44px;border-radius:8px;padding:6px;border:1px solid rgba(255,255,255,0.03)">
-          <input id="annImage" class="input" placeholder="Image URL (optional)" style="margin:0">
-        </div>
-
-        <div class="label-row">
-          <label style="display:flex;align-items:center;gap:8px">
-            <input id="annPinned" type="checkbox" style="width:16px;height:16px">
-            <span style="color:var(--muted)">📌 Pin this announcement</span>
-          </label>
-        </div>
-
-        <div class="actions">
-          <button id="previewBtn" class="btn secondary">Preview</button>
-          <button id="postAnnBtn" class="btn">Post Announcement</button>
-          <div style="flex:1"></div>
-          <div id="postStatus" style="color:var(--muted);align-self:center"></div>
-        </div>
-
-        <!-- Preview box (keeps location and spacing identical) -->
-        <div id="previewBox" style="display:none;margin-top:18px;padding:14px;border-radius:10px;background:var(--panel-bg);border:1px solid var(--border)">
-          <div style="display:flex;justify-content:space-between;align-items:center">
-            <div id="previewTitle" style="font-weight:700;color:var(--accent-strong)"></div>
-            <div id="previewTag" style="font-weight:700"></div>
-          </div>
-          <div id="previewMessage" style="margin-top:8px;color:var(--muted)"></div>
-          <img id="previewImage" src="" alt="" style="display:none;margin-top:10px;border-radius:8px;max-width:100%">
-        </div>
-      </div>
-
-      <!-- Announcements list -->
-      <div class="panel" style="max-width:760px;margin:14px auto;">
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
-          <div style="font-weight:800;color:var(--accent);font-size:18px">📣 Live Announcements</div>
-          <div style="color:var(--muted);font-size:13px">Pinned appear first</div>
-        </div>
-
-        <div id="annList" class="ann-list">
-          <!-- populated by JS -->
-          <div style="color:var(--muted)">Loading announcements…</div>
-        </div>
-
-        <!-- Logs toggle -->
-        <div class="logs-toggle" style="margin-top:14px">
-          <button id="toggleLogs" class="btn secondary">Show Recent Logs</button>
-        </div>
-
-        <!-- Logs panel (collapsed by default) -->
-        <div id="logsPanel" class="logs-panel" style="display:flex;flex-direction:column;">
-          <div id="logsList" style="margin-top:12px">
-            <div style="color:var(--muted)">No logs yet.</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- System status panel -->
-      <div class="panel" style="max-width:760px;margin:14px auto;">
-        <div style="font-weight:700;color:var(--accent);margin-bottom:8px">🧱 System Status</div>
-        <div style="color:#22c55e">✅ All systems operational</div>
-      </div>
+    <div class="section">
+      <h2>📢 Announcements</h2>
+      <input id="announce-title" placeholder="Title">
+      <textarea id="announce-message" rows="3" placeholder="Message (supports <b>, <i>, <u>, <img>)"></textarea>
+      <button id="postAnnouncement">Post Announcement</button>
+      <div id="announcement-list" class="announcement-list" style="margin-top:20px;"></div>
     </div>
-  </main>
+  </div>
 
-  <footer style="text-align:center;padding:40px;color:var(--muted);border-top:1px solid rgba(255,255,255,0.02)">
-    © 2025 BloxOLite Dashboard
-  </footer>
-
-  <!-- Libraries -->
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/dompurify@2.4.0/dist/purify.min.js"></script>
-
-  <!-- Firebase SDKs (modular) -->
+  <!-- Firebase -->
   <script type="module">
-    AOS.init({duration:600,once:true});
-
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-    import {
-      getFirestore, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp
-    } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+    import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+    import { getFirestore, collection, addDoc, getDocs, query, orderBy, limit, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
-    /* ========== CONFIG ========== */
     const firebaseConfig = {
       apiKey: "AIzaSyBZJa5yjFeCmAPOQOHUKCZpq_yEyCJtdPI",
       authDomain: "bloxolite.firebaseapp.com",
       projectId: "bloxolite",
       storageBucket: "bloxolite.firebasestorage.app",
       messagingSenderId: "261033706903",
-      appId: "1:261033706903:web:241f50fbaf65209dfa30d2"
+      appId: "1:261033706903:web:241f50fbaf65209dfa30d2",
+      databaseURL: "https://bloxolite-default-rtdb.europe-west1.firebasedatabase.app/"
     };
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
+    const rtdb = getDatabase(app);
 
-    /* ========== UI refs ========== */
-    const loginOverlay = document.getElementById("loginOverlay");
-    const mainPanel = document.getElementById("mainPanel");
-    const signOutBtn = document.getElementById("signOutBtn");
-    const verifyBtn = document.getElementById("verifyBtn");
-    const accessInput = document.getElementById("accessInput");
-    const accessError = document.getElementById("accessError");
+    const ACCESS_CODE = "-94374278"; // 🔐 Change this to your real access code
 
-    // Announcement refs
-    const annTitle = document.getElementById("annTitle");
-    const annMessage = document.getElementById("annMessage");
-    const annTag = document.getElementById("annTag");
-    const annColor = document.getElementById("annColor");
-    const annImage = document.getElementById("annImage");
-    const annPinned = document.getElementById("annPinned");
-    const previewBtn = document.getElementById("previewBtn");
-    const postAnnBtn = document.getElementById("postAnnBtn");
-    const postStatus = document.getElementById("postStatus");
-    const previewBox = document.getElementById("previewBox");
-    const previewTitle = document.getElementById("previewTitle");
-    const previewMessage = document.getElementById("previewMessage");
-    const previewImage = document.getElementById("previewImage");
-    const previewTag = document.getElementById("previewTag");
+    const loginSection = document.getElementById("login-section");
+    const dashboard = document.getElementById("dashboard");
+    const loginButton = document.getElementById("loginButton");
+    const logoutButton = document.getElementById("logoutButton");
+    const errorMsg = document.getElementById("errorMsg");
+    const logList = document.getElementById("log-list");
+    const postBtn = document.getElementById("postAnnouncement");
+    const announceTitle = document.getElementById("announce-title");
+    const announceMessage = document.getElementById("announce-message");
+    const announcementList = document.getElementById("announcement-list");
 
-    const annList = document.getElementById("annList");
-
-    // Logs
-    const toggleLogsBtn = document.getElementById("toggleLogs");
-    const logsPanel = document.getElementById("logsPanel");
-    const logsList = document.getElementById("logsList");
-
-    /* ========== ACCESS CONTROL ========== */
-    // keep your existing hash (don't change style)
-    const ACCESS_HASH = "-94374278";
-
-    function computeHash(str){
-      return Array.from(str).reduce((h,c)=>{h=(h<<5)-h+c.charCodeAt(0);return h&h},0).toString();
-    }
-
-    verifyBtn.addEventListener("click", () => {
-      const value = accessInput.value || "";
-      const h = computeHash(value);
-      if (h === ACCESS_HASH) {
-        localStorage.setItem("bloxoliteAccess", "true");
-        accessError.textContent = "";
-        showDashboard();
+    // === ACCESS CODE ===
+    loginButton.addEventListener("click", () => {
+      const code = document.getElementById("accessCode").value;
+      if (code === ACCESS_CODE) {
+        loginSection.classList.add("hidden");
+        dashboard.classList.remove("hidden");
+        loadLogs();
+        loadAnnouncements();
       } else {
-        accessError.textContent = "Incorrect access code.";
+        errorMsg.style.display = "block";
       }
     });
 
-    function showDashboard(){
-      loginOverlay.style.display = "none";
-      mainPanel.style.display = "block";
-      signOutBtn.style.display = "inline-block";
-      // load data
-      loadAnnouncements().catch(console.error);
-      // don't auto-load logs until user opens logs panel to avoid extra reads
-    }
-
-    // Auto-login if stored
-    if (localStorage.getItem("bloxoliteAccess") === "true") {
-      showDashboard();
-    }
-
-    // Sign out
-    signOutBtn.addEventListener("click", () => {
-      localStorage.removeItem("bloxoliteAccess");
-      loginOverlay.style.display = "";
-      mainPanel.style.display = "none";
-      signOutBtn.style.display = "none";
-      accessInput.value = "";
+    logoutButton.addEventListener("click", () => {
+      dashboard.classList.add("hidden");
+      loginSection.classList.remove("hidden");
+      document.getElementById("accessCode").value = "";
     });
 
-    /* ========== ANNOUNCEMENT: preview & post ========== */
-    function renderMarkdownToSafeHtml(md){
-      try {
-        const raw = marked.parse(md || "");
-        // sanitize with DOMPurify global
-        return DOMPurify.sanitize(raw, {ALLOWED_TAGS: ['b','i','em','strong','a','code','pre','ul','ol','li','p','br','span','h1','h2','h3'], ALLOWED_ATTR: ['href','target','style']});
-      } catch(e){
-        return DOMPurify.sanitize(String(md));
-      }
-    }
-
-    previewBtn.addEventListener("click", () => {
-      const title = annTitle.value || "No title";
-      const md = annMessage.value || "";
-      const tag = annTag.value || "";
-      const color = annColor.value || "#6366f1";
-      const img = annImage.value || "";
-
-      previewTitle.textContent = title;
-      previewTag.innerHTML = tag ? `<span class="ann-tag" style="background:${color}">#${tag}</span>` : "";
-      previewMessage.innerHTML = renderMarkdownToSafeHtml(md);
-
-      if (img) {
-        previewImage.src = img;
-        previewImage.style.display = "block";
-      } else {
-        previewImage.style.display = "none";
-        previewImage.src = "";
-      }
-
-      previewBox.style.display = "block";
-      // scroll to preview so user sees it (keeps UI behavior)
-      previewBox.scrollIntoView({behavior:"smooth", block:"center"});
-    });
-
-    postAnnBtn.addEventListener("click", async () => {
-      const title = annTitle.value.trim();
-      const md = annMessage.value.trim();
-      const tag = annTag.value.trim();
-      const color = annColor.value;
-      const img = annImage.value.trim();
-      const pinned = !!annPinned.checked;
-
-      if (!title || !md) {
-        postStatus.style.color = "#f97373";
-        postStatus.textContent = "Please fill title and message.";
-        return;
-      }
-
-      postStatus.style.color = "var(--muted)";
-      postStatus.textContent = "Posting…";
-
-      try {
-        await addDoc(collection(db, "announcements"), {
-          title,
-          message: md,
-          tag: tag || null,
-          color: color || null,
-          image: img || null,
-          pinned: pinned,
-          date: (new Date()).toLocaleString(),
-          createdAt: serverTimestamp()
-        });
-
-        postStatus.style.color = "#86efac";
-        postStatus.textContent = "✅ Posted!";
-        // clear inputs (but keep color)
-        annTitle.value = "";
-        annMessage.value = "";
-        annTag.value = "";
-        annImage.value = "";
-        annPinned.checked = false;
-        previewBox.style.display = "none";
-
-        // reload announcements (fresh)
-        await loadAnnouncements();
-      } catch (err) {
-        console.error(err);
-        postStatus.style.color = "#f97373";
-        postStatus.textContent = "Failed to post.";
-      }
-
-      setTimeout(()=> postStatus.textContent = "", 2500);
-    });
-
-    /* ========== LOAD ANNOUNCEMENTS ========== */
-    async function loadAnnouncements(){
-      annList.innerHTML = `<div style="color:var(--muted)">Loading announcements…</div>`;
-      try {
-        // pinned first, then createdAt desc
-        const q = query(collection(db, "announcements"), orderBy("pinned","desc"), orderBy("createdAt","desc"), limit(50));
-        const snap = await getDocs(q);
-
-        annList.innerHTML = "";
-        if (snap.empty) {
-          annList.innerHTML = `<div style="color:var(--muted)">No announcements yet.</div>`;
+    // === LOAD LOGS FROM REALTIME DATABASE ===
+    function loadLogs() {
+      const logsRef = ref(rtdb, "logs");
+      onValue(logsRef, (snapshot) => {
+        logList.innerHTML = "";
+        if (!snapshot.exists()) {
+          logList.innerHTML = "<p style='color:#9ca3af'>No logs yet.</p>";
           return;
         }
 
-        snap.forEach(doc => {
-          const a = doc.data();
-          const card = document.createElement("div");
-          card.className = "ann-card";
-
-          // title safe
-          const safeTitle = DOMPurify.sanitize(String(a.title || "Update"), {ALLOWED_TAGS: [], ALLOWED_ATTR: []});
-
-          // message rendered from markdown to safe HTML
-          const msgHtml = renderMarkdownToSafeHtml(a.message || "");
-
-          // tag badge
-          let tagHTML = "";
-          if (a.tag) {
-            const color = a.color || "#6366f1";
-            tagHTML = `<span class="ann-tag" style="background:${DOMPurify.sanitize(color)}">#${DOMPurify.sanitize(String(a.tag))}</span>`;
-          }
-
-          // image if present (sanitized URL)
-          const imgHTML = a.image ? `<img class="ann-image" src="${DOMPurify.sanitize(a.image)}" alt="announcement image">` : "";
-
-          // pinned icon
-          const pinned = a.pinned ? "📌 " : "";
-
-          // date
-          const date = a.date ? DOMPurify.sanitize(String(a.date)) : "";
-
-          card.innerHTML = `
-            <div class="ann-top">
-              <div>
-                <div class="ann-title">${pinned}${safeTitle}${tagHTML}</div>
-                <div class="ann-meta" style="margin-top:6px">${date}</div>
-              </div>
-            </div>
-            <div style="margin-top:10px;color:var(--muted)">${msgHtml}</div>
-            ${imgHTML}
+        const logs = Object.values(snapshot.val()).reverse();
+        logs.forEach(log => {
+          const div = document.createElement("div");
+          div.className = "log";
+          div.innerHTML = `
+            <strong>${log.player || "Unknown Player"}</strong> — ${log.reason || "No reason"}
+            <br><small style="color:#6b7280">${new Date(log.time || Date.now()).toLocaleString()}</small>
           `;
-
-          annList.appendChild(card);
+          logList.appendChild(div);
         });
-      } catch (e){
-        console.error(e);
-        annList.innerHTML = `<div style="color:#f97373">Failed to load announcements. Check Firestore/indexes.</div>`;
-      }
+      });
     }
 
-    /* ========== LOGS: toggle + load ========== */
-    let logsVisible = false;
-    toggleLogsBtn.addEventListener("click", async () => {
-      logsVisible = !logsVisible;
-      logsPanel.style.display = logsVisible ? "flex" : "none";
-      toggleLogsBtn.textContent = logsVisible ? "Hide Recent Logs" : "Show Recent Logs";
-      if (logsVisible) {
-        await loadLogs();
-      }
+    // === ANNOUNCEMENTS ===
+    async function loadAnnouncements() {
+      const q = query(collection(db, "announcements"), orderBy("createdAt", "desc"), limit(5));
+      const snap = await getDocs(q);
+      announcementList.innerHTML = "";
+      snap.forEach(doc => {
+        const data = doc.data();
+        const card = document.createElement("div");
+        card.className = "announcement";
+        card.innerHTML = `
+          <h4>${data.title || "Untitled"}</h4>
+          <p>${data.message}</p>
+          ${data.image ? `<img src="${data.image}" style="max-width:100%;border-radius:8px;margin-top:10px;">` : ""}
+          <small style="color:#6b7280">${data.date || "Unknown Date"}</small>
+        `;
+        announcementList.appendChild(card);
+      });
+    }
+
+    postBtn.addEventListener("click", async () => {
+      const title = announceTitle.value.trim();
+      const message = announceMessage.value.trim();
+
+      if (!title || !message) return alert("Please fill in all fields.");
+
+      await addDoc(collection(db, "announcements"), {
+        title,
+        message,
+        createdAt: serverTimestamp(),
+        date: new Date().toLocaleString()
+      });
+
+      announceTitle.value = "";
+      announceMessage.value = "";
+      loadAnnouncements();
     });
-
-    async function loadLogs(){
-      logsList.innerHTML = `<div style="color:var(--muted)">Loading logs…</div>`;
-      try {
-        const q = query(collection(db, "kickLogs"), orderBy("time","desc"), limit(30));
-        const snap = await getDocs(q);
-        logsList.innerHTML = "";
-        if (snap.empty) {
-          logsList.innerHTML = `<div style="color:var(--muted)">No recent logs.</div>`;
-          return;
-        }
-        snap.forEach(doc => {
-          const d = doc.data();
-          // d may have timestamp as string; sanitize
-          const player = d.player || d.playerName || "Unknown";
-          const reason = d.reason || "Unknown";
-          const time = d.time || d.timestamp || d.timeString || "";
-          const executor = d.executor || "System";
-
-          const el = document.createElement("div");
-          el.className = "log-card";
-          el.innerHTML = `
-            <div style="display:flex;justify-content:space-between;align-items:center">
-              <div style="font-weight:700;color:var(--accent-strong)">${DOMPurify.sanitize(String(player))}</div>
-              <div style="color:var(--muted);font-size:13px">${DOMPurify.sanitize(String(time))}</div>
-            </div>
-            <div style="margin-top:6px;color:var(--muted)">
-              <strong>Reason:</strong> ${DOMPurify.sanitize(String(reason))} • <strong>By:</strong> ${DOMPurify.sanitize(String(executor))}
-            </div>
-          `;
-          logsList.appendChild(el);
-        });
-      } catch (err){
-        console.error(err);
-        logsList.innerHTML = `<div style="color:#f97373">Failed to load logs.</div>`;
-      }
-    }
-
-    /* ========== INITIALS: nothing auto-loaded until login (keeps UI same) ========== */
-    // (Announcements will load when user verifies successfully or if already logged in)
   </script>
 </body>
 </html>
