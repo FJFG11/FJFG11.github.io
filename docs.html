@@ -7,13 +7,15 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg: #0d0d0f;
-      --card: #161618;
-      --border: #27272a;
-      --text: #ffffff;
+      --bg: #0c0c10;
+      --card: #141418;
+      --border: #26262a;
+      --text: #f9fafb;
       --muted: #a1a1aa;
       --accent: #6366f1;
-      --accent-hover: #818cf8;
+      --accent-hover: #8b5cf6;
+      --glow: 0 0 25px rgba(99,102,241,0.3);
+      --transition: 0.25s ease;
     }
 
     [data-theme="light"] {
@@ -24,9 +26,18 @@
       --muted: #444;
       --accent: #4f46e5;
       --accent-hover: #6366f1;
+      --glow: 0 0 15px rgba(99,102,241,0.2);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
 
     body {
       background: var(--bg);
@@ -34,9 +45,10 @@
       font-family: "Inter", sans-serif;
       display: flex;
       overflow-x: hidden;
-      transition: background 0.3s, color 0.3s;
+      transition: background var(--transition), color var(--transition);
     }
 
+    /* === SIDEBAR === */
     nav {
       position: fixed;
       top: 0;
@@ -45,107 +57,143 @@
       width: 280px;
       background: var(--card);
       border-right: 1px solid var(--border);
-      padding: 30px 25px;
+      padding: 35px 25px;
       overflow-y: auto;
-      transition: background 0.3s;
+      box-shadow: var(--glow);
+      transition: background var(--transition), border var(--transition);
+    }
+
+    nav::-webkit-scrollbar { width: 6px; }
+    nav::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 6px;
     }
 
     nav h2 {
       color: var(--accent);
       font-size: 22px;
-      margin-bottom: 25px;
+      margin-bottom: 30px;
       font-weight: 700;
+      letter-spacing: -0.3px;
     }
 
     nav a {
       display: block;
       color: var(--muted);
       text-decoration: none;
-      margin: 10px 0;
-      transition: 0.2s;
+      margin: 8px 0;
+      padding: 8px 0;
+      border-left: 3px solid transparent;
       font-size: 15px;
-      padding: 6px 0;
+      font-weight: 500;
+      transition: color var(--transition), border var(--transition), padding var(--transition);
     }
 
     nav a:hover, nav a.active {
       color: var(--accent-hover);
-      font-weight: 600;
+      border-left: 3px solid var(--accent);
+      padding-left: 8px;
     }
 
+    /* === MAIN === */
     main {
       flex: 1;
       margin-left: 280px;
-      padding: 60px 80px;
+      padding: 70px 80px;
       max-width: 950px;
+      animation: fadeIn 0.6s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     header {
       border-bottom: 1px solid var(--border);
-      margin-bottom: 40px;
-      padding-bottom: 20px;
+      margin-bottom: 50px;
+      padding-bottom: 25px;
     }
 
     header h1 {
-      font-size: 40px;
-      font-weight: 700;
-      background: linear-gradient(to right, var(--accent), var(--accent-hover));
+      font-size: 42px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      margin-bottom: 10px;
     }
 
     header p {
       color: var(--muted);
-      font-size: 16px;
-      margin-top: 10px;
+      font-size: 17px;
+      line-height: 1.7;
+      max-width: 750px;
     }
 
+    /* === SECTIONS === */
     section {
-      margin-bottom: 60px;
+      margin-bottom: 70px;
+      background: var(--card);
+      padding: 40px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--glow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    section:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 0 30px rgba(99,102,241,0.25);
     }
 
     h2 {
       color: var(--accent-hover);
-      font-size: 24px;
-      margin-bottom: 12px;
-      font-weight: 600;
+      font-size: 26px;
+      margin-bottom: 16px;
+      font-weight: 700;
     }
 
     h3 {
       color: var(--accent);
       margin-top: 25px;
       margin-bottom: 8px;
-      font-size: 18px;
+      font-size: 19px;
+      font-weight: 600;
     }
 
     p {
       color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.75;
       font-size: 15px;
       margin-bottom: 15px;
     }
 
-    ul {
-      margin: 10px 0 20px 25px;
+    ul, ol {
+      margin: 15px 0 25px 25px;
       color: var(--muted);
+      line-height: 1.6;
     }
 
     li { margin-bottom: 8px; }
 
+    /* === CODE === */
     pre {
-      background: var(--card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 16px;
+      padding: 18px;
       overflow-x: auto;
       color: var(--accent-hover);
-      font-family: monospace;
+      font-family: "JetBrains Mono", monospace;
       font-size: 14px;
       line-height: 1.6;
       margin-top: 10px;
+      box-shadow: inset 0 0 15px rgba(99,102,241,0.1);
     }
 
     code {
-      background: var(--card);
+      background: rgba(99,102,241,0.08);
       border-radius: 6px;
       padding: 2px 6px;
       border: 1px solid var(--border);
@@ -153,44 +201,46 @@
       color: var(--accent-hover);
     }
 
+    /* === FOOTER === */
     footer {
       border-top: 1px solid var(--border);
-      margin-top: 80px;
-      padding-top: 30px;
+      margin-top: 100px;
+      padding-top: 40px;
       color: var(--muted);
       text-align: center;
       font-size: 14px;
+      opacity: 0.8;
     }
 
     footer a {
       color: var(--accent);
       text-decoration: none;
+      transition: 0.2s;
     }
 
     footer a:hover {
       color: var(--accent-hover);
+      text-decoration: underline;
     }
 
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
-
-    /* Theme toggle button */
+    /* === THEME TOGGLE === */
     .theme-toggle {
       background: var(--accent);
       border: none;
       color: white;
-      padding: 8px 14px;
+      padding: 10px 16px;
       border-radius: 8px;
       font-weight: 600;
       cursor: pointer;
       font-size: 14px;
-      margin-top: 20px;
-      transition: 0.2s;
+      margin-top: 25px;
+      transition: background var(--transition), transform 0.2s;
+      width: 100%;
     }
 
     .theme-toggle:hover {
       background: var(--accent-hover);
+      transform: scale(1.03);
     }
 
   </style>
