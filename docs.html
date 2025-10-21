@@ -1,111 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>BloxOLite — Docs</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
-<style>
-  :root{--bg:#0d0d0f;--card:#16161a;--border:#26262a;--accent:#5865f2;--text:#fff;--muted:#9ca3af}
-  [data-theme="light"]{--bg:#f6f7fb;--card:#fff;--border:#d1d5db;--accent:#4f46e5;--text:#111827;--muted:#6b7280}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto}
-  nav{display:flex;justify-content:space-between;align-items:center;padding:12px 24px;background:var(--card);border-bottom:1px solid var(--border)}
-  .logo{font-weight:700;color:var(--accent)}
-  main{max-width:1100px;margin:28px auto;padding:0 20px}
-  .panel{background:var(--card);border:1px solid var(--border);padding:18px;border-radius:12px}
-  h1{color:var(--accent);margin-bottom:6px}
-  pre{background:transparent;padding:12px;border-radius:8px;overflow:auto}
-  code{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Roboto Mono,monospace;font-size:13px}
-  .docs-grid{display:grid;grid-template-columns:1fr 320px;gap:18px}
-  .toc{background:var(--card);border:1px solid var(--border);padding:12px;border-radius:10px;height:fit-content}
-  .ann-list{margin-top:12px}
-  .ann{background:var(--bg);border:1px solid var(--border);padding:10px;border-radius:8px;margin-bottom:8px}
-  .theme-btn{background:var(--border);color:var(--text);padding:8px 12px;border-radius:8px}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BloxOLite Docs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0d0d0f;
+      --card: #161618;
+      --border: #27272a;
+      --text: #ffffff;
+      --muted: #a1a1aa;
+      --accent: #6366f1;
+      --accent-hover: #818cf8;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Inter", sans-serif;
+      display: flex;
+      margin: 0;
+      overflow-x: hidden;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      width: 250px;
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      padding: 40px 20px;
+    }
+
+    nav h2 {
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    nav a {
+      display: block;
+      color: var(--muted);
+      text-decoration: none;
+      margin: 10px 0;
+      transition: 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent-hover);
+    }
+
+    main {
+      margin-left: 260px;
+      padding: 60px 80px;
+      max-width: 900px;
+    }
+
+    h1, h2, h3 {
+      color: var(--accent-hover);
+      margin-bottom: 12px;
+    }
+
+    p {
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    code {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 6px;
+      font-family: monospace;
+      color: var(--accent-hover);
+    }
+
+    pre {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      overflow-x: auto;
+      color: var(--accent-hover);
+    }
+  </style>
 </head>
 <body>
   <nav>
-    <div class="logo">BloxOLite Docs</div>
-    <div>
-      <button id="themeBtn" class="theme-btn">🌙</button>
-      <a href="index.html" style="margin-left:12px;color:var(--muted);text-decoration:none">Home</a>
-      <a href="dashboard.html" style="margin-left:12px;color:var(--muted);text-decoration:none">Dashboard</a>
-    </div>
+    <h2>BloxOLite Docs</h2>
+    <a href="#intro">Introduction</a>
+    <a href="#install">Installation</a>
+    <a href="#commands">Commands</a>
+    <a href="index.html">← Back Home</a>
   </nav>
 
   <main>
-    <div class="docs-grid">
-      <div>
-        <div class="panel">
-          <h1>Getting Started</h1>
-          <p style="color:var(--muted)">Quick start guide for integrating BloxOLite into your Roblox game.</p>
+    <section id="intro">
+      <h1>Introduction</h1>
+      <p>BloxOLite provides a reliable moderation and anti-exploit system designed for Roblox developers. It’s built to be lightweight, secure, and easy to integrate.</p>
+    </section>
 
-          <h3>Install</h3>
-          <pre><code class="language-lua">-- Example: Place this server script in ServerScriptService
-ougogeoufgeovefef
--- ...</code></pre>
+    <section id="install">
+      <h2>Installation</h2>
+      <p>1. Download the <code>BloxOLite</code> module from our GitHub.<br>
+      2. Insert it into <code>ServerScriptService</code>.<br>
+      3. Follow the configuration instructions below.</p>
+    </section>
 
-  
-          <h3>API / Logs</h3>
-          <pre><code class="language-json">{
-  "player": "User123",
-  "userId": 123456,
-  "action": "Kick",
-  "reason": "Speed exploit",
-  "serverJobId": "job-uuid",
-  "placeId": 123456,
-  "time": 1739584820223
-}</code></pre>
-        </div>
-      </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-  <script>hljs.highlightAll();</script>
-
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-    import { getFirestore, collection, getDocs, query, orderBy, limit } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyBZJa5yjFeCmAPOQOHUKCZpq_yEyCJtdPI",
-      authDomain: "bloxolite.firebaseapp.com",
-      projectId: "bloxolite",
-      storageBucket: "bloxolite.firebasestorage.app",
-      messagingSenderId: "261033706903",
-      appId: "1:261033706903:web:241f50fbaf65209dfa30d2"
-    };
-
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const annList = document.getElementById("annList");
-
-    async function loadAnnouncements(){
-      annList.innerHTML = "<div style='color:var(--muted)'>Loading…</div>";
-      try {
-        const q = query(collection(db,"announcements"), orderBy("createdAt","desc"), limit(6));
-        const snap = await getDocs(q);
-        annList.innerHTML = "";
-        if (snap.empty) { annList.innerHTML = "<div style='color:var(--muted)'>No announcements.</div>"; return; }
-        snap.forEach(doc=>{
-          const a = doc.data();
-          const d = document.createElement("div"); d.className="ann";
-          d.innerHTML = `<strong style="color:var(--accent)">${a.title||"Update"}</strong><div style="color:var(--muted);font-size:13px">${a.date||""}</div><div style="color:var(--muted);margin-top:6px">${a.message||""}</div>`;
-          annList.appendChild(d);
-        });
-      } catch(e){ console.error(e); annList.innerHTML = "<div style='color:#f97373'>Failed to load.</div>" }
-    }
-
-    loadAnnouncements();
-
-    // theme toggle
-    const themeBtn = document.getElementById("themeBtn");
-    themeBtn.onclick = () => {
-      const cur = document.documentElement.getAttribute("data-theme");
-      if (cur==="light"){ document.documentElement.removeAttribute("data-theme"); localStorage.setItem("theme","dark"); themeBtn.textContent="🌙"; }
-      else { document.documentElement.setAttribute("data-theme","light"); localStorage.setItem("theme","light"); themeBtn.textContent="☀️"; }
-    };
-    if (localStorage.getItem("theme")==="light"){ document.documentElement.setAttribute("data-theme","light"); themeBtn.textContent="☀️"; }
-  </script>
+    <section id="commands">
+      <h2>Commands</h2>
+      <pre><code>/kick [user] [reason]
+/ban [user] [duration] [reason]
+/unban [user]
+/warn [user] [message]
+/logs [user]</code></pre>
+      <p>All commands are permission-based and fully configurable within the Settings module.</p>
+    </section>
+  </main>
 </body>
 </html>
