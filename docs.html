@@ -232,14 +232,14 @@
       <pre><code>return {
 
     ["General_Settings"] = {
-		    ["prefix"] = ";", -- Default prefix for commands
-		    ["Hotkey"] = "h", -- Default hotkey to open the panel (IF THE SYSTEM BREAKS IT AUTO SETS TO F4)
-		    ["BanData"] = data:GetDataStore("BanData123"), -- Datastore for ban data
-		    ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- Datastore for moderation logs E.g ModerationLogs4
-		    ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Webhook Url for your ban commands (ban, serverban, idban, pban)
+	  ["prefix"] = ";", -- Default prefix for commands
+	  ["Hotkey"] = "h", -- Default hotkey to open the panel (IF THE SYSTEM BREAKS IT AUTO SETS TO F4)
+	  ["BanData"] = data:GetDataStore("BanData123"), -- Datastore for ban data
+	  ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- Datastore for moderation logs E.g ModerationLogs4
+	  ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Webhook Url for your ban commands (ban, serverban, idban, pban)
 		
-		    ["BanPlaceEnabled"] = true, -- Does that game tp banned players when banned?
-		    ["BanPlaceID"] = "1234567890" -- Ban Place ID
+      ["BanPlaceEnabled"] = true, -- Does that game tp banned players when banned?
+	  ["BanPlaceID"] = "1234567890" -- Ban Place ID
 	},
 
 }</code></pre>
@@ -247,15 +247,15 @@
       <h2>Rank Settings</h2>
       <pre><code>return {
 
-    ["Guest"] = {
-				["Rank_Needed"] = 0, -- Rank needed to use this rank
-				["Enabled"] = true, -- If disabled this rank will not be able to use the panel or commands
-				["Execute_Code"] = false, -- If enabled this rank will be able to execute code from the execute command
-				["Usable_Commands"] = { -- Commands this rank can use (Ranks Above can also use these)
+     ["Guest"] = {
+	   ["Rank_Needed"] = 0, -- Rank needed to use this rank
+	   ["Enabled"] = true, -- If disabled this rank will not be able to use the panel or commands
+	   ["Execute_Code"] = false, -- If enabled this rank will be able to execute code from the execute command
+	   ["Usable_Commands"] = { -- Commands this rank can use (Ranks Above can also use these)
 					
-					"panel", "cmds", "Clear", "help", "credits"
-				},
-			},
+		   "panel", "cmds", "Clear", "help", "credits"
+		  },
+		},
         
 }</code></pre>
     </section>
@@ -264,10 +264,8 @@
       <h2>Roblox Security Settings</h2>
       <h3>These need to be on in your game for MAES to work.</h3>
       <pre><code>
-
         Allow HTTPS request = true (Remote Events)
         API Services = true (DataStores)
-
       </code></pre>
     </section>
     
