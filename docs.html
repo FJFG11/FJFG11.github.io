@@ -202,7 +202,6 @@
     <a href="#install">Installation</a>
     <a href="#config">Configuration</a>
     <a href="#commands">Commands</a>
-    <a href="#faq">FAQ</a>
     <a href="index.html">← Back Home</a>
     <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
   </nav>
@@ -210,56 +209,66 @@
   <main>
     <header>
       <h1>Documentation</h1>
-      <p>Everything you need to know about setting up and customizing BloxOLite for your Roblox experience.</p>
+      <p>Everything you need to know about setting up and customizing MAES (Moderation and Enforcement System) for your Roblox experience.</p>
     </header>
 
     <section id="intro">
       <h2>Introduction</h2>
-      <p>BloxOLite is a lightweight moderation and anti-exploit framework designed for Roblox developers. It integrates directly into your game and provides real-time tools for managing player activity, security, and behavior.</p>
-      <ul>
-        <li>🔒 Advanced exploit detection system.</li>
-        <li>🛠️ Fully modular command setup.</li>
-        <li>📊 Integrated logging dashboard (Firebase-ready).</li>
-      </ul>
+      <p>MAES is a open source moderation system also known as a Custom Admin system that can be customized to your liking.</p>
     </section>
 
     <section id="install">
       <h2>Installation</h2>
-      <p>To install BloxOLite, follow these simple steps:</p>
+      <p>To install MAES, follow these simple steps:</p>
       <ol>
-        <li>Insert the folder into <code>ServerScriptService</code>.</li>
-        <li>Configure your permissions and settings in the <code>Settings</code> module.</li>
+        <li>Download MAES from the discord.</li>
+        <li>Insert the <code>Server</code> into <code>ServerScriptService</code>.</li>
+        <li>Configure your permissions and settings in the <code>BloxOLite</code> module.</li>
       </ol>
-      <pre><code>-- Example:
-local BloxOLite = require(game.ServerScriptService.BloxOLite)
-BloxOLite.Init()</code></pre>
     </section>
 
     <section id="config">
-      <h2>Configuration</h2>
-      <p>BloxOLite uses a single <code>Settings</code> module to define ranks, permissions, and command categories.</p>
+      <h2>General Settings</h2>
       <pre><code>return {
-  BaseRolePermissions = {
-    ["Staff"] = { "kick", "ban", "warn" },
-    ["Developer"] = { "kick", "ban", "unban", "logs" },
-    ["Owner"] = { "kick", "ban", "unban", "logs", "announce" },
-  },
-  TBDS = "TempBanStore",
-  MCPH = "ModerationLogs"
+
+    ["General_Settings"] = {
+		    ["prefix"] = ";", -- Default prefix for commands
+		    ["Hotkey"] = "h", -- Default hotkey to open the panel (IF THE SYSTEM BREAKS IT AUTO SETS TO F4)
+		    ["BanData"] = data:GetDataStore("BanData123"), -- Datastore for ban data
+		    ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- Datastore for moderation logs E.g ModerationLogs4
+		    ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Webhook Url for your ban commands (ban, serverban, idban, pban)
+		
+		    ["BanPlaceEnabled"] = true, -- Does that game tp banned players when banned?
+		    ["BanPlaceID"] = "1234567890" -- Ban Place ID
+	},
+
+}</code></pre>
+
+      <h2>Rank Settings</h2>
+      <pre><code>return {
+
+    ["Guest"] = {
+				["Rank_Needed"] = 0, -- Rank needed to use this rank
+				["Enabled"] = true, -- If disabled this rank will not be able to use the panel or commands
+				["Execute_Code"] = false, -- If enabled this rank will be able to execute code from the execute command
+				["Usable_Commands"] = { -- Commands this rank can use (Ranks Above can also use these)
+					
+					"panel", "cmds", "Clear", "help", "credits"
+				},
+			},
+        
 }</code></pre>
     </section>
 
     <section id="commands">
-      <h2>Commands</h2>
-      <h3>Basic Commands</h3>
-      <pre><code>/kick [user] [reason]
-/ban [user] [duration] [reason]
-/unban [user]
-/warn [user] [message]</code></pre>
+      <h2>Roblox Security Settings</h2>
+      <h3>These need to be on in your game for MAES to work.</h3>
+      <pre><code>
 
-      <h3>Developer Commands</h3>
-      <pre><code>/logs [user] → View moderation history.
-/debughistory [user] → Show stored punishment data.</code></pre>
+        Allow HTTPS request = true (Remote Events)
+        API Services = true (DataStores)
+
+      </code></pre>
     </section>
     
     <footer>
