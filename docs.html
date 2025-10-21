@@ -29,15 +29,9 @@
       --glow: 0 0 15px rgba(99,102,241,0.2);
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
@@ -48,7 +42,7 @@
       transition: background var(--transition), color var(--transition);
     }
 
-    /* === SIDEBAR === */
+    /* Sidebar */
     nav {
       position: fixed;
       top: 0;
@@ -95,7 +89,7 @@
       padding-left: 8px;
     }
 
-    /* === MAIN === */
+    /* Main */
     main {
       flex: 1;
       margin-left: 280px;
@@ -131,7 +125,7 @@
       max-width: 750px;
     }
 
-    /* === SECTIONS === */
+    /* Sections */
     section {
       margin-bottom: 70px;
       background: var(--card);
@@ -177,14 +171,14 @@
 
     li { margin-bottom: 8px; }
 
-    /* === CODE === */
+    /* Code */
     pre {
-      background: var(--bg);
+      background: #0f0f13;
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 18px;
       overflow-x: auto;
-      color: var(--accent-hover);
+      color: #d1d5ff;
       font-family: "JetBrains Mono", monospace;
       font-size: 14px;
       line-height: 1.6;
@@ -201,7 +195,7 @@
       color: var(--accent-hover);
     }
 
-    /* === FOOTER === */
+    /* Footer */
     footer {
       border-top: 1px solid var(--border);
       margin-top: 100px;
@@ -223,7 +217,7 @@
       text-decoration: underline;
     }
 
-    /* === THEME TOGGLE === */
+    /* Theme toggle */
     .theme-toggle {
       background: var(--accent);
       border: none;
@@ -242,7 +236,6 @@
       background: var(--accent-hover);
       transform: scale(1.03);
     }
-
   </style>
 </head>
 <body>
@@ -251,7 +244,8 @@
     <a href="#intro" class="active">Introduction</a>
     <a href="#install">Installation</a>
     <a href="#config">Configuration</a>
-    <a href="#RSS">Security</a>
+    <a href="#permissions">Permissions</a>
+    <a href="#security">Security</a>
     <a href="index.html">← Back Home</a>
     <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
   </nav>
@@ -259,66 +253,66 @@
   <main>
     <header>
       <h1>Documentation</h1>
-      <p>Everything you need to know about setting up and customizing MAES (Moderation and Enforcement System) for your Roblox experience.</p>
+      <p>Everything you need to know about setting up and customizing MAES (Moderation and Enforcement System) for your Roblox experience — from installation to advanced configuration and security settings.</p>
     </header>
 
     <section id="intro">
       <h2>Introduction</h2>
-      <p>MAES is a open source moderation system also known as a Custom Admin system that can be customized to your liking.</p>
+      <p>MAES (Moderation and Enforcement System) is a lightweight, modular admin framework built for Roblox developers who want full control over their moderation features. It’s fast, extensible, and supports full integration with your Discord or external dashboard.</p>
+      <p>Each command, permission, and action is modular — making it perfect for custom game environments or roleplay servers like prisons, hotels, or city games.</p>
     </section>
 
     <section id="install">
       <h2>Installation</h2>
-      <p>To install MAES, follow these simple steps:</p>
+      <p>Follow these steps to set up MAES in your game:</p>
       <ol>
-        <li>Download MAES from the discord.</li>
-        <li>Insert the <code>Server</code> into <code>ServerScriptService</code>.</li>
-        <li>Configure your permissions and settings in the <code>BloxOLite</code> module.</li>
+        <li>Download MAES from the official Discord or GitHub release.</li>
+        <li>Place the <code>Server</code> folder into <code>ServerScriptService</code>.</li>
+        <li>Edit your <code>BloxOLite</code> module inside <code>ServerScriptService</code> to match your group roles and permissions.</li>
+        <li>Test in Studio — you should see the panel hotkey appear and commands load properly.</li>
       </ol>
     </section>
 
     <section id="config">
-      <h2>General Settings</h2>
+      <h2>General Configuration</h2>
       <pre><code>return {
-
-    ["General_Settings"] = {
-	  ["prefix"] = ";", -- Default prefix for commands
-	  ["Hotkey"] = "h", -- Default hotkey to open the panel (IF THE SYSTEM BREAKS IT AUTO SETS TO F4)
-	  ["BanData"] = data:GetDataStore("BanData123"), -- Datastore for ban data
-	  ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- Datastore for moderation logs E.g ModerationLogs4
-	  ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Webhook Url for your ban commands (ban, serverban, idban, pban)
-		
-      ["BanPlaceEnabled"] = true, -- Does that game tp banned players when banned?
-	  ["BanPlaceID"] = "1234567890" -- Ban Place ID
-	},
-
-}</code></pre>
-
-      <h2>Rank Settings</h2>
-      <pre><code>return {
-
-     ["Guest"] = {
-	   ["Rank_Needed"] = 0, -- Rank needed to use this rank
-	   ["Enabled"] = true, -- If disabled this rank will not be able to use the panel or commands
-	   ["Execute_Code"] = false, -- If enabled this rank will be able to execute code from the execute command
-	   ["Usable_Commands"] = { -- Commands this rank can use (Ranks Above can also use these)
-					
-		   "panel", "cmds", "Clear", "help", "credits"
-		  },
-		},
-        
+  ["General_Settings"] = {
+    ["prefix"] = ";", -- Default prefix for commands
+    ["Hotkey"] = "h", -- Default key to open the panel (auto sets to F4 if it breaks)
+    ["BanData"] = data:GetDataStore("BanData123"), -- DataStore for bans
+    ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- DataStore for moderation logs
+    ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Discord webhook for punishments
+    ["BanPlaceEnabled"] = true, -- Teleport banned players to ban place?
+    ["BanPlaceID"] = "1234567890", -- Ban place ID
+  },
 }</code></pre>
     </section>
 
-    <section id="RSS">
-      <h2>Roblox Security Settings</h2>
-      <h3>These need to be on in your game for MAES to work.</h3>
+    <section id="permissions">
+      <h2>Rank & Permission Settings</h2>
+      <pre><code>return {
+  ["Guest"] = {
+    ["Rank_Needed"] = 0, -- Minimum group rank
+    ["Enabled"] = true, -- If disabled, this rank can't use MAES
+    ["Execute_Code"] = false, -- Allows execution of custom Lua code
+    ["Usable_Commands"] = {
+      "panel", "cmds", "clear", "help", "credits"
+    },
+  },
+}</code></pre>
+      <p>Ranks stack — meaning higher roles automatically inherit lower-rank permissions.</p>
+    </section>
+
+    <section id="security">
+      <h2>Security & Roblox Settings</h2>
+      <h3>Ensure these features are enabled:</h3>
       <pre><code>
-        Allow HTTPS request = true (Remote Events)
-        API Services = true (DataStores)
+Allow HTTPS Requests = true (for Remote Events)
+Enable API Services = true (for DataStores)
       </code></pre>
+      <p>Without these, MAES will not be able to communicate with Discord or your dashboard.</p>
     </section>
-    
+
     <footer>
       <p>© 2025 BloxOLite. Built with ❤️ for Roblox developers. | <a href="https://discord.gg/tcxqKNR649" target="_blank">Join Discord</a></p>
     </footer>
