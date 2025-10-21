@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BloxOLite Docs</title>
+  <title>BloxOLite — Documentation</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -16,13 +16,25 @@
       --accent-hover: #818cf8;
     }
 
+    [data-theme="light"] {
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --border: #e4e4e7;
+      --text: #111;
+      --muted: #444;
+      --accent: #4f46e5;
+      --accent-hover: #6366f1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       background: var(--bg);
       color: var(--text);
       font-family: "Inter", sans-serif;
       display: flex;
-      margin: 0;
       overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
     }
 
     nav {
@@ -30,16 +42,18 @@
       top: 0;
       left: 0;
       height: 100vh;
-      width: 250px;
+      width: 280px;
       background: var(--card);
       border-right: 1px solid var(--border);
-      padding: 40px 20px;
+      padding: 30px 25px;
+      overflow-y: auto;
+      transition: background 0.3s;
     }
 
     nav h2 {
       color: var(--accent);
-      margin-bottom: 20px;
       font-size: 22px;
+      margin-bottom: 25px;
       font-weight: 700;
     }
 
@@ -49,79 +63,220 @@
       text-decoration: none;
       margin: 10px 0;
       transition: 0.2s;
+      font-size: 15px;
+      padding: 6px 0;
     }
 
-    nav a:hover {
+    nav a:hover, nav a.active {
       color: var(--accent-hover);
+      font-weight: 600;
     }
 
     main {
-      margin-left: 260px;
+      flex: 1;
+      margin-left: 280px;
       padding: 60px 80px;
-      max-width: 900px;
+      max-width: 950px;
     }
 
-    h1, h2, h3 {
+    header {
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+      padding-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 40px;
+      font-weight: 700;
+      background: linear-gradient(to right, var(--accent), var(--accent-hover));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 16px;
+      margin-top: 10px;
+    }
+
+    section {
+      margin-bottom: 60px;
+    }
+
+    h2 {
       color: var(--accent-hover);
+      font-size: 24px;
       margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    h3 {
+      color: var(--accent);
+      margin-top: 25px;
+      margin-bottom: 8px;
+      font-size: 18px;
     }
 
     p {
       color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 20px;
+      line-height: 1.7;
+      font-size: 15px;
+      margin-bottom: 15px;
     }
 
-    code {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 3px 6px;
-      font-family: monospace;
-      color: var(--accent-hover);
+    ul {
+      margin: 10px 0 20px 25px;
+      color: var(--muted);
     }
+
+    li { margin-bottom: 8px; }
 
     pre {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 20px;
+      padding: 16px;
       overflow-x: auto;
       color: var(--accent-hover);
+      font-family: monospace;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-top: 10px;
     }
+
+    code {
+      background: var(--card);
+      border-radius: 6px;
+      padding: 2px 6px;
+      border: 1px solid var(--border);
+      font-family: monospace;
+      color: var(--accent-hover);
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+      padding-top: 30px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--accent-hover);
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 8px; }
+
+    /* Theme toggle button */
+    .theme-toggle {
+      background: var(--accent);
+      border: none;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 14px;
+      margin-top: 20px;
+      transition: 0.2s;
+    }
+
+    .theme-toggle:hover {
+      background: var(--accent-hover);
+    }
+
   </style>
 </head>
 <body>
   <nav>
     <h2>BloxOLite Docs</h2>
-    <a href="#intro">Introduction</a>
+    <a href="#intro" class="active">Introduction</a>
     <a href="#install">Installation</a>
+    <a href="#config">Configuration</a>
     <a href="#commands">Commands</a>
+    <a href="#faq">FAQ</a>
     <a href="index.html">← Back Home</a>
+    <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
   </nav>
 
   <main>
+    <header>
+      <h1>Documentation</h1>
+      <p>Everything you need to know about setting up and customizing BloxOLite for your Roblox experience.</p>
+    </header>
+
     <section id="intro">
-      <h1>Introduction</h1>
-      <p>BloxOLite provides a reliable moderation and anti-exploit system designed for Roblox developers. It’s built to be lightweight, secure, and easy to integrate.</p>
+      <h2>Introduction</h2>
+      <p>BloxOLite is a lightweight moderation and anti-exploit framework designed for Roblox developers. It integrates directly into your game and provides real-time tools for managing player activity, security, and behavior.</p>
+      <ul>
+        <li>🔒 Advanced exploit detection system.</li>
+        <li>🛠️ Fully modular command setup.</li>
+        <li>📊 Integrated logging dashboard (Firebase-ready).</li>
+      </ul>
     </section>
 
     <section id="install">
       <h2>Installation</h2>
-      <p>1. Download the <code>BloxOLite</code> module from our GitHub.<br>
-      2. Insert it into <code>ServerScriptService</code>.<br>
-      3. Follow the configuration instructions below.</p>
+      <p>To install BloxOLite, follow these simple steps:</p>
+      <ol>
+        <li>Insert the folder into <code>ServerScriptService</code>.</li>
+        <li>Configure your permissions and settings in the <code>Settings</code> module.</li>
+      </ol>
+      <pre><code>-- Example:
+local BloxOLite = require(game.ServerScriptService.BloxOLite)
+BloxOLite.Init()</code></pre>
+    </section>
+
+    <section id="config">
+      <h2>Configuration</h2>
+      <p>BloxOLite uses a single <code>Settings</code> module to define ranks, permissions, and command categories.</p>
+      <pre><code>return {
+  BaseRolePermissions = {
+    ["Staff"] = { "kick", "ban", "warn" },
+    ["Developer"] = { "kick", "ban", "unban", "logs" },
+    ["Owner"] = { "kick", "ban", "unban", "logs", "announce" },
+  },
+  TBDS = "TempBanStore",
+  MCPH = "ModerationLogs"
+}</code></pre>
     </section>
 
     <section id="commands">
       <h2>Commands</h2>
+      <h3>Basic Commands</h3>
       <pre><code>/kick [user] [reason]
 /ban [user] [duration] [reason]
 /unban [user]
-/warn [user] [message]
-/logs [user]</code></pre>
-      <p>All commands are permission-based and fully configurable within the Settings module.</p>
+/warn [user] [message]</code></pre>
+
+      <h3>Developer Commands</h3>
+      <pre><code>/logs [user] → View moderation history.
+/debughistory [user] → Show stored punishment data.</code></pre>
     </section>
+    
+    <footer>
+      <p>© 2025 BloxOLite. Built with ❤️ for Roblox developers. | <a href="https://discord.gg/tcxqKNR649" target="_blank">Join Discord</a></p>
+    </footer>
   </main>
+
+  <script>
+    const toggle = document.getElementById("themeToggle");
+    toggle.addEventListener("click", () => {
+      const current = document.body.getAttribute("data-theme");
+      if (current === "light") {
+        document.body.removeAttribute("data-theme");
+      } else {
+        document.body.setAttribute("data-theme", "light");
+      }
+    });
+  </script>
 </body>
 </html>
