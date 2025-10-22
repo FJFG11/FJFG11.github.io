@@ -246,6 +246,7 @@
     <a href="#config">Configuration</a>
     <a href="#permissions">Permissions</a>
     <a href="#security">Security</a>
+     <a href="#NC">Custom Commands</a>
     <a href="index.html">← Back Home</a>
     <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
   </nav>
@@ -308,6 +309,28 @@
 Enable API Services = true (for DataStores)
       </code></pre>
       <p>Without these, MAES will not be able to communicate with Discord.</p>
+    </section>
+
+      <section id="NC">
+      <h2>Custom Commands</h2>
+      <h3>To add custom commands create a new module script in one of the command folders then add the code in.</h3>
+      <pre><code>local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RepFolder = ReplicatedStorage:WaitForChild("NameHereFolder")
+local messages = require(RepFolder:WaitForChild("ClientMessages"))
+local CommandStatusEvent = RepFolder:WaitForChild("CommandStatusEvent")
+
+return {
+	Name = "CommandName",
+	Aliases = {},
+	Description = "Description of what the command does.",
+	Enabled = true,
+	Function = function(player, args, Deps)
+       -- command Function
+		return true
+	end
+}
+      </code></pre>
+      <p>Then insert the Name, Description, Function also make sure to add the command name to a rank in BloxOLite_Config.</p>
     </section>
 
     <footer>
