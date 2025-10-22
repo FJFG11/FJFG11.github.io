@@ -277,13 +277,14 @@
       <h2>General Configuration</h2>
       <pre><code>return {
   ["General_Settings"] = {
-    ["prefix"] = ";",
-    ["Hotkey"] = "h",
-    ["BanData"] = data:GetDataStore("BanData123"),
-    ["Modlogs"] = data:GetDataStore("ModerationLogs123"),
-    ["WebHookUrl"] = "https://discord.com/api/webhooks/...",
-    ["BanPlaceEnabled"] = true,
-    ["BanPlaceID"] = "1234567890",
+    ["prefix"] = ";", -- Prefix used in game to execute commands
+    ["Hotkey"] = "h", -- key that shows the UI
+    ["BanData"] = data:GetDataStore("BanData123"), -- The ban data
+    ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- The ModLogs Data
+    ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Discord Webhook for ban logging
+		  
+    ["BanPlaceEnabled"] = true, -- If the ban place is enabled or not
+    ["BanPlaceID"] = "1234567890", -- Ban place ID
   },
 }</code></pre>
     </section>
@@ -291,12 +292,12 @@
     <section id="permissions">
       <h2>Rank & Permission Settings</h2>
       <pre><code>return {
-  ["Guest"] = {
-    ["Rank_Needed"] = 0,
-    ["Enabled"] = true,
-    ["Execute_Code"] = false,
-    ["Usable_Commands"] = {
-      "panel", "cmds", "clear", "help", "credits"
+  ["Guest"] = { -- Rank Name
+    ["Rank_Needed"] = 0, -- Group rank needed
+    ["Enabled"] = true, -- Rank Enabled
+    ["Execute_Code"] = false, -- can it use 'runlua'
+    ["Usable_Commands"] = { -- Command this rank+ can use
+      "panel", "cmds", "clear", "help", "credits" -- command Names
     },
   },
 }</code></pre>
@@ -307,8 +308,7 @@
       <h2>Security & Roblox Settings</h2>
       <h3>Ensure these features are enabled:</h3>
       <pre><code>Allow HTTPS Requests = true (for Remote Events)
-Enable API Services = true (for DataStores)
-      </code></pre>
+      Enable API Services = true (for DataStores)</code></pre>
       <p>Without these, MAES will not be able to communicate with Discord.</p>
     </section>
 
@@ -321,7 +321,7 @@ local messages = require(RepFolder:WaitForChild("ClientMessages"))
 local CommandStatusEvent = RepFolder:WaitForChild("CommandStatusEvent")
 
 return {
-	Name = "CommandName",
+	Name = "CommandName", 
 	Aliases = {},
 	Description = "Description of what the command does.",
 	Enabled = true,
