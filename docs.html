@@ -9,26 +9,24 @@
     :root {
       --bg: #0c0c10;
       --card: #141418;
-      --border: #1f1f23;
+      --border: #26262a;
       --text: #f9fafb;
       --muted: #a1a1aa;
       --accent: #6366f1;
       --accent-hover: #8b5cf6;
-      --code-bg: linear-gradient(145deg, #101014, #141418);
-      --glow: 0 0 25px rgba(99,102,241,0.25);
-      --transition: 0.3s ease;
+      --glow: 0 0 25px rgba(99,102,241,0.3);
+      --transition: 0.25s ease;
     }
 
     [data-theme="light"] {
-      --bg: #f7f8fc;
+      --bg: #f9fafb;
       --card: #ffffff;
       --border: #e4e4e7;
       --text: #111;
       --muted: #444;
       --accent: #4f46e5;
       --accent-hover: #6366f1;
-      --code-bg: linear-gradient(145deg, #fafafa, #f2f2f6);
-      --glow: 0 0 15px rgba(99,102,241,0.1);
+      --glow: 0 0 15px rgba(99,102,241,0.2);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,13 +48,13 @@
       top: 0;
       left: 0;
       height: 100vh;
-      width: 270px;
+      width: 280px;
       background: var(--card);
       border-right: 1px solid var(--border);
-      padding: 40px 25px;
+      padding: 35px 25px;
       overflow-y: auto;
       box-shadow: var(--glow);
-      transition: all var(--transition);
+      transition: background var(--transition), border var(--transition);
     }
 
     nav::-webkit-scrollbar { width: 6px; }
@@ -68,10 +66,9 @@
     nav h2 {
       color: var(--accent);
       font-size: 22px;
-      margin-bottom: 35px;
+      margin-bottom: 30px;
       font-weight: 700;
       letter-spacing: -0.3px;
-      text-shadow: 0 0 8px rgba(99,102,241,0.4);
     }
 
     nav a {
@@ -83,22 +80,21 @@
       border-left: 3px solid transparent;
       font-size: 15px;
       font-weight: 500;
-      transition: all var(--transition);
+      transition: color var(--transition), border var(--transition), padding var(--transition);
     }
 
     nav a:hover, nav a.active {
       color: var(--accent-hover);
       border-left: 3px solid var(--accent);
-      padding-left: 10px;
-      text-shadow: 0 0 6px rgba(99,102,241,0.4);
+      padding-left: 8px;
     }
 
-    /* Main content */
+    /* Main */
     main {
       flex: 1;
-      margin-left: 270px;
-      padding: 70px 90px;
-      max-width: 1000px;
+      margin-left: 280px;
+      padding: 70px 80px;
+      max-width: 950px;
       animation: fadeIn 0.6s ease-in;
     }
 
@@ -109,66 +105,53 @@
 
     header {
       border-bottom: 1px solid var(--border);
-      margin-bottom: 60px;
-      padding-bottom: 30px;
-      position: relative;
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      width: 150px;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-      border-radius: 3px;
+      margin-bottom: 50px;
+      padding-bottom: 25px;
     }
 
     header h1 {
-      font-size: 46px;
+      font-size: 42px;
       font-weight: 800;
       background: linear-gradient(90deg, var(--accent), var(--accent-hover));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 12px;
-      letter-spacing: -0.5px;
+      margin-bottom: 10px;
     }
 
     header p {
       color: var(--muted);
       font-size: 17px;
       line-height: 1.7;
-      max-width: 760px;
+      max-width: 750px;
     }
 
     /* Sections */
     section {
-      margin-bottom: 80px;
+      margin-bottom: 70px;
       background: var(--card);
-      padding: 45px;
+      padding: 40px;
       border: 1px solid var(--border);
-      border-radius: 16px;
-      box-shadow: 0 0 25px rgba(99,102,241,0.05);
-      transition: all var(--transition);
+      border-radius: 14px;
+      box-shadow: var(--glow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     section:hover {
       transform: translateY(-4px);
-      box-shadow: 0 0 40px rgba(99,102,241,0.2);
+      box-shadow: 0 0 30px rgba(99,102,241,0.25);
     }
 
     h2 {
       color: var(--accent-hover);
       font-size: 26px;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       font-weight: 700;
     }
 
     h3 {
       color: var(--accent);
       margin-top: 25px;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       font-size: 19px;
       font-weight: 600;
     }
@@ -190,43 +173,27 @@
 
     /* Code Blocks */
     pre {
-      background: var(--code-bg);
+      background: #0f0f13;
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 18px;
       overflow-x: auto;
-      color: #cdd3ff;
+      color: #d1d5ff;
       font-family: "JetBrains Mono", monospace;
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.6;
       margin-top: 10px;
-      position: relative;
-      transition: all var(--transition);
       box-shadow: inset 0 0 15px rgba(99,102,241,0.1);
     }
 
-    pre::before {
-      content: "Lua";
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      color: var(--accent);
-      font-size: 12px;
-      opacity: 0.7;
-    }
-
-    pre:hover {
-      border-color: var(--accent);
-      box-shadow: inset 0 0 25px rgba(99,102,241,0.15);
-    }
-
+    /* Inline code (clean, no background box) */
     code {
-      background: rgba(99,102,241,0.08);
-      border-radius: 6px;
-      padding: 2px 6px;
-      border: 1px solid var(--border);
-      font-family: monospace;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 14px;
       color: var(--accent-hover);
+      background: none;
+      border: none;
+      padding: 0;
     }
 
     /* Footer */
@@ -237,13 +204,13 @@
       color: var(--muted);
       text-align: center;
       font-size: 14px;
-      opacity: 0.85;
+      opacity: 0.8;
     }
 
     footer a {
       color: var(--accent);
       text-decoration: none;
-      transition: color 0.2s;
+      transition: 0.2s;
     }
 
     footer a:hover {
@@ -251,7 +218,7 @@
       text-decoration: underline;
     }
 
-    /* Theme Toggle Button */
+    /* Theme toggle */
     .theme-toggle {
       background: var(--accent);
       border: none;
@@ -264,19 +231,11 @@
       margin-top: 25px;
       transition: background var(--transition), transform 0.2s;
       width: 100%;
-      box-shadow: var(--glow);
     }
 
     .theme-toggle:hover {
       background: var(--accent-hover);
       transform: scale(1.03);
-    }
-
-    /* Smooth Active Nav */
-    .active {
-      font-weight: 600;
-      color: var(--accent-hover);
-      border-left: 3px solid var(--accent);
     }
   </style>
 </head>
@@ -318,13 +277,13 @@
       <h2>General Configuration</h2>
       <pre><code>return {
   ["General_Settings"] = {
-    ["prefix"] = ";", -- Default prefix for commands
-    ["Hotkey"] = "h", -- Default key to open the panel (auto sets to F4 if it breaks)
-    ["BanData"] = data:GetDataStore("BanData123"), -- DataStore for bans
-    ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- DataStore for moderation logs
-    ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Discord webhook for punishments
-    ["BanPlaceEnabled"] = true, -- Teleport banned players to ban place?
-    ["BanPlaceID"] = "1234567890", -- Ban place ID
+    ["prefix"] = ";",
+    ["Hotkey"] = "h",
+    ["BanData"] = data:GetDataStore("BanData123"),
+    ["Modlogs"] = data:GetDataStore("ModerationLogs123"),
+    ["WebHookUrl"] = "https://discord.com/api/webhooks/...",
+    ["BanPlaceEnabled"] = true,
+    ["BanPlaceID"] = "1234567890",
   },
 }</code></pre>
     </section>
@@ -333,9 +292,9 @@
       <h2>Rank & Permission Settings</h2>
       <pre><code>return {
   ["Guest"] = {
-    ["Rank_Needed"] = 0, -- Minimum group rank
-    ["Enabled"] = true, -- If disabled, this rank can't use MAES
-    ["Execute_Code"] = false, -- Allows execution of custom Lua code
+    ["Rank_Needed"] = 0,
+    ["Enabled"] = true,
+    ["Execute_Code"] = false,
     ["Usable_Commands"] = {
       "panel", "cmds", "clear", "help", "credits"
     },
@@ -380,34 +339,14 @@ return {
   </main>
 
   <script>
-    // Theme toggle
     const toggle = document.getElementById("themeToggle");
     toggle.addEventListener("click", () => {
       const current = document.body.getAttribute("data-theme");
-      document.body.setAttribute("data-theme", current === "light" ? "dark" : "light");
-      if (!current) document.body.setAttribute("data-theme", "light");
-    });
-
-    // Highlight active nav link on scroll
-    const sections = document.querySelectorAll("section");
-    const navLinks = document.querySelectorAll("nav a");
-
-    window.addEventListener("scroll", () => {
-      let current = "";
-      sections.forEach(sec => {
-        const top = window.scrollY;
-        const offset = sec.offsetTop - 150;
-        const height = sec.offsetHeight;
-        if (top >= offset && top < offset + height) {
-          current = sec.getAttribute("id");
-        }
-      });
-      navLinks.forEach(link => {
-        link.classList.remove("active");
-        if (link.getAttribute("href").includes(current)) {
-          link.classList.add("active");
-        }
-      });
+      if (current === "light") {
+        document.body.removeAttribute("data-theme");
+      } else {
+        document.body.setAttribute("data-theme", "light");
+      }
     });
   </script>
 </body>
