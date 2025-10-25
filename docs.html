@@ -30,7 +30,6 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
 
     body {
@@ -58,10 +57,7 @@
     }
 
     nav::-webkit-scrollbar { width: 6px; }
-    nav::-webkit-scrollbar-thumb {
-      background: var(--border);
-      border-radius: 6px;
-    }
+    nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
 
     nav h2 {
       color: var(--accent);
@@ -71,14 +67,45 @@
       letter-spacing: -0.3px;
     }
 
+    .nav-group {
+      margin-bottom: 25px;
+    }
+
+    .group-title {
+      font-weight: 700;
+      color: var(--accent-hover);
+      margin-bottom: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color var(--transition);
+    }
+
+    .group-title:hover {
+      color: var(--accent);
+    }
+
+    .group-links {
+      margin-left: 12px;
+      display: none;
+      flex-direction: column;
+      transition: max-height 0.3s ease;
+    }
+
+    .group-links.show {
+      display: flex;
+    }
+
     nav a {
       display: block;
       color: var(--muted);
       text-decoration: none;
-      margin: 8px 0;
-      padding: 8px 0;
+      margin: 6px 0;
+      padding: 6px 0;
       border-left: 3px solid transparent;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 500;
       transition: color var(--transition), border var(--transition), padding var(--transition);
     }
@@ -87,6 +114,13 @@
       color: var(--accent-hover);
       border-left: 3px solid var(--accent);
       padding-left: 8px;
+    }
+
+    .arrow {
+      transition: transform 0.3s ease;
+    }
+    .arrow.open {
+      transform: rotate(90deg);
     }
 
     /* Main */
@@ -171,7 +205,6 @@
 
     li { margin-bottom: 8px; }
 
-    /* Code Blocks */
     pre {
       background: #0f0f13;
       border: 1px solid var(--border);
@@ -186,7 +219,6 @@
       box-shadow: inset 0 0 15px rgba(99,102,241,0.1);
     }
 
-    /* Inline code (clean, no background box) */
     code {
       font-family: "JetBrains Mono", monospace;
       font-size: 14px;
@@ -196,7 +228,6 @@
       padding: 0;
     }
 
-    /* Footer */
     footer {
       border-top: 1px solid var(--border);
       margin-top: 100px;
@@ -218,7 +249,6 @@
       text-decoration: underline;
     }
 
-    /* Theme toggle */
     .theme-toggle {
       background: var(--accent);
       border: none;
@@ -242,13 +272,26 @@
 <body>
   <nav>
     <h2>BloxOLite Docs</h2>
-    <a href="#intro">Introduction</a>
-    <a href="#install">Installation</a>
-    <a href="#config">Configuration</a>
-    <a href="#permissions">Permissions</a>
-    <a href="#security">Security</a>
-    <a href="#NC">Custom Commands</a>
-    <a href="index.html">← Back Home</a>
+
+    <div class="nav-group">
+      <div class="group-title">MAES <span class="arrow">▶</span></div>
+      <div class="group-links">
+        <a href="#intro">Introduction</a>
+        <a href="#install">Installation</a>
+        <a href="#config">Configuration</a>
+        <a href="#permissions">Permissions</a>
+        <a href="#security">Security</a>
+        <a href="#NC">Custom Commands</a>
+      </div>
+    </div>
+
+    <div class="nav-group">
+      <div class="group-title">Other <span class="arrow">▶</span></div>
+      <div class="group-links">
+        <a href="index.html">← Back Home</a>
+      </div>
+    </div>
+
     <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
   </nav>
 
@@ -308,7 +351,7 @@
       <h2>Security & Roblox Settings</h2>
       <h3>Ensure these features are enabled:</h3>
       <pre><code>Allow HTTPS Requests = true (for Remote Events)
-      Enable API Services = true (for DataStores)</code></pre>
+Enable API Services = true (for DataStores)</code></pre>
       <p>Without these, MAES will not be able to communicate with Discord.</p>
     </section>
 
@@ -347,6 +390,15 @@ return {
       } else {
         document.body.setAttribute("data-theme", "light");
       }
+    });
+
+    document.querySelectorAll(".group-title").forEach(title => {
+      const links = title.nextElementSibling;
+      const arrow = title.querySelector(".arrow");
+      title.addEventListener("click", () => {
+        links.classList.toggle("show");
+        arrow.classList.toggle("open");
+      });
     });
   </script>
 </body>
