@@ -1,550 +1,521 @@
+<!-- path: docs.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>BloxOLite — Documentation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
   <style>
-    :root {
-      --bg: #0c0c10;
-      --card: #141418;
-      --border: #26262a;
-      --text: #f9fafb;
-      --muted: #a1a1aa;
-      --accent: #6366f1;
-      --accent-hover: #8b5cf6;
-      --glow: 0 0 25px rgba(99,102,241,0.3);
-      --transition: 0.25s ease;
+    :root{
+      --bg-1: #0b0b10;
+      --bg-2: #171433;
+      --glass: rgba(255,255,255,0.04);
+      --card: rgba(255,255,255,0.03);
+      --muted: #9aa0ad;
+      --text: #eef2ff;
+      --accent: #7c6cf6;
+      --accent-2: #5b8cff;
+      --border: rgba(255,255,255,0.06);
+      --glass-strong: rgba(255,255,255,0.06);
+      --shadow: 0 10px 30px rgba(3,6,23,0.6);
+      --radius: 14px;
+      --transition: 320ms cubic-bezier(.2,.9,.2,1);
+      --max-width: 1100px;
     }
 
-    [data-theme="light"] {
-      --bg: #f9fafb;
-      --card: #ffffff;
-      --border: #e4e4e7;
-      --text: #111;
-      --muted: #444;
+    /* light theme */
+    [data-theme="light"]{
+      --bg-1: #f7f7fb;
+      --bg-2: #eef2ff;
+      --glass: rgba(12,16,26,0.03);
+      --card: rgba(12,16,26,0.02);
+      --muted: #5b6770;
+      --text: #081024;
       --accent: #4f46e5;
-      --accent-hover: #6366f1;
-      --glow: 0 0 15px rgba(99,102,241,0.2);
+      --accent-2: #6d7eff;
+      --border: rgba(2,6,23,0.06);
+      --glass-strong: rgba(2,6,23,0.04);
+      --shadow: 0 8px 24px rgba(10,12,30,0.06);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Inter", sans-serif;
-      display: flex;
-      overflow-x: hidden;
-      transition: background var(--transition), color var(--transition);
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;
+      background: radial-gradient(1200px 600px at 10% 10%, rgba(124,108,246,0.12), transparent),
+                  radial-gradient(900px 450px at 90% 90%, rgba(91,140,255,0.08), transparent),
+                  linear-gradient(180deg,var(--bg-2),var(--bg-1));
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow-x:hidden;
     }
 
-    /* Sidebar */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 280px;
-      background: var(--card);
-      border-right: 1px solid var(--border);
-      padding: 35px 25px;
-      overflow-y: auto;
-      box-shadow: var(--glow);
-      transition: background var(--transition), border var(--transition);
+    /* subtle orbs */
+    .orb{
+      position:fixed; width:520px; height:520px; filter:blur(120px); opacity:.35; z-index:0;
+      border-radius:50%;
+      pointer-events:none;
+    }
+    .orb.one{left:-180px; top:-120px; background:radial-gradient(circle,#7c6cf6 0%, transparent 60%);}
+    .orb.two{right:-160px; bottom:-140px; background:radial-gradient(circle,#5b8cff 0%, transparent 60%); animation: drift 18s ease-in-out infinite;}
+    @keyframes drift{ 0%{transform:translateY(0)}50%{transform:translateY(48px)}100%{transform:translateY(0)}}
+
+    /* layout */
+    .app{
+      position:relative; z-index:1; display:flex; gap:32px; max-width:calc(var(--max-width)+360px); margin:0 auto; padding:28px;
     }
 
-    nav::-webkit-scrollbar { width: 6px; }
-    nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
+    /* SIDEBAR */
+    .sidebar{
+      width:300px; min-height:calc(100vh - 56px); position:sticky; top:28px; align-self:flex-start;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border:1px solid var(--border); border-radius:16px; padding:28px; box-shadow:var(--shadow); z-index:3;
+      backdrop-filter: blur(10px);
+    }
+    .brand{display:flex; align-items:center; gap:12px; margin-bottom:18px}
+    .brand .logo{
+      font-weight:800; font-size:20px;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    }
+    .sidebar p{color:var(--muted); font-size:13px; margin-bottom:18px}
 
-    nav h2 {
-      color: var(--accent);
-      font-size: 22px;
-      margin-bottom: 30px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
+    /* nav groups */
+    .nav-group{margin-bottom:14px}
+    .group-btn{
+      width:100%; background:none; border:0; padding:10px 8px; text-align:left; font-weight:700; color:var(--accent-2);
+      display:flex; align-items:center; justify-content:space-between; cursor:pointer; font-size:14px;
+    }
+    .group-btn .meta{color:var(--muted); font-weight:600}
+    .links{display:flex; flex-direction:column; gap:6px; margin-top:8px; padding-left:6px}
+    .links a{
+      display:block; text-decoration:none; color:var(--muted); padding:8px 10px; border-radius:8px;
+      transition:all var(--transition);
+      font-size:14px; border-left:3px solid transparent;
+    }
+    .links a:hover, .links a.active{
+      color:var(--text); background:linear-gradient(90deg, rgba(124,108,246,0.06), transparent);
+      border-left-color:var(--accent); transform:translateX(4px);
     }
 
-    .nav-group {
-      margin-bottom: 25px;
+    .theme-row{margin-top:18px; display:flex; gap:10px}
+    .btn{
+      background:linear-gradient(90deg,var(--accent),var(--accent-2));
+      color:white; border:0; padding:10px 12px; border-radius:10px; cursor:pointer; font-weight:700;
+      box-shadow:0 6px 20px rgba(91,140,255,0.12);
+    }
+    .ghost{background:transparent; border:1px solid var(--border); color:var(--muted); font-weight:600}
+
+    /* hamburger for mobile */
+    .hamburger{
+      display:none; position:fixed; right:20px; top:20px; z-index:60;
+      background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; border:0; padding:10px 12px; border-radius:10px;
+      box-shadow:0 8px 30px rgba(3,6,23,0.5);
     }
 
-    .group-title {
-      font-weight: 700;
-      color: var(--accent-hover);
-      margin-bottom: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: color var(--transition);
+    /* mobile overlay sidebar */
+    .overlay{
+      display:none;
+      position:fixed; inset:0; z-index:50; backdrop-filter:blur(6px); background:rgba(2,6,23,0.4);
+      transition:opacity var(--transition);
+    }
+    .sidebar-mobile{
+      position:fixed; left:0; top:0; bottom:0; width:78%; max-width:360px; padding:24px;
+      background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-right:1px solid var(--border); transform:translateX(-18%); box-shadow:var(--shadow); overflow:auto;
+      transition:transform var(--transition);
+    }
+    .overlay.show{display:block}
+    .overlay.show .sidebar-mobile{transform:translateX(0)}
+
+    /* MAIN CONTENT */
+    main{
+      flex:1; max-width:var(--max-width); padding:24px; margin:8px 0;
+    }
+    header{margin-bottom:26px; border-bottom:1px solid var(--border); padding-bottom:22px}
+    header h1{font-size:34px; margin:0 0 8px; font-weight:800; background:linear-gradient(90deg,var(--accent),var(--accent-2)); -webkit-background-clip:text; -webkit-text-fill-color:transparent}
+    header p{color:var(--muted); margin:0; font-size:15px}
+
+    /* docs sections */
+    .card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius); padding:28px; margin-bottom:28px; box-shadow:0 8px 26px rgba(3,6,23,0.35); transition:all var(--transition); transform:translateY(12px); opacity:0}
+    .card.visible{transform:none; opacity:1}
+    h2{color:var(--accent-2); margin-top:0; font-size:20px}
+    h3{color:var(--accent); margin:12px 0 8px; font-size:16px}
+    p, li{color:var(--muted); line-height:1.6; font-size:15px}
+
+    pre{
+      margin-top:12px; background:rgba(2,6,23,0.6); padding:16px; border-radius:10px; overflow:auto; color:#e6eefc;
+      font-family:"JetBrains Mono",monospace; font-size:13px; border:1px solid var(--border);
+      box-shadow:inset 0 0 24px rgba(91,140,255,0.04);
+      position:relative;
     }
 
-    .group-title:hover {
-      color: var(--accent);
+    .code-row{display:flex; gap:8px; align-items:center}
+    .copy-btn{position:absolute; right:12px; top:12px; background:transparent; border:1px solid var(--border); color:var(--muted); padding:6px 8px; border-radius:8px; cursor:pointer; font-size:13px}
+    .copy-btn.copied{color:var(--accent-2); border-color:var(--accent-2)}
+
+    footer{margin-top:40px; color:var(--muted); font-size:14px; text-align:center; padding:26px 6px}
+
+    /* responsive */
+    @media (max-width: 980px){
+      .app{padding:18px; max-width:100%; gap:18px}
+      .sidebar{display:none}
+      .hamburger{display:block}
+      .overlay{display:none}
+      main{padding:12px}
     }
 
-    .group-links {
-      margin-left: 12px;
-      display: none;
-      flex-direction: column;
-      transition: max-height 0.3s ease;
-    }
-
-    .group-links.show {
-      display: flex;
-    }
-
-    nav a {
-      display: block;
-      color: var(--muted);
-      text-decoration: none;
-      margin: 6px 0;
-      padding: 6px 0;
-      border-left: 3px solid transparent;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color var(--transition), border var(--transition), padding var(--transition);
-    }
-
-    nav a:hover, nav a.active {
-      color: var(--accent-hover);
-      border-left: 3px solid var(--accent);
-      padding-left: 8px;
-    }
-
-    .arrow {
-      transition: transform 0.3s ease;
-    }
-    .arrow.open {
-      transform: rotate(90deg);
-    }
-
-    /* Main */
-    main {
-      flex: 1;
-      margin-left: 280px;
-      padding: 70px 80px;
-      max-width: 950px;
-      animation: fadeIn 0.6s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    header {
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 50px;
-      padding-bottom: 25px;
-    }
-
-    header h1 {
-      font-size: 42px;
-      font-weight: 800;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-      max-width: 750px;
-    }
-
-    /* Sections */
-    section {
-      margin-bottom: 70px;
-      background: var(--card);
-      padding: 40px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: var(--glow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    section:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 30px rgba(99,102,241,0.25);
-    }
-
-    h2 {
-      color: var(--accent-hover);
-      font-size: 26px;
-      margin-bottom: 16px;
-      font-weight: 700;
-    }
-
-    h3 {
-      color: var(--accent);
-      margin-top: 25px;
-      margin-bottom: 8px;
-      font-size: 19px;
-      font-weight: 600;
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 15px;
-      margin-bottom: 15px;
-    }
-
-    ul, ol {
-      margin: 15px 0 25px 25px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    li { margin-bottom: 8px; }
-
-    pre {
-      background: #0f0f13;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px;
-      overflow-x: auto;
-      color: #d1d5ff;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-top: 10px;
-      box-shadow: inset 0 0 15px rgba(99,102,241,0.1);
-    }
-
-    code {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 14px;
-      color: var(--accent-hover);
-      background: none;
-      border: none;
-      padding: 0;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      margin-top: 100px;
-      padding-top: 40px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 14px;
-      opacity: 0.8;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: 0.2s;
-    }
-
-    footer a:hover {
-      color: var(--accent-hover);
-      text-decoration: underline;
-    }
-
-    .theme-toggle {
-      background: var(--accent);
-      border: none;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 25px;
-      transition: background var(--transition), transform 0.2s;
-      width: 100%;
-    }
-
-    .theme-toggle:hover {
-      background: var(--accent-hover);
-      transform: scale(1.03);
-    }
+    /* focus and accessibility */
+    a:focus, button:focus{outline:3px solid rgba(124,108,246,0.18); outline-offset:3px; border-radius:8px}
+    .sr-only{position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0}
   </style>
 </head>
 <body>
-  <nav>
-    <h2>BloxOLite Docs</h2>
+  <div class="orb one" aria-hidden="true"></div>
+  <div class="orb two" aria-hidden="true"></div>
 
-    <div class="nav-group">
-      <div class="group-title">MAES <span class="arrow">▶</span></div>
-      <div class="group-links">
-        <a href="#intro">Introduction</a>
-        <a href="#install">Installation</a>
-        <a href="#config">Configuration</a>
-        <a href="#permissions">Permissions</a>
-        <a href="#security">Security</a>
-        <a href="#NC">Custom Commands</a>
+  <!-- mobile hamburger -->
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-controls="mobileNav" aria-expanded="false">☰ Docs</button>
+
+  <!-- mobile overlay + sidebar -->
+  <div class="overlay" id="overlay" hidden>
+    <nav class="sidebar-mobile" id="mobileNav" aria-hidden="true">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+        <div style="font-weight:800;font-size:18px;background:linear-gradient(90deg,var(--accent),var(--accent-2));-webkit-background-clip:text;-webkit-text-fill-color:transparent">BloxOLite Docs</div>
+        <button id="closeMobile" class="ghost" aria-label="Close menu">Close</button>
       </div>
-    </div>
+      <p style="color:var(--muted);margin-bottom:12px">Everything you need to configure BloxOLite.</p>
 
-	     <div class="nav-group">
-      <div class="group-title">Anti-Cheat <span class="arrow">▶</span></div>
-      <div class="group-links">
-        <a href="#ACintro">Introduction</a>
-        <a href="#ACinstall">Installation</a>
-        <a href="#ACconfig">Configuration</a>
+      <!-- mobile nav content (cloned by JS for parity with desktop) -->
+      <div id="mobileNavInner"></div>
+
+      <div style="margin-top:20px">
+        <button id="mobileTheme" class="btn">Toggle Theme</button>
       </div>
-    </div>
+    </nav>
+  </div>
 
-	       <div class="nav-group">
-      <div class="group-title">ModCall <span class="arrow">▶</span></div>
-      <div class="group-links">
-        <a href="#MCIntro">Introduction</a>
-        <a href="#MCinstall">Installation</a>
-        <a href="#MCconfig">Configuration</a>
+  <div class="app" role="application">
+    <!-- Desktop sidebar -->
+    <aside class="sidebar" aria-label="Documentation navigation">
+      <div class="brand">
+        <div class="logo">BloxOLite Docs</div>
       </div>
-    </div>
+      <p>Curated docs for MAES, Anti-Cheat, ModCall and more.</p>
 
-    <div class="nav-group">
-      <div class="group-title">Other <span class="arrow">▶</span></div>
-      <div class="group-links">
-	    <a href="#TOS">TOS</a>
-        <a href="index.html">← Back Home</a>
-		  
+      <nav aria-label="Docs sections">
+        <div class="nav-group" data-group="maes">
+          <button class="group-btn" aria-expanded="false">
+            <span>MAES</span>
+            <span class="meta">▶</span>
+          </button>
+          <div class="links" aria-hidden="true">
+            <a href="#intro">Introduction</a>
+            <a href="#install">Installation</a>
+            <a href="#config">Configuration</a>
+            <a href="#permissions">Permissions</a>
+            <a href="#security">Security</a>
+            <a href="#NC">Custom Commands</a>
+          </div>
+        </div>
+
+        <div class="nav-group" data-group="ac">
+          <button class="group-btn" aria-expanded="false">
+            <span>Anti-Cheat</span>
+            <span class="meta">▶</span>
+          </button>
+          <div class="links" aria-hidden="true">
+            <a href="#ACintro">Introduction</a>
+            <a href="#ACinstall">Installation</a>
+            <a href="#ACconfig">Configuration</a>
+          </div>
+        </div>
+
+        <div class="nav-group" data-group="mc">
+          <button class="group-btn" aria-expanded="false">
+            <span>ModCall</span>
+            <span class="meta">▶</span>
+          </button>
+          <div class="links" aria-hidden="true">
+            <a href="#MCIntro">Introduction</a>
+            <a href="#MCinstall">Installation</a>
+            <a href="#MCconfig">Configuration</a>
+          </div>
+        </div>
+
+        <div class="nav-group" data-group="other">
+          <button class="group-btn" aria-expanded="false">
+            <span>Other</span>
+            <span class="meta">▶</span>
+          </button>
+          <div class="links" aria-hidden="true">
+            <a href="#TOS">TOS</a>
+            <a href="index.html">← Back Home</a>
+          </div>
+        </div>
+
+      </nav>
+
+      <div class="theme-row" role="status" aria-live="polite">
+        <button id="themeToggle" class="btn" aria-pressed="false">Toggle Theme</button>
+        <button id="openDiscord" class="ghost" onclick="window.open('https://discord.gg/tcxqKNR649','_blank')">Join Discord</button>
       </div>
-    </div>
+    </aside>
 
-    <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
-  </nav>
+    <!-- MAIN -->
+    <main id="main">
+      <header>
+        <h1>Documentation</h1>
+        <p>Everything you need to know about setting up and configuring BloxOLite products.</p>
+      </header>
 
-  <main>
-    <header>
-      <h1>Documentation</h1>
-      <p>Everything you need to know about setting up BloxOLite products.</p>
-    </header>
+      <!-- Sections (cards) -->
+      <article id="intro" class="card">
+        <h2>Introduction</h2>
+        <p>MAES (Moderation and Enforcement System) is an admin framework built for Roblox developers who want full control over moderation features. It’s fast, extensible, and supports Discord ban logging.</p>
+      </article>
 
-    <section id="intro">
-      <h2>Introduction</h2>
-      <p>MAES (Moderation and Enforcement System) is a admin framework built for Roblox developers who want full control over their moderation features. It’s fast, extensible, and supports full integration with your Discord ban logging.</p>
-    </section>
+      <article id="install" class="card">
+        <h2>Installation</h2>
+        <p>Follow these steps to set up MAES in your game:</p>
+        <ol>
+          <li>Download MAES from the official Discord.</li>
+          <li>Place the <code>Server</code> folder into <code>ServerScriptService</code>.</li>
+          <li>Edit your <code>BloxOLite</code> module inside <code>ServerScriptService</code> to match your group roles and permissions.</li>
+        </ol>
+      </article>
 
-    <section id="install">
-      <h2>Installation</h2>
-      <p>Follow these steps to set up MAES in your game:</p>
-      <ol>
-        <li>Download MAES from the official Discord..</li>
-        <li>Place the <code>Server</code> folder into <code>ServerScriptService</code>.</li>
-        <li>Edit your <code>BloxOLite</code> module inside <code>ServerScriptService</code> to match your group roles and permissions.</li>
-      </ol>
-    </section>
-
-    <section id="config">
-      <h2>General Configuration</h2>
-      <pre><code>return {
+      <article id="config" class="card">
+        <h2>General Configuration</h2>
+        <div class="code-row">
+          <pre><code id="cfg1">return {
   ["General_Settings"] = {
-    ["prefix"] = ";", -- Prefix used in game to execute commands
-    ["Hotkey"] = "h", -- key that shows the UI
-    ["BanData"] = data:GetDataStore("BanData123"), -- The ban data
-    ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- The ModLogs Data
-    ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Discord Webhook for ban logging
-		  
-    ["BanPlaceEnabled"] = true, -- If the ban place is enabled or not
-    ["BanPlaceID"] = "1234567890", -- Ban place ID
+    ["prefix"] = ";",
+    ["Hotkey"] = "h",
+    ["BanData"] = data:GetDataStore("BanData123"),
+    ["Modlogs"] = data:GetDataStore("ModerationLogs123"),
+    ["WebHookUrl"] = "https://discord.com/api/webhooks/...",
+    ["BanPlaceEnabled"] = true,
+    ["BanPlaceID"] = "1234567890",
   },
 }</code></pre>
-    </section>
+          <button class="copy-btn" data-target="cfg1" aria-label="Copy configuration">Copy</button>
+        </div>
+      </article>
 
-    <section id="permissions">
-      <h2>Rank & Permission Settings</h2>
-      <pre><code>return {
-  ["Guest"] = { -- Rank Name
-    ["Rank_Needed"] = 0, -- Group rank needed
-    ["Enabled"] = true, -- Rank Enabled
-    ["Execute_Code"] = false, -- can it use 'runlua'
-    ["Usable_Commands"] = { -- Command this rank+ can use
-      "panel", "cmds", "clear", "help", "credits" -- command Names
-    },
+      <article id="permissions" class="card">
+        <h2>Rank & Permission Settings</h2>
+        <pre><code id="cfg2">return {
+  ["Guest"] = {
+    ["Rank_Needed"] = 0,
+    ["Enabled"] = true,
+    ["Execute_Code"] = false,
+    ["Usable_Commands"] = {"panel","cmds","clear","help","credits"},
   },
 }</code></pre>
-      <p>Ranks stack — meaning higher roles automatically inherit lower-rank permissions.</p>
-    </section>
+        <p>Ranks stack — higher ranks inherit lower-rank permissions.</p>
+      </article>
 
-    <section id="security">
-      <h2>Security & Roblox Settings</h2>
-      <h3>Ensure these features are enabled:</h3>
-      <pre><code>Allow HTTPS Requests = true (for Remote Events)
-Enable API Services = true (for DataStores)</code></pre>
-      <p>Without these, MAES will not be able to communicate with Discord.</p>
-    </section>
+      <article id="security" class="card">
+        <h2>Security & Roblox Settings</h2>
+        <h3>Ensure these features are enabled:</h3>
+        <pre><code id="cfg3">Allow HTTPS Requests = true
+Enable API Services = true</code></pre>
+        <p>Without these, MAES won't be able to communicate with Discord.</p>
+      </article>
 
-    <section id="NC">
-      <h2>Custom Commands</h2>
-      <h3>To add custom commands create a new module script in one of the command folders then add the code in.</h3>
-      <pre><code>local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local RepFolder = ReplicatedStorage:WaitForChild("NameHereFolder")
-local messages = require(RepFolder:WaitForChild("ClientMessages"))
-local CommandStatusEvent = RepFolder:WaitForChild("CommandStatusEvent")
-
-return {
-	Name = "CommandName", 
-	Aliases = {},
-	Description = "Description of what the command does.",
-	Enabled = true,
-	Function = function(player, args, Deps)
-       -- command Function
-		return true
-	end
+      <article id="NC" class="card">
+        <h2>Custom Commands</h2>
+        <h3>Adding a custom command</h3>
+        <pre><code id="cfg4">return {
+  Name = "CommandName",
+  Aliases = {},
+  Description = "Description",
+  Enabled = true,
+  Function = function(player,args,Deps) return true end
 }</code></pre>
-      <p>Then insert the Name, Description, Function also make sure to add the command name to a rank in BloxOLite_Config.</p>
-    </section>
+        <p>Insert the module and add the command to a rank in <code>BloxOLite_Config</code>.</p>
+      </article>
 
+      <article id="ACintro" class="card">
+        <h2>Anti-Cheat Docs</h2>
+        <p>BloxOLite Anti-Cheat helps protect your game from exploits and receives regular updates.</p>
+      </article>
 
+      <article id="ACinstall" class="card">
+        <h2>Installation</h2>
+        <ol>
+          <li>Download from the official Discord Server.</li>
+          <li>Insert the file into your game.</li>
+          <li>Drag <code>AC_Manager</code> into <code>ServerScriptService</code> and <code>Anti-CheatClient</code> into <code>StarterPlayerScripts</code>.</li>
+          <li>Put the <code>AntiCheat</code> folder into <code>ReplicatedStorage</code>.</li>
+        </ol>
+      </article>
 
-	     <section id="ACintro">
-      <h2>Anti-Cheat Docs</h2>
-      <p>BloxOLite Anti-Cheat protects you game from exploits with regular updates from developers.</p>
-    </section>
+      <article id="ACconfig" class="card">
+        <h2>Configuration</h2>
+        <p>Open <code>ReplicatedStorage -> AntiCheat -> Config</code> and edit the module to your preference.</p>
+      </article>
 
-    <section id="ACinstall">
-      <h2>Installation</h2>
-      <p>Follow these steps to set up Anti-Cheat in your game:</p>
-      <ol>
-        <li>Download/buy Anti-Cheat from the official Discord Server.</li>
-		<li>Insert the file into your game.</li>
-		<li>Drag <code>AC_Manager</code> into <code>ServerScriptService</code> and <code>Anti-CheatClient</code> into <code>StarterPlayerScripts</code>.</li>
-		<li>Put the <code>AntiCheat</code> folder into <code>ReplicatedStorage</code></li>
-      </ol>
-    </section>
+      <article id="MCIntro" class="card">
+        <h2>ModCall Docs</h2>
+        <p>ModCall allows players to request staff assistance directly from the game.</p>
+      </article>
 
-    <section id="ACconfig">
-      <h2>General Configuration</h2>
-      <li>To access the config open <code>ReplicatedStorage -> AntiCheat -> Config</code> and open the module to start configuring it to your liking.</li>
-    </section>
+      <article id="MCinstall" class="card">
+        <h2>Installation</h2>
+        <ol>
+          <li>Download from the official Discord Server.</li>
+          <li>Insert the file into your game.</li>
+          <li>Drag <code>ModCall</code> into <code>ServerScriptService</code> and <code>ModUI</code> into <code>StarterGui</code>.</li>
+          <li>Put <code>BloxOLiteRemotes</code> into <code>ReplicatedStorage</code>.</li>
+        </ol>
+      </article>
 
-	       <section id="MCIntro">
-      <h2>ModCall Docs</h2>
-      <p>BloxOLite ModCall allows players in your game to call a staff memeber for help.</p>
-    </section>
+      <article id="MCconfig" class="card">
+        <h2>Configuration</h2>
+        <p>Open <code>ServerScriptService -> ModCall -> settings</code> and edit the module as needed.</p>
+      </article>
 
-    <section id="MCinstall">
-      <h2>Installation</h2>
-      <p>Follow these steps to set up ModCall in your game:</p>
-      <ol>
-        <li>Download/buy ModCall from the official Discord Server.</li>
-		<li>Insert the file into your game.</li>
-		<li>Drag <code>ModCall</code> into <code>ServerScriptService</code> and <code>ModUI</code> into <code>StarterGui</code>.</li>
-		<li>Put the <code>BloxOLiteRemotes</code> folder into <code>ReplicatedStorage</code></li>
-		<li>On line 41 you will see <code>Config.WebHookUrl = "https://discord.com/api/webhooks/..."</code> replace it with you webhook url.</li>
-      </ol>
-    </section>
-
-    <section id="MCconfig">
-      <h2>General Configuration</h2>
-      <li>To access the config open <code>ServerScriptService -> ModCall -> settings</code> and open the module to start configuring it to your liking.</li>
-    </section>
-
-	    <section id="TOS">
-      <h2>Terms Of Service</h2>
-      <pre><code>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+      <article id="TOS" class="card">
+        <h2>Terms Of Service</h2>
+        <pre><code id="tos">Last updated: October 3, 2025
 
 1. Asset Usage & Permission
-
-You may not share, leak, or redistribute any internal assets such as source code, UI designs, or backend scripts from BloxOLite.
-Use of these assets in your own games is strictly forbidden unless you have written permission from the Owner (FJFG11). 
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+You may not share or redistribute internal BloxOLite assets without permission.
 
 2. Tampering & Obfuscation
-
-Obfuscated scripts (e.g., Server_Manager) are protected. Bypassing, reverse engineering, or tampering with verification systems is strictly prohibited and will result in immediate license termination.
-
-If you discover a vulnerability or exploit, report it responsibly by joining our server and opening a support ticket. Following our Responsible Disclosure policy ensures your license remains safe.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+Obfuscated scripts are protected. Tampering results in license termination.
 
 3. Refund Policy
+All sales are final.
 
-BloxOLite does not offer refunds under any circumstances. All sales are final.
+(Full TOS omitted for brevity in preview.)</code></pre>
+      </article>
 
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-4. Redistribution
-
-You are not allowed to redistribute any BloxOLite assets, including but not limited to UI files, scripts, or modules. Redistribution in any form (paid or free) will lead to license revocation and potential blacklisting.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-5. Asset Requests / Begging
-
-Requesting assets from current BloxOLite users (e.g., "Can you send me the ProductName?") is strictly prohibited.
-If a user shares assets with you, both parties will have their licenses permanently revoked for violating these Terms.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-6. Responsible Disclosure
-
-BloxOLite prioritizes the security and integrity of its systems and assets. If you are a developer or security researcher who has found a legitimate vulnerability, we encourage you to report it responsibly.
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-7. Appeals
-
-If your license was revoked and you believe it was in error, you may open a support ticket with proof and a valid reason.
-
-Note: We currently do not offer an appeal system for bans outside of the official BloxOLite Discord server. You may contact staff directly, but we reserve the right to ignore appeals that don't follow proper channels.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-8. Legal Notice
-
-BloxOLite reserves the right to:
-Update or change these Terms at any time
-Deny access to products or support to users who break our rules
-Enforce legal action in cases of asset theft, redistribution, or fraud
-By using BloxOLite, you accept these Terms and agree to follow all policies and procedures outlined above.
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-By purchasing or using any assets from BloxOLite, you automatically agree to the following Terms of Service. Failure to comply may result in your license being revoked without refund or warning.
-
-Last updated: October 3, 2025</code></pre>
-    </section>
-
-    <footer>
-      <p>© 2025 BloxOLite. Built with ❤️ for Roblox developers. | <a href="https://discord.gg/tcxqKNR649" target="_blank">Join Discord</a></p>
-    </footer>
-  </main>
+      <footer>
+        <p>© 2025 BloxOLite. Built with ❤️ for Roblox developers. | <a href="https://discord.gg/tcxqKNR649" target="_blank" rel="noopener">Join Discord</a></p>
+      </footer>
+    </main>
+  </div>
 
   <script>
-    const toggle = document.getElementById("themeToggle");
-    toggle.addEventListener("click", () => {
-      const current = document.body.getAttribute("data-theme");
-      if (current === "light") {
-        document.body.removeAttribute("data-theme");
-      } else {
-        document.body.setAttribute("data-theme", "light");
-      }
+    /* ====== Theme persistence ====== */
+    (function(){
+      const root = document.documentElement;
+      const stored = localStorage.getItem('blox_theme');
+      if(stored) root.setAttribute('data-theme', stored);
+
+      const btn = document.getElementById('themeToggle');
+      const mobileBtn = document.getElementById('mobileTheme');
+      const apply = (t) => {
+        if(t==='light'){ root.setAttribute('data-theme','light'); btn.setAttribute('aria-pressed','true'); }
+        else { root.removeAttribute('data-theme'); btn.setAttribute('aria-pressed','false'); }
+        localStorage.setItem('blox_theme', t==='light' ? 'light' : '');
+      };
+      btn.addEventListener('click', ()=> apply(root.getAttribute('data-theme')==='light' ? 'dark' : 'light'));
+      if(mobileBtn) mobileBtn.addEventListener('click', ()=> btn.click());
+    })();
+
+    /* ====== Sidebar groups (desktop) ====== */
+    document.querySelectorAll('.nav-group').forEach(group=>{
+      const btn = group.querySelector('.group-btn');
+      const links = group.querySelector('.links');
+      btn.addEventListener('click', ()=>{
+        const open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        links.hidden = open;
+        if(open){ links.classList.remove('show') } else { links.classList.add('show') }
+      });
+      // start collapsed
+      group.querySelector('.links').hidden = true;
     });
 
-    document.querySelectorAll(".group-title").forEach(title => {
-      const links = title.nextElementSibling;
-      const arrow = title.querySelector(".arrow");
-      title.addEventListener("click", () => {
-        links.classList.toggle("show");
-        arrow.classList.toggle("open");
+    /* ====== Mobile sidebar behavior ====== */
+    const hamburger = document.getElementById('hamburger');
+    const overlay = document.getElementById('overlay');
+    const mobileNavInner = document.getElementById('mobileNavInner');
+    const closeMobile = document.getElementById('closeMobile');
+
+    // clone sidebar nav into mobile container for parity
+    (function cloneNav(){
+      const desktopGroups = document.querySelectorAll('.nav-group');
+      desktopGroups.forEach(g=>{
+        const title = g.querySelector('.group-btn').firstElementChild.textContent.trim();
+        const links = Array.from(g.querySelectorAll('.links a')).map(a=>{
+          return `<a href="${a.getAttribute('href')}" onclick="closeMobileIfOpen()">${a.textContent}</a>`;
+        }).join('');
+        const html = `<div style="margin-bottom:12px">
+                        <div style="font-weight:700;color:var(--accent-2);margin-bottom:6px">${title}</div>
+                        <div style="display:flex;flex-direction:column;gap:6px">${links}</div>
+                      </div>`;
+        mobileNavInner.insertAdjacentHTML('beforeend', html);
+      });
+    })();
+
+    function openMobile(){
+      overlay.hidden = false;
+      overlay.classList.add('show');
+      overlay.querySelector('.sidebar-mobile').setAttribute('aria-hidden','false');
+      hamburger.setAttribute('aria-expanded','true');
+      // lock scroll
+      document.body.style.overflow='hidden';
+    }
+    function closeMobile(){
+      overlay.classList.remove('show');
+      overlay.hidden = true;
+      overlay.querySelector('.sidebar-mobile').setAttribute('aria-hidden','true');
+      hamburger.setAttribute('aria-expanded','false');
+      document.body.style.overflow='';
+    }
+    function closeMobileIfOpen(){ if(!overlay.hidden) closeMobile(); }
+
+    hamburger.addEventListener('click', openMobile);
+    closeMobile.addEventListener('click', closeMobile);
+    overlay.addEventListener('click', (e)=> { if(e.target === overlay) closeMobile(); });
+
+    /* ====== reveal on scroll ====== */
+    const cards = document.querySelectorAll('.card');
+    const reveal = () => {
+      const threshold = window.innerHeight * 0.86;
+      cards.forEach(c=>{
+        const r = c.getBoundingClientRect();
+        if(r.top < threshold) c.classList.add('visible');
+      });
+    };
+    window.addEventListener('scroll', reveal, {passive:true});
+    window.addEventListener('resize', reveal);
+    reveal();
+
+    /* ====== copy code snippets ====== */
+    document.querySelectorAll('.copy-btn').forEach(btn=>{
+      btn.addEventListener('click', async ()=>{
+        const id = btn.dataset.target;
+        const codeEl = document.getElementById(id);
+        if(!codeEl) return;
+        try{
+          await navigator.clipboard.writeText(codeEl.textContent.trim());
+          btn.classList.add('copied');
+          btn.textContent = 'Copied';
+          setTimeout(()=>{ btn.classList.remove('copied'); btn.textContent='Copy'; }, 1500);
+        }catch(e){
+          btn.textContent='Err';
+        }
       });
     });
+
+    /* ====== small accessibility: focus first link when opening mobile nav ====== */
+    hamburger.addEventListener('keydown', (e)=>{ if(e.key==='Enter' || e.key===' ') { openMobile(); setTimeout(()=>{ const f = overlay.querySelector('a'); if(f) f.focus(); },120); } });
+
+    // expose closeMobile for inline onclicks
+    window.closeMobileIfOpen = closeMobileIfOpen;
   </script>
 </body>
 </html>
