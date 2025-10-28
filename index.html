@@ -4,24 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>BloxOLite — Roblox Moderation Tools</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-gradient: radial-gradient(circle at 20% 20%, #1e1b4b, #0d0d0f 80%);
-      --glass-bg: rgba(255, 255, 255, 0.05);
-      --border: rgba(255, 255, 255, 0.1);
+      --bg1: #0f0f12;
+      --bg2: #1e1b4b;
+      --text: #f9fafb;
+      --muted: #9ca3af;
       --accent: #6366f1;
-      --accent-hover: #818cf8;
-      --text: #f8fafc;
-      --muted: #a1a1aa;
+      --accent2: #8b5cf6;
+      --accent-hover: #a78bfa;
+      --glass: rgba(255, 255, 255, 0.05);
+      --border: rgba(255, 255, 255, 0.1);
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: "Inter", sans-serif;
-      background: var(--bg-gradient);
+      background: radial-gradient(at 30% 30%, var(--bg2), var(--bg1) 70%);
       color: var(--text);
       overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Animated Orbs */
+    .orb {
+      position: absolute;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, var(--accent2), transparent 70%);
+      filter: blur(180px);
+      opacity: 0.3;
+      animation: float 20s ease-in-out infinite;
+      z-index: 0;
+    }
+    .orb:nth-child(1) { top: -150px; left: -200px; animation-delay: 0s; }
+    .orb:nth-child(2) { bottom: -150px; right: -200px; animation-delay: 10s; }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(60px) scale(1.2); }
     }
 
     nav {
@@ -31,113 +53,126 @@
       padding: 20px 60px;
       position: sticky;
       top: 0;
-      z-index: 100;
-      background: rgba(15, 15, 20, 0.6);
-      backdrop-filter: blur(12px);
+      background: rgba(10, 10, 15, 0.7);
+      backdrop-filter: blur(16px);
       border-bottom: 1px solid var(--border);
+      z-index: 10;
     }
 
     .logo {
-      font-size: 26px;
-      font-weight: 700;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
+      letter-spacing: 0.5px;
     }
 
     .links a {
-      margin-left: 25px;
+      margin-left: 30px;
       color: var(--muted);
       text-decoration: none;
       font-weight: 500;
-      transition: 0.25s;
+      transition: 0.25s ease;
     }
-
     .links a:hover {
       color: var(--text);
-      text-shadow: 0 0 10px var(--accent);
+      text-shadow: 0 0 12px var(--accent2);
     }
 
     header {
       text-align: center;
-      padding: 140px 20px 100px;
+      padding: 160px 20px 120px;
+      position: relative;
+      z-index: 1;
     }
 
     header h1 {
-      font-size: 64px;
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
       font-weight: 800;
-      background: linear-gradient(270deg, var(--accent), var(--accent-hover), #4f46e5);
-      background-size: 300%;
+      background: linear-gradient(270deg, var(--accent), var(--accent2), var(--accent-hover));
+      background-size: 400%;
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      animation: gradientMove 6s ease infinite;
+      animation: gradientFlow 6s ease infinite;
       margin-bottom: 20px;
-    }
-
-    @keyframes gradientMove {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1.2s ease forwards 0.3s;
     }
 
     header p {
       color: var(--muted);
-      font-size: 18px;
-      max-width: 600px;
+      font-size: 1.2rem;
+      max-width: 620px;
       margin: 0 auto;
-      line-height: 1.6;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1.2s ease forwards 0.6s;
+    }
+
+    @keyframes gradientFlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
     }
 
     header button {
-      margin-top: 50px;
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 16px 40px;
-      border-radius: 12px;
-      font-size: 17px;
+      margin-top: 60px;
+      padding: 16px 46px;
+      font-size: 1rem;
       font-weight: 600;
+      color: #fff;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      border: none;
+      border-radius: 14px;
       cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+      transition: 0.35s ease;
+      box-shadow: 0 0 25px rgba(99, 102, 241, 0.3);
+      animation: fadeUp 1.2s ease forwards 0.9s;
+      opacity: 0;
     }
 
     header button:hover {
-      background: var(--accent-hover);
-      box-shadow: 0 0 30px rgba(129, 140, 248, 0.6);
-      transform: translateY(-3px);
+      transform: translateY(-4px) scale(1.05);
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
     }
 
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 35px;
-      padding: 80px 60px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      padding: 100px 60px;
       max-width: 1200px;
       margin: 0 auto;
+      z-index: 1;
+      position: relative;
     }
 
     .feature {
-      background: var(--glass-bg);
+      background: var(--glass);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 40px 30px;
-      backdrop-filter: blur(14px);
-      box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-      transition: all 0.35s ease;
+      padding: 45px 35px;
+      backdrop-filter: blur(18px);
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.3);
+      transform: translateY(40px);
+      opacity: 0;
+      transition: all 0.6s ease;
     }
-
-    .feature:hover {
-      transform: translateY(-10px);
-      border-color: var(--accent-hover);
-      box-shadow: 0 0 35px rgba(129, 140, 248, 0.4);
+    .feature.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .feature h3 {
+      font-size: 22px;
       color: var(--accent-hover);
+      margin-bottom: 14px;
       font-weight: 600;
-      font-size: 20px;
-      margin-bottom: 15px;
     }
 
     .feature p {
@@ -151,21 +186,27 @@
       padding: 60px 20px;
       border-top: 1px solid var(--border);
       color: var(--muted);
+      background: rgba(10, 10, 15, 0.6);
+      backdrop-filter: blur(16px);
       font-size: 14px;
-      background: rgba(15, 15, 20, 0.6);
-      backdrop-filter: blur(12px);
+      z-index: 1;
+      position: relative;
     }
-
     footer a {
       color: var(--accent);
       text-decoration: none;
       transition: 0.25s;
     }
-
-    footer a:hover { color: var(--accent-hover); }
+    footer a:hover {
+      color: var(--accent2);
+    }
   </style>
 </head>
 <body>
+  <!-- Floating Glow Orbs -->
+  <div class="orb"></div>
+  <div class="orb"></div>
+
   <nav>
     <div class="logo">BloxOLite</div>
     <div class="links">
@@ -177,28 +218,41 @@
   </nav>
 
   <header>
-    <h1>Roblox Moderation, Simplified.</h1>
-    <p>Powerful, transparent, and easy-to-use tools for modern Roblox moderation.</p>
+    <h1>Roblox Moderation, Reimagined.</h1>
+    <p>Powerful. Secure. Beautifully simple. Take full control of your Roblox moderation tools with confidence.</p>
     <button onclick="window.location='docs.html'">View Documentation</button>
   </header>
 
   <section class="features">
     <div class="feature">
       <h3>🛡️ 100% Safe</h3>
-      <p>Review and verify all moderation code before deploying. Transparency and trust built in from the start.</p>
+      <p>Full transparency — inspect every line of code before you run it. Security you can see and trust.</p>
     </div>
     <div class="feature">
       <h3>⚙️ Easy Setup</h3>
-      <p>Install in minutes. Drag, drop, and configure directly from your Roblox Studio environment.</p>
+      <p>Plug, play, and moderate. Zero learning curve. Ready out of the box for your next Roblox game.</p>
     </div>
     <div class="feature">
       <h3>💬 Discord Integration</h3>
-      <p>Monitor bans and moderation logs right from your Discord server — more features coming soon.</p>
+      <p>Stay informed in real time with Discord sync. See every action as it happens — more integrations coming soon.</p>
     </div>
   </section>
 
   <footer>
     <p>© 2025 BloxOLite. All rights reserved. | <a href="https://github.com/FJFG11">GitHub</a></p>
   </footer>
+
+  <script>
+    const features = document.querySelectorAll('.feature');
+    const revealOnScroll = () => {
+      const trigger = window.innerHeight * 0.85;
+      features.forEach(f => {
+        const rect = f.getBoundingClientRect().top;
+        if (rect < trigger) f.classList.add('visible');
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    revealOnScroll();
+  </script>
 </body>
 </html>
