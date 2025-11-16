@@ -168,10 +168,24 @@
     </div>
   </div>
 
-  <div class="app" role="main">
+<!--  <div class="app" role="main">
     <aside class="sidebar" id="sidebar" aria-label="Documentation menu">
       <nav class="nav-section" aria-labelledby="guide-title">
         <h4 id="guide-title">Guide</h4>
+        <ul class="nav-list">
+          <li><a href="#intro" data-target="intro">Introduction</a></li>
+          <li><a href="#install" data-target="install">Installation</a></li>
+          <li><a href="#config" data-target="config">Configuration</a></li>
+          <li><a href="#permissions" data-target="permissions">Permissions</a></li>
+          <li><a href="#security" data-target="security">Security</a></li>
+          <li><a href="#NC" data-target="NC">Custom Commands</a></li>
+        </ul>
+      </nav> -->
+
+   <div class="app" role="main">
+    <aside class="sidebar" id="sidebar" aria-label="Documentation menu">
+      <nav class="nav-section" aria-labelledby="guide-title">
+        <h4 id="guide-title">Anti-Cheat Setup</h4>
         <ul class="nav-list">
           <li><a href="#intro" data-target="intro">Introduction</a></li>
           <li><a href="#install" data-target="install">Installation</a></li>
@@ -196,77 +210,80 @@
 
       <section id="intro" class="doc-section">
         <h2>Introduction</h2>
-        <p>MAES (Moderation and Enforcement System) is an admin framework built for Roblox developers who want full control over their moderation features. It’s fast, extensible, and supports full integration with your Discord ban logging.</p>
+        <p>BloxOLite Anti-Cheat is a next-gen anti-cheat that fights against exploiters with constant updates..</p>
       </section>
 
       <section id="install" class="doc-section">
         <h2>Installation</h2>
-        <p>Follow these steps to set up MAES in your game:</p>
+        <p>Follow these steps to set up the Anti-Cheat in your game:</p>
         <ol>
-          <li>Download MAES from the official Discord.</li>
-          <li>Place the <code>Server</code> folder into <code>ServerScriptService</code>.</li>
-          <li>Edit your <code>BloxOLite</code> module inside <code>ServerScriptService</code> to match your group roles and permissions.</li>
+          <li>Download AC from the official Discord.</li>
+          <li>Place the <code>Anti-Cheat</code> module into <code>ServerScriptService</code>.</li>
+          <li>To edit the settings go-to <code>ServerScriptService -> Ant-Cheat</code></li>
         </ol>
       </section>
 
       <section id="config" class="doc-section">
         <h2>General Configuration</h2>
-        <pre><code>return {
-  ["General_Settings"] = {
-    ["prefix"] = ";",
-    ["Hotkey"] = "h",
-    ["BanData"] = data:GetDataStore("BanData123"),
-    ["Modlogs"] = data:GetDataStore("ModerationLogs123"),
-    ["WebHookUrl"] = "https://discord.com/api/webhooks/...",
-    ["BanPlaceEnabled"] = true,
-    ["BanPlaceID"] = "1234567890",
-  },
+        <pre><code>["Options"] = {
+		["AttributeName"] = "StrikesLogs", -- Name of attribute to store strikes
+		["Ammount"] = 3, -- Amount of strikes before punishment
+		["Punishment_Webhook_Url"] = "https://discord.com/api/webhooks/", -- Put your wbehook url here
+
+		["BanDataStore"] = data:GetDataStore("BanData4"), -- Your ban DataStore
+
+		["Punishment"] = "kick", -- Punishment
+		--[[
+			[Kick] = Kicks user
+			[ban] = bans user
+		]]
+
+		["BanMessage"] = "AC : Banned for triggering Anti-cheat.", -- Ban Message
+		["BannedMessage"] = "You are banned from this game due to anti-cheat violations.", -- Banned Message
+		["KickMessage"] = "AC : Kicked for triggering Anti-cheat.", -- kick Message
+
+		["WhitelistUsers"] = {  
+--			[123456789] = true, -- Example: user 123456789 can bypass anti-cheat
+		},
+
+		["WhitelistGroups"] = {
+			[591239665] = 3,   -- Example: must have rank 150+ in group 123456789 to bypass anti-cheat
+		},
+
+	},
+
+	["Detections"] = {
+		["Studs"] = 3, -- studs moved in one frame
+		["Speed-Threshold"] = 20, -- Speed threshold
+		["Speed-Margin"] = 4, -- Speed_Threshold + margin = max speed to help stop false positives
+		["Invis-Threshold"] = 0.5, -- Invis Threshold
+		["NoClip-Threshold"] = 1, -- NoClip Threshold
+		["Lag-Threshold"] = 2, -- Lag Threshold (Keep above 2 to stop false positives)
+	},
+}
 }</code></pre>
       </section>
 
       <section id="permissions" class="doc-section">
-        <h2>Rank & Permission Settings</h2>
-        <pre><code>return {
-  ["Guest"] = {
-    ["Rank_Needed"] = 0,
-    ["Enabled"] = true,
-    ["Execute_Code"] = false,
-    ["Usable_Commands"] = {
-      "panel", "cmds", "clear", "help", "credits"
-    },
-  },
-}</code></pre>
-        <p class="lead">Ranks stack — meaning higher roles automatically inherit lower-rank permissions.</p>
+        <h2>Types of punishments</h2>
+        <pre>When editing the Anti-Cheat settings you will come across <code>["Punishment"] = "???"</code> and there is 2 types of punishments <code>Kick</code> and <code>Ban</code>.
+        The first type is kick and it just kicks the user from the server they can rejoin.
+        The second type is ban and it permbans the user from you game and can only be unbaned by reseting the BanDataStore.</pre>
+        <p class="lead">Reseting the <code>BanDataStore</code> will unban all bans.</p>
       </section>
 
       <section id="security" class="doc-section">
-        <h2>Security & Roblox Settings</h2>
-        <p>Ensure these features are enabled:</p>
-        <pre><code>Allow HTTPS Requests = true
-Enable API Services = true</code></pre>
+        <h2>Worried about your game's safety?</h2>
+        <p>BloxOLite Ensures you game will not be alternated without you knowing. Every product follows the <a href="https://parcelroblox.com/legal/tos" target="_blank" rel="noopener noreferrer">Parcel</a>, <a href="https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use" target="_blank" rel="noopener noreferrer">Roblox</a> </p>
       </section>
-
-      <section id="NC" class="doc-section">
-        <h2>Custom Commands</h2>
-        <pre><code>return {
-  Name = "CommandName",
-  Aliases = {},
-  Description = "Description",
-  Enabled = true,
-  Function = function(player, args, Deps)
-    -- command body
-    return true
-  end
-}</code></pre>
-      </section>
-
+      
       <section id="TOS" class="doc-section">
         <h2>Terms Of Service</h2>
         <pre><code>TOS SOON</code></pre>
       </section>
 
       <footer>
-        © 2025 BloxOLite. Built with ❤️ for Roblox developers. | <a href="https://discord.gg/tcxqKNR649" target="_blank" rel="noopener noreferrer">Join Discord</a>
+        © 2025 BloxOLite. Built with ❤️ for Roblox developers. | 
       </footer>
     </article>
   </div>
