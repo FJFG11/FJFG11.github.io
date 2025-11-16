@@ -216,6 +216,20 @@
         </ul>
       </nav>
 
+		<nav class="collapsible-group">
+        <div class="group-header">
+          <span>Moderator call Setup</span>
+          <span class="group-icon">▶</span>
+        </div>
+
+        <ul class="nav-list group-content">
+          <li><a href="#MCintro" data-target="intro">Introduction</a></li>
+          <li><a href="#MCinstall" data-target="install">Installation</a></li>
+          <li><a href="#MCconfig" data-target="config">Configuration</a></li>
+          <li><a href="#MCsecurity" data-target="security">Security</a></li>
+        </ul>
+      </nav>
+
       <div style="margin-top:auto; padding:6px 8px;">
         <a href="index.html" class="btn" style="display:block;text-align:center">Back Home</a>
       </div>
@@ -293,6 +307,50 @@ Ban : Bans user permantly. (Cannot rejoin)
       </section>
 
       <section id="security" class="doc-section">
+        <h2>Safety</h2>
+        <p>BloxOLite follows Roblox + Parcel TOS.</p>
+      </section>
+
+		 <section id="MCintro" class="doc-section">
+        <h2>Introduction</h2>
+        <p>BloxOLite Mod call allows players to request staff through a Gui.</p>
+      </section>
+
+      <section id="MCinstall" class="doc-section">
+        <h2>Installation</h2>
+        <p>Follow these steps:</p>
+        <ol>
+          <li>Download ModCall from the official Discord.</li>
+          <li>Place <code>ModCall</code> folder in <code>ServerScriptService</code>.</li>
+		  <li>Place <code>ModUI</code> ScreenGui in <code>StarterGui</code>.</li>
+          <li>To edit settings for the modcall go-to <code>ServerScriptService -> ModCall -> Settings</code>.</li>
+        </ol>
+      </section>
+
+      <section id="MCconfig" class="doc-section">
+        <h2>General Configuration</h2>
+        <pre><code> -- General
+Config.Enabled = true -- Is modcall enabled?
+Config.IsGroupLocked = false -- Is the Gui group locked?
+Config.CoolDown = 160 -- Cooldown
+
+-- Group
+Config.GroupID = 123456789 -- GroupID
+Config.GroupRank = 50 -- Rank required
+
+-- Webhook
+Config.WebHookUrl = "https://discord.com/api/webhooks/..." -- Your webhook url
+
+-- Webhook Meta
+Config.Title = "Moderator Needed"
+Config.Desc = "A moderator is required in the server below."
+Config.SubTitle1 = "Reporter"
+Config.SubTitle2 = "Reported Player"
+Config.SubTitle3 = "Reason"
+Config.SubTitle4 = "Server Information"</code></pre>
+      </section>
+
+      <section id="MCsecurity" class="doc-section">
         <h2>Safety</h2>
         <p>BloxOLite follows Roblox + Parcel TOS.</p>
       </section>
