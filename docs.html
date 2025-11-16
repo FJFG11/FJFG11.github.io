@@ -69,7 +69,7 @@
       padding:2px 6px; border-radius:6px; background:var(--glass);
     }
 
-    /* Layout: sidebar + content */
+    /* Layout */
     .app {
       display:flex; align-items:stretch; gap:24px;
       max-width:1200px; margin:0 auto; padding:92px 24px 48px; width:100%;
@@ -124,6 +124,28 @@
       background:linear-gradient(90deg,var(--accent),var(--accent-2)); color:white; border:0;
     }
 
+    /* Collapsibles */
+    .doc-section.collapsible { padding-top:0; overflow:hidden; }
+    .collapse-header {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:20px 0; cursor:pointer; user-select:none;
+    }
+    .collapse-header h2 { margin:0; }
+    .collapse-icon {
+      transition: transform .2s ease;
+      font-size:18px; color:var(--muted);
+    }
+    .collapse-content {
+      max-height:0;
+      overflow:hidden;
+      transition:max-height .25s ease;
+    }
+    .doc-section.open .collapse-content {
+      max-height:2000px;
+    }
+    .doc-section.open .collapse-icon { transform:rotate(90deg); }
+    .collapse-header:hover .collapse-icon { color:var(--accent-2); }
+
     /* Mobile */
     .mobile-toggle {
       display:none;
@@ -140,7 +162,6 @@
       .search input { width:160px }
     }
 
-    /* small tweaks */
     a.external::after{ content:"↗"; margin-left:6px; font-size:11px; color:var(--muted) }
   </style>
 </head>
@@ -160,27 +181,12 @@
       <a href="https://www.roblox.com/communities/591239665/BloxOLite#!/about" target="_blank" rel="noopener noreferrer" class="external">Roblox</a>
     </nav>
 
-      <div class="controls" style="margin-left:8px">
-        <button class="btn" id="themeToggle" aria-pressed="false">Toggle theme</button>
-      </div>
+    <div class="controls" style="margin-left:8px">
+      <button class="btn" id="themeToggle" aria-pressed="false">Toggle theme</button>
     </div>
   </div>
 
-<!--  <div class="app" role="main">
-    <aside class="sidebar" id="sidebar" aria-label="Documentation menu">
-      <nav class="nav-section" aria-labelledby="guide-title">
-        <h4 id="guide-title">Guide</h4>
-        <ul class="nav-list">
-          <li><a href="#intro" data-target="intro">Introduction</a></li>
-          <li><a href="#install" data-target="install">Installation</a></li>
-          <li><a href="#config" data-target="config">Configuration</a></li>
-          <li><a href="#permissions" data-target="permissions">Permissions</a></li>
-          <li><a href="#security" data-target="security">Security</a></li>
-          <li><a href="#NC" data-target="NC">Custom Commands</a></li>
-        </ul>
-      </nav> -->
-
-   <div class="app" role="main">
+  <div class="app" role="main">
     <aside class="sidebar" id="sidebar" aria-label="Documentation menu">
       <nav class="nav-section" aria-labelledby="guide-title">
         <h4 id="guide-title">Anti-Cheat Setup</h4>
@@ -193,7 +199,6 @@
         </ul>
       </nav>
 
-  
       <div style="margin-top:auto; padding:6px 8px;">
         <a href="index.html" class="btn" style="display:block;text-align:center">Back Home</a>
       </div>
@@ -205,78 +210,109 @@
         <p class="lead">Everything you need to know about setting up BloxOLite products.</p>
       </header>
 
-      <section id="intro" class="doc-section">
-        <h2>Introduction</h2>
-        <p>BloxOLite Anti-Cheat is a next-gen anti-cheat that fights against exploiters with constant updates.</p>
+      <!-- Collapsible sections now -->
+      <section id="intro" class="doc-section collapsible">
+        <div class="collapse-header">
+          <h2>Introduction</h2>
+          <div class="collapse-icon">▶</div>
+        </div>
+        <div class="collapse-content">
+          <p>BloxOLite Anti-Cheat is a next-gen anti-cheat that fights against exploiters with constant updates.</p>
+        </div>
       </section>
 
-      <section id="install" class="doc-section">
-        <h2>Installation</h2>
-        <p>Follow these steps to set up the Anti-Cheat in your game:</p>
-        <ol>
-          <li>Download AC from the official Discord.</li>
-          <li>Place the <code>Anti-Cheat</code> module into <code>ServerScriptService</code>.</li>
-          <li>To edit the settings go-to <code>ServerScriptService -> Anti-Cheat</code></li>
-        </ol>
+      <section id="install" class="doc-section collapsible">
+        <div class="collapse-header">
+          <h2>Installation</h2>
+          <div class="collapse-icon">▶</div>
+        </div>
+        <div class="collapse-content">
+          <p>Follow these steps to set up the Anti-Cheat in your game:</p>
+          <ol>
+            <li>Download AC from the official Discord.</li>
+            <li>Place the <code>Anti-Cheat</code> module into <code>ServerScriptService</code>.</li>
+            <li>To edit the settings go-to <code>ServerScriptService -> Anti-Cheat</code></li>
+          </ol>
+        </div>
       </section>
 
-      <section id="config" class="doc-section">
-        <h2>General Configuration</h2>
-        <pre><code>["Options"] = {
-		["AttributeName"] = "StrikesLogs", -- Name of attribute to store strikes
-		["Ammount"] = 3, -- Amount of strikes before punishment
-		["Punishment_Webhook_Url"] = "https://discord.com/api/webhooks/", -- Put your wbehook url here
+      <section id="config" class="doc-section collapsible">
+        <div class="collapse-header">
+          <h2>General Configuration</h2>
+          <div class="collapse-icon">▶</div>
+        </div>
+        <div class="collapse-content">
+<pre><code>["Options"] = {
+  ["AttributeName"] = "StrikesLogs", -- Name of attribute to store strikes
+  ["Ammount"] = 3, -- Amount of strikes before punishment
+  ["Punishment_Webhook_Url"] = "https://discord.com/api/webhooks/", -- Put your wbehook url here
 
-		["BanDataStore"] = data:GetDataStore("BanData4"), -- Your ban DataStore
+  ["BanDataStore"] = data:GetDataStore("BanData4"), -- Your ban DataStore
 
-		["Punishment"] = "kick", -- Punishment
-		--[[
-			[Kick] = Kicks user
-			[ban] = bans user
-		]]
+  ["Punishment"] = "kick", -- Punishment
+  --[[
+    [Kick] = Kicks user
+    [ban] = bans user
+  ]]
 
-		["BanMessage"] = "AC : Banned for triggering Anti-cheat.", -- Ban Message
-		["BannedMessage"] = "You are banned from this game due to anti-cheat violations.", -- Banned Message
-		["KickMessage"] = "AC : Kicked for triggering Anti-cheat.", -- kick Message
+  ["BanMessage"] = "AC : Banned for triggering Anti-cheat.", -- Ban Message
+  ["BannedMessage"] = "You are banned from this game due to anti-cheat violations.", -- Banned Message
+  ["KickMessage"] = "AC : Kicked for triggering Anti-cheat.", -- kick Message
 
-		["WhitelistUsers"] = {  
---			[123456789] = true, -- Example: user 123456789 can bypass anti-cheat
-		},
+  ["WhitelistUsers"] = {  
+--    [123456789] = true, -- Example: user 123456789 can bypass anti-cheat
+  },
 
-		["WhitelistGroups"] = {
-			[591239665] = 3,   -- Example: must have rank 150+ in group 123456789 to bypass anti-cheat
-		},
+  ["WhitelistGroups"] = {
+    [591239665] = 3,   -- Example: must have rank 150+ in group 123456789 to bypass anti-cheat
+  },
 
-	},
+},
 
-	["Detections"] = {
-		["Studs"] = 3, -- studs moved in one frame
-		["Speed-Threshold"] = 20, -- Speed threshold
-		["Speed-Margin"] = 4, -- Speed_Threshold + margin = max speed to help stop false positives
-		["Invis-Threshold"] = 0.5, -- Invis Threshold
-		["NoClip-Threshold"] = 1, -- NoClip Threshold
-		["Lag-Threshold"] = 2, -- Lag Threshold (Keep above 2 to stop false positives)
-	},
+["Detections"] = {
+  ["Studs"] = 3, -- studs moved in one frame
+  ["Speed-Threshold"] = 20, -- Speed threshold
+  ["Speed-Margin"] = 4, -- Speed_Threshold + margin = max speed to help stop false positives
+  ["Invis-Threshold"] = 0.5, -- Invis Threshold
+  ["NoClip-Threshold"] = 1, -- NoClip Threshold
+  ["Lag-Threshold"] = 2, -- Lag Threshold (Keep above 2 to stop false positives)
+},
 }
 }</code></pre>
+        </div>
       </section>
 
-      <section id="permissions" class="doc-section">
-        <h2>Types of punishments</h2>
-        <pre>When editing the Anti-Cheat settings you will come across <code>["Punishment"] = "???"</code> and there is 2 types of punishments <code>Kick</code> and <code>Ban</code>.
+      <section id="permissions" class="doc-section collapsible">
+        <div class="collapse-header">
+          <h2>Types of punishments</h2>
+          <div class="collapse-icon">▶</div>
+        </div>
+        <div class="collapse-content">
+<pre>When editing the Anti-Cheat settings you will come across <code>["Punishment"] = "???"</code> and there is 2 types of punishments <code>Kick</code> and <code>Ban</code>.
 The first type is kick and it just kicks the user from the server they can rejoin.
 The second type is ban and it permbans the user from you game and can only be unbaned by reseting the BanDataStore.</pre>
-        <p class="lead">Reseting the <code>BanDataStore</code> will unban all bans.</p>
+          <p class="lead">Reseting the <code>BanDataStore</code> will unban all bans.</p>
+        </div>
       </section>
 
-      <section id="security" class="doc-section">
-        <h2>Worried about your game's safety?</h2>
-        <p>BloxOLite Ensures you game will not be alternated without you knowing. Every product follows the <a href="https://parcelroblox.com/legal/tos" target="_blank" rel="noopener noreferrer">Parcel</a>, <a href="https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use" target="_blank" rel="noopener noreferrer">Roblox</a> TOS.</p>
+      <section id="security" class="doc-section collapsible">
+        <div class="collapse-header">
+          <h2>Worried about your game's safety?</h2>
+          <div class="collapse-icon">▶</div>
+        </div>
+        <div class="collapse-content">
+          <p>BloxOLite Ensures you game will not be alternated without you knowing. Every product follows the <a href="https://parcelroblox.com/legal/tos" target="_blank" rel="noopener noreferrer">Parcel</a>, <a href="https://en.help.roblox.com/hc/en-us/articles/115004647846-Roblox-Terms-of-Use" target="_blank" rel="noopener noreferrer">Roblox</a> TOS.</p>
+        </div>
       </section>
-      
-      <section id="TOS" class="doc-section">
-        <h2>Terms Of Service</h2>
-        <pre><code>TOS SOON</code></pre>
+
+      <section id="TOS" class="doc-section collapsible">
+        <div class="collapse-header">
+          <h2>Terms Of Service</h2>
+          <div class="collapse-icon">▶</div>
+        </div>
+        <div class="collapse-content">
+          <pre><code>TOS SOON</code></pre>
+        </div>
       </section>
 
       <footer>
@@ -286,7 +322,7 @@ The second type is ban and it permbans the user from you game and can only be un
   </div>
 
   <script>
-    // Restore theme (persisted)
+    // Theme persistence
     (function(){
       const themeToggle = document.getElementById('themeToggle');
       const saved = localStorage.getItem('blx:theme');
@@ -310,24 +346,23 @@ The second type is ban and it permbans the user from you game and can only be un
       const openBtn = document.getElementById('openSidebar');
       const sidebar = document.getElementById('sidebar');
       openBtn?.addEventListener('click', ()=> sidebar.classList.toggle('open'));
-      // close on nav link click (mobile)
       document.querySelectorAll('.nav-list a').forEach(a=>{
         a.addEventListener('click', ()=> { if (window.innerWidth <= 900) sidebar.classList.remove('open'); });
       });
     })();
 
-    // "Press S to search" and search focus
+    // Search shortcut
     (function(){
       const search = document.getElementById('docSearch');
       document.addEventListener('keydown', (e) => {
         if (e.key.toLowerCase() === 's' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {
           e.preventDefault();
-          search.focus();
+          search?.focus();
         }
       });
     })();
 
-    // Active link highlight on scroll
+    // Active nav highlight
     (function(){
       const links = Array.from(document.querySelectorAll('.nav-list a'));
       const sections = links.map(l => document.getElementById(l.getAttribute('data-target')));
@@ -342,6 +377,34 @@ The second type is ban and it permbans the user from you game and can only be un
       }
       window.addEventListener('scroll', onScroll, {passive:true});
       onScroll();
+    })();
+
+    // Collapsible sections
+    (function () {
+      const sections = document.querySelectorAll('.doc-section.collapsible');
+
+      sections.forEach(sec => {
+        const header = sec.querySelector('.collapse-header');
+        const content = sec.querySelector('.collapse-content');
+
+        // Open by default
+        sec.classList.add('open');
+        content.style.maxHeight = content.scrollHeight + "px";
+
+        header.addEventListener('click', () => {
+          const isOpen = sec.classList.contains('open');
+          sec.classList.toggle('open');
+
+          if (isOpen) {
+            content.style.maxHeight = "0px";
+          } else {
+            content.style.maxHeight = content.scrollHeight + "px";
+            setTimeout(() => {
+              sec.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 200);
+          }
+        });
+      });
     })();
   </script>
 </body>
