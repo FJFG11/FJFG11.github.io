@@ -1,549 +1,289 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>BloxOLite — Documentation</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #0c0c10;
-      --card: #141418;
-      --border: #26262a;
-      --text: #f9fafb;
-      --muted: #a1a1aa;
-      --accent: #6366f1;
-      --accent-hover: #8b5cf6;
-      --glow: 0 0 25px rgba(99,102,241,0.3);
-      --transition: 0.25s ease;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BloxOLite — Documentation</title>
 
-    [data-theme="light"] {
-      --bg: #f9fafb;
-      --card: #ffffff;
-      --border: #e4e4e7;
-      --text: #111;
-      --muted: #444;
-      --accent: #4f46e5;
-      --accent-hover: #6366f1;
-      --glow: 0 0 15px rgba(99,102,241,0.2);
-    }
+<style>
+/* ------------------------ GLOBAL THEME ------------------------ */
+:root{
+  --bg:#0c0c10; --card:#141418; --border:#26262a; --text:#f9fafb; --muted:#a1a1aa;
+  --accent:#6366f1; --accent-hover:#8b5cf6;
+}
+body{
+  margin:0; display:flex; background:var(--bg); color:var(--text);
+  font-family: Inter, sans-serif;
+}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+/* ------------------------ SIDEBAR ------------------------ */
+.sidebar{
+  width:260px; background:var(--card); height:100vh; overflow-y:auto;
+  padding:25px; border-right:1px solid var(--border);
+}
+.sidebar h2{ color:var(--accent); margin-bottom:25px; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Inter", sans-serif;
-      display: flex;
-      overflow-x: hidden;
-      transition: background var(--transition), color var(--transition);
-    }
+.nav-group { margin-bottom:20px; }
+.group-title{
+  font-weight:700; margin-bottom:8px; cursor:pointer;
+  color:var(--accent-hover);
+}
+.group-links{ margin-left:12px; display:flex; flex-direction:column; }
+.group-links a{
+  text-decoration:none; color:var(--muted);
+  padding:5px 0; border-left:3px solid transparent;
+}
+.group-links a:hover, .active {
+  color:var(--accent-hover); border-left:3px solid var(--accent);
+}
 
-    /* Sidebar */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-      width: 280px;
-      background: var(--card);
-      border-right: 1px solid var(--border);
-      padding: 35px 25px;
-      overflow-y: auto;
-      box-shadow: var(--glow);
-      transition: background var(--transition), border var(--transition);
-    }
+/* ------------------------ CONTENT ------------------------ */
+.content{
+  flex:1;
+  padding:40px;
+  overflow-y:auto;
+  max-width:900px;
+}
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  padding:20px; border-radius:10px;
+  margin-bottom:40px;
+}
+h1,h2{ color:var(--accent-hover); }
+code, pre{
+  background:#0f0f13;
+  border:1px solid var(--border);
+  padding:15px; border-radius:10px;
+  display:block; white-space:pre-wrap;
+  color:#d1d5ff;
+}
 
-    nav::-webkit-scrollbar { width: 6px; }
-    nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 6px; }
+/* ------------------------ PAGES ------------------------ */
+.page{ display:none; }
+.page.active{ display:block; }
 
-    nav h2 {
-      color: var(--accent);
-      font-size: 22px;
-      margin-bottom: 30px;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-    }
-
-    .nav-group {
-      margin-bottom: 25px;
-    }
-
-    .group-title {
-      font-weight: 700;
-      color: var(--accent-hover);
-      margin-bottom: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: color var(--transition);
-    }
-
-    .group-title:hover {
-      color: var(--accent);
-    }
-
-    .group-links {
-      margin-left: 12px;
-      display: none;
-      flex-direction: column;
-      transition: max-height 0.3s ease;
-    }
-
-    .group-links.show {
-      display: flex;
-    }
-
-    nav a {
-      display: block;
-      color: var(--muted);
-      text-decoration: none;
-      margin: 6px 0;
-      padding: 6px 0;
-      border-left: 3px solid transparent;
-      font-size: 14px;
-      font-weight: 500;
-      transition: color var(--transition), border var(--transition), padding var(--transition);
-    }
-
-    nav a:hover, nav a.active {
-      color: var(--accent-hover);
-      border-left: 3px solid var(--accent);
-      padding-left: 8px;
-    }
-
-    .arrow {
-      transition: transform 0.3s ease;
-    }
-    .arrow.open {
-      transform: rotate(90deg);
-    }
-
-    /* Main */
-    main {
-      flex: 1;
-      margin-left: 280px;
-      padding: 70px 80px;
-      max-width: 950px;
-      animation: fadeIn 0.6s ease-in;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(15px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    header {
-      border-bottom: 1px solid var(--border);
-      margin-bottom: 50px;
-      padding-bottom: 25px;
-    }
-
-    header h1 {
-      font-size: 42px;
-      font-weight: 800;
-      background: linear-gradient(90deg, var(--accent), var(--accent-hover));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      color: var(--muted);
-      font-size: 17px;
-      line-height: 1.7;
-      max-width: 750px;
-    }
-
-    /* Sections */
-    section {
-      margin-bottom: 70px;
-      background: var(--card);
-      padding: 40px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      box-shadow: var(--glow);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    section:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 0 30px rgba(99,102,241,0.25);
-    }
-
-    h2 {
-      color: var(--accent-hover);
-      font-size: 26px;
-      margin-bottom: 16px;
-      font-weight: 700;
-    }
-
-    h3 {
-      color: var(--accent);
-      margin-top: 25px;
-      margin-bottom: 8px;
-      font-size: 19px;
-      font-weight: 600;
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.75;
-      font-size: 15px;
-      margin-bottom: 15px;
-    }
-
-    ul, ol {
-      margin: 15px 0 25px 25px;
-      color: var(--muted);
-      line-height: 1.6;
-    }
-
-    li { margin-bottom: 8px; }
-
-    pre {
-      background: #0f0f13;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px;
-      overflow-x: auto;
-      color: #d1d5ff;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 14px;
-      line-height: 1.6;
-      margin-top: 10px;
-      box-shadow: inset 0 0 15px rgba(99,102,241,0.1);
-    }
-
-    code {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 14px;
-      color: var(--accent-hover);
-      background: none;
-      border: none;
-      padding: 0;
-    }
-
-    footer {
-      border-top: 1px solid var(--border);
-      margin-top: 100px;
-      padding-top: 40px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 14px;
-      opacity: 0.8;
-    }
-
-    footer a {
-      color: var(--accent);
-      text-decoration: none;
-      transition: 0.2s;
-    }
-
-    footer a:hover {
-      color: var(--accent-hover);
-      text-decoration: underline;
-    }
-
-    .theme-toggle {
-      background: var(--accent);
-      border: none;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 14px;
-      margin-top: 25px;
-      transition: background var(--transition), transform 0.2s;
-      width: 100%;
-    }
-
-    .theme-toggle:hover {
-      background: var(--accent-hover);
-      transform: scale(1.03);
-    }
-  </style>
+/* Scroll fix for TOS */
+pre.long { max-height:500px; overflow-y:auto; }
+</style>
 </head>
+
 <body>
-  <nav>
-    <h2>BloxOLite Docs</h2>
 
-    <div class="nav-group">
-      <div class="group-title">MAES <span class="arrow">▶</span></div>
-      <div class="group-links">
-        <a href="#intro">Introduction</a>
-        <a href="#install">Installation</a>
-        <a href="#config">Configuration</a>
-        <a href="#permissions">Permissions</a>
-        <a href="#security">Security</a>
-        <a href="#NC">Custom Commands</a>
-      </div>
+<!-- ------------------------ SIDEBAR ------------------------ -->
+<div class="sidebar">
+
+  <h2>BloxOLite Docs</h2>
+
+  <div class="nav-group">
+    <div class="group-title">Pages</div>
+    <div class="group-links">
+      <a onclick="showPage('home')">🏠 Home</a>
+      <a onclick="showPage('maes')">🛠 MAES</a>
+      <a onclick="showPage('anticheat')">🛡 Anti-Cheat</a>
+      <a onclick="showPage('modcall')">📞 ModCall</a>
+      <a onclick="showPage('tos')">📜 Terms of Service</a>
     </div>
+  </div>
 
-	     <div class="nav-group">
-      <div class="group-title">Anti-Cheat <span class="arrow">▶</span></div>
-      <div class="group-links">
-        <a href="#ACintro">Introduction</a>
-        <a href="#ACinstall">Installation</a>
-        <a href="#ACconfig">Configuration</a>
-      </div>
-    </div>
+</div>
 
-	       <div class="nav-group">
-      <div class="group-title">ModCall <span class="arrow">▶</span></div>
-      <div class="group-links">
-        <a href="#MCIntro">Introduction</a>
-        <a href="#MCinstall">Installation</a>
-        <a href="#MCconfig">Configuration</a>
-      </div>
-    </div>
+<!-- ------------------------ MAIN CONTENT ------------------------ -->
+<div class="content">
 
-    <div class="nav-group">
-      <div class="group-title">Other <span class="arrow">▶</span></div>
-      <div class="group-links">
-	    <a href="#TOS">TOS</a>
-        <a href="index.html">← Back Home</a>
-		  
-      </div>
-    </div>
+<!-- ------------------------ HOME PAGE ------------------------ -->
+<div id="home" class="page active">
+  <h1>BloxOLite Documentation</h1>
+  <div class="card">
+    <p>Welcome! Use the sidebar to access the documentation for:</p>
+    <ul>
+      <li>MAES - Moderation System</li>
+      <li>Anti-Cheat</li>
+      <li>ModCall</li>
+      <li>Terms of Service</li>
+    </ul>
+  </div>
+</div>
 
-    <button class="theme-toggle" id="themeToggle">Toggle Theme</button>
-  </nav>
+<!-- ------------------------ MAES PAGE ------------------------ -->
+<div id="maes" class="page">
 
-  <main>
-    <header>
-      <h1>Documentation</h1>
-      <p>Everything you need to know about setting up BloxOLite products.</p>
-    </header>
+  <h1>MAES — Moderation & Enforcement</h1>
 
-    <section id="intro">
-      <h2>Introduction</h2>
-      <p>MAES (Moderation and Enforcement System) is a admin framework built for Roblox developers who want full control over their moderation features. It’s fast, extensible, and supports full integration with your Discord ban logging.</p>
-    </section>
+  <div class="card">
+    <h2>Introduction</h2>
+    <p>MAES (Moderation and Enforcement System) is a admin framework built for Roblox developers who want full control over their moderation features.</p>
+  </div>
 
-    <section id="install">
-      <h2>Installation</h2>
-      <p>Follow these steps to set up MAES in your game:</p>
-      <ol>
-        <li>Download MAES from the official Discord..</li>
-        <li>Place the <code>Server</code> folder into <code>ServerScriptService</code>.</li>
-        <li>Edit your <code>BloxOLite</code> module inside <code>ServerScriptService</code> to match your group roles and permissions.</li>
-      </ol>
-    </section>
+  <div class="card">
+    <h2>Installation</h2>
+    <ol>
+      <li>Download MAES from the official Discord.</li>
+      <li>Place the Server folder into ServerScriptService.</li>
+      <li>Edit your BloxOLite module.</li>
+    </ol>
+  </div>
 
-    <section id="config">
-      <h2>General Configuration</h2>
-      <pre><code>return {
+  <div class="card">
+    <h2>General Configuration</h2>
+    <pre><code>return {
   ["General_Settings"] = {
-    ["prefix"] = ";", -- Prefix used in game to execute commands
-    ["Hotkey"] = "h", -- key that shows the UI
-    ["BanData"] = data:GetDataStore("BanData123"), -- The ban data
-    ["Modlogs"] = data:GetDataStore("ModerationLogs123"), -- The ModLogs Data
-    ["WebHookUrl"] = "https://discord.com/api/webhooks/...", -- Discord Webhook for ban logging
-		  
-    ["BanPlaceEnabled"] = true, -- If the ban place is enabled or not
-    ["BanPlaceID"] = "1234567890", -- Ban place ID
+    ["prefix"] = ";",
+    ["Hotkey"] = "h",
+    ["BanData"] = data:GetDataStore("BanData123"),
+    ["Modlogs"] = data:GetDataStore("ModerationLogs123"),
+    ["WebHookUrl"] = "https://discord.com/api/webhooks/...",
+
+    ["BanPlaceEnabled"] = true,
+    ["BanPlaceID"] = "1234567890",
   },
 }</code></pre>
-    </section>
+  </div>
 
-    <section id="permissions">
-      <h2>Rank & Permission Settings</h2>
-      <pre><code>return {
-  ["Guest"] = { -- Rank Name
-    ["Rank_Needed"] = 0, -- Group rank needed
-    ["Enabled"] = true, -- Rank Enabled
-    ["Execute_Code"] = false, -- can it use 'runlua'
-    ["Usable_Commands"] = { -- Command this rank+ can use
-      "panel", "cmds", "clear", "help", "credits" -- command Names
+  <div class="card">
+    <h2>Rank & Permission Settings</h2>
+<pre><code>return {
+  ["Guest"] = {
+    ["Rank_Needed"] = 0,
+    ["Enabled"] = true,
+    ["Execute_Code"] = false,
+    ["Usable_Commands"] = {
+      "panel","cmds","clear","help","credits"
     },
   },
 }</code></pre>
-      <p>Ranks stack — meaning higher roles automatically inherit lower-rank permissions.</p>
-    </section>
+  </div>
 
-    <section id="security">
-      <h2>Security & Roblox Settings</h2>
-      <h3>Ensure these features are enabled:</h3>
-      <pre><code>Allow HTTPS Requests = true (for Remote Events)
-Enable API Services = true (for DataStores)</code></pre>
-      <p>Without these, MAES will not be able to communicate with Discord.</p>
-    </section>
+  <div class="card">
+    <h2>Security</h2>
+<pre><code>Allow HTTPS Requests = true
+Enable API Services = true</code></pre>
+  </div>
 
-    <section id="NC">
-      <h2>Custom Commands</h2>
-      <h3>To add custom commands create a new module script in one of the command folders then add the code in.</h3>
-      <pre><code>local ReplicatedStorage = game:GetService("ReplicatedStorage")
+  <div class="card">
+    <h2>Custom Commands</h2>
+<pre><code>local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RepFolder = ReplicatedStorage:WaitForChild("NameHereFolder")
 local messages = require(RepFolder:WaitForChild("ClientMessages"))
 local CommandStatusEvent = RepFolder:WaitForChild("CommandStatusEvent")
 
 return {
-	Name = "CommandName", 
-	Aliases = {},
-	Description = "Description of what the command does.",
-	Enabled = true,
-	Function = function(player, args, Deps)
-       -- command Function
-		return true
-	end
+  Name = "CommandName",
+  Aliases = {},
+  Description = "Description here.",
+  Enabled = true,
+  Function = function(player, args, Deps)
+     return true
+  end
 }</code></pre>
-      <p>Then insert the Name, Description, Function also make sure to add the command name to a rank in BloxOLite_Config.</p>
-    </section>
+  </div>
 
+</div>
 
+<!-- ------------------------ ANTI-CHEAT PAGE ------------------------ -->
+<div id="anticheat" class="page">
+  <h1>Anti-Cheat Documentation</h1>
 
-	     <section id="ACintro">
-      <h2>Anti-Cheat Docs</h2>
-      <p>BloxOLite Anti-Cheat protects you game from exploits with regular updates from developers.</p>
-    </section>
+  <div class="card">
+    <h2>Introduction</h2>
+    <p>BloxOLite Anti-Cheat protects your game from exploits.</p>
+  </div>
 
-    <section id="ACinstall">
-      <h2>Installation</h2>
-      <p>Follow these steps to set up Anti-Cheat in your game:</p>
-      <ol>
-        <li>Download/buy Anti-Cheat from the official Discord Server.</li>
-		<li>Insert the file into your game.</li>
-		<li>Drag <code>Anti-Cheat V2</code> into <code>ServerScriptService</code> and you done.
-      </ol>
-    </section>
+  <div class="card">
+    <h2>Installation</h2>
+    <ol>
+      <li>Download the Anti-Cheat.</li>
+      <li>Insert file into your game.</li>
+      <li>Drag Anti-Cheat V2 into ServerScriptService.</li>
+    </ol>
+  </div>
 
-    <section id="ACconfig">
-      <h2>General Configuration</h2>
-      <li>To access the config open <code>ServerScriptService -> Anti-Cheat</code> and open the module to start configuring it to your liking.</li>
-    </section>
+  <div class="card">
+    <h2>Configuration</h2>
+    <p>Open ServerScriptService → Anti-Cheat → settings module.</p>
+  </div>
+</div>
 
-	       <section id="MCIntro">
-      <h2>ModCall Docs</h2>
-      <p>BloxOLite ModCall allows players in your game to call a staff memeber for help.</p>
-    </section>
+<!-- ------------------------ MODCALL PAGE ------------------------ -->
+<div id="modcall" class="page">
+  <h1>ModCall Documentation</h1>
 
-    <section id="MCinstall">
-      <h2>Installation</h2>
-      <p>Follow these steps to set up ModCall in your game:</p>
-      <ol>
-        <li>Download/buy ModCall from the official Discord Server.</li>
-		<li>Insert the file into your game.</li>
-		<li>Drag <code>ModCall</code> into <code>ServerScriptService</code> and <code>ModUI</code> into <code>StarterGui</code>.</li>
-		<li>Put the <code>BloxOLiteRemotes</code> folder into <code>ReplicatedStorage</code></li>
-		<li>On line 41 you will see <code>Config.WebHookUrl = "https://discord.com/api/webhooks/..."</code> replace it with you webhook url.</li>
-      </ol>
-    </section>
+  <div class="card">
+    <h2>Introduction</h2>
+    <p>BloxOLite ModCall allows players to call staff for help.</p>
+  </div>
 
-    <section id="MCconfig">
-      <h2>General Configuration</h2>
-      <li>To access the config open <code>ServerScriptService -> ModCall -> settings</code> and open the module to start configuring it to your liking.</li>
-    </section>
+  <div class="card">
+    <h2>Installation</h2>
+    <ol>
+      <li>Download from Discord.</li>
+      <li>Insert into your game.</li>
+      <li>Drag ModCall into ServerScriptService.</li>
+      <li>Drag ModUI into StarterGui.</li>
+      <li>Set your webhook URL.</li>
+    </ol>
+  </div>
 
-	    <section id="TOS">
-      <h2>Terms Of Service</h2>
-      <pre><code>----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+  <div class="card">
+    <h2>Configuration</h2>
+    <p>Open ServerScriptService → ModCall → settings.</p>
+  </div>
+</div>
 
+<!-- ------------------------ TOS PAGE ------------------------ -->
+<div id="tos" class="page">
+  <h1>Terms Of Service</h1>
+
+  <div class="card">
+    <pre class="long"><code>--------------------------------------------------------------------
 1. Asset Usage & Permission
+You may not share, leak, or redistribute any internal assets...
 
-You may not share, leak, or redistribute any internal assets such as source code, UI designs, or backend scripts from BloxOLite.
-Use of these assets in your own games is strictly forbidden unless you have written permission from the Owner (FJFG11). 
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+--------------------------------------------------------------------
 2. Tampering & Obfuscation
+Obfuscated scripts are protected. Bypassing them is prohibited.
 
-Obfuscated scripts (e.g., Server_Manager) are protected. Bypassing, reverse engineering, or tampering with verification systems is strictly prohibited and will result in immediate license termination.
-
-If you discover a vulnerability or exploit, report it responsibly by joining our server and opening a support ticket. Following our Responsible Disclosure policy ensures your license remains safe.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+--------------------------------------------------------------------
 3. Refund Policy
+No refunds under any circumstances.
 
-BloxOLite does not offer refunds under any circumstances. All sales are final.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+--------------------------------------------------------------------
 4. Redistribution
+Not allowed in any form.
 
-You are not allowed to redistribute any BloxOLite assets, including but not limited to UI files, scripts, or modules. Redistribution in any form (paid or free) will lead to license revocation and potential blacklisting.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+--------------------------------------------------------------------
 5. Asset Requests / Begging
+Not allowed. Both parties lose access.
 
-Requesting assets from current BloxOLite users (e.g., "Can you send me the ProductName?") is strictly prohibited.
-If a user shares assets with you, both parties will have their licenses permanently revoked for violating these Terms.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+--------------------------------------------------------------------
 6. Responsible Disclosure
+Report vulnerabilities responsibly.
 
-BloxOLite prioritizes the security and integrity of its systems and assets. If you are a developer or security researcher who has found a legitimate vulnerability, we encourage you to report it responsibly.
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+--------------------------------------------------------------------
 7. Appeals
+You may open a ticket if you believe revocation was in error.
 
-If your license was revoked and you believe it was in error, you may open a support ticket with proof and a valid reason.
-
-Note: We currently do not offer an appeal system for bans outside of the official BloxOLite Discord server. You may contact staff directly, but we reserve the right to ignore appeals that don't follow proper channels.
-
-
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
+--------------------------------------------------------------------
 8. Legal Notice
+We may update these Terms at any time.
+--------------------------------------------------------------------
+Last updated: October 3, 2025
+</code></pre>
+  </div>
 
-BloxOLite reserves the right to:
-Update or change these Terms at any time
-Deny access to products or support to users who break our rules
-Enforce legal action in cases of asset theft, redistribution, or fraud
-By using BloxOLite, you accept these Terms and agree to follow all policies and procedures outlined above.
+</div>
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+</div>
 
-By purchasing or using any assets from BloxOLite, you automatically agree to the following Terms of Service. Failure to comply may result in your license being revoked without refund or warning.
+<!-- ------------------------ JAVASCRIPT ------------------------ -->
+<script>
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.group-links a').forEach(a => a.classList.remove('active'));
+  event.target.classList.add('active');
+}
+</script>
 
-Last updated: October 3, 2025</code></pre>
-    </section>
-
-    <footer>
-      <p>© 2025 BloxOLite. Built with ❤️ for Roblox developers. | <a href="https://discord.gg/tcxqKNR649" target="_blank">Join Discord</a></p>
-    </footer>
-  </main>
-
-  <script>
-    const toggle = document.getElementById("themeToggle");
-    toggle.addEventListener("click", () => {
-      const current = document.body.getAttribute("data-theme");
-      if (current === "light") {
-        document.body.removeAttribute("data-theme");
-      } else {
-        document.body.setAttribute("data-theme", "light");
-      }
-    });
-
-    document.querySelectorAll(".group-title").forEach(title => {
-      const links = title.nextElementSibling;
-      const arrow = title.querySelector(".arrow");
-      title.addEventListener("click", () => {
-        links.classList.toggle("show");
-        arrow.classList.toggle("open");
-      });
-    });
-  </script>
 </body>
 </html>
