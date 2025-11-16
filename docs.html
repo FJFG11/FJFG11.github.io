@@ -241,18 +241,55 @@
         <ol>
           <li>Download AC from the official Discord.</li>
           <li>Place <code>Anti-Cheat</code> in <code>ServerScriptService</code>.</li>
-          <li>Configure settings inside it.</li>
+          <li>To edit settings for the anti-cheat go-to <code>ServerScriptService -> Anti-Cheat</code>.</li>
         </ol>
       </section>
 
       <section id="config" class="doc-section">
         <h2>General Configuration</h2>
-        <pre><code>[FULL CONFIG KEPT AS YOU PROVIDED]</code></pre>
+        <pre><code>[["Options"] = {
+		["AttributeName"] = "StrikesLogs", -- Name of attribute to store strikes
+		["Ammount"] = 3, -- Amount of strikes before punishment
+		["Punishment_Webhook_Url"] = "https://discord.com/api/webhooks/", -- Put your wbehook url here
+
+		["BanDataStore"] = data:GetDataStore("BanData4"), -- Your ban DataStore
+
+		["Punishment"] = "kick", -- Punishment
+		--[[
+			[Kick] = Kicks user
+			[ban] = bans user
+		]]
+
+		["BanMessage"] = "AC : Banned for triggering Anti-cheat.", -- Ban Message
+		["BannedMessage"] = "You are banned from this game due to anti-cheat violations.", -- Banned Message
+		["KickMessage"] = "AC : Kicked for triggering Anti-cheat.", -- kick Message
+
+		["WhitelistUsers"] = {  
+--			[123456789] = true, -- Example: user 123456789 can bypass anti-cheat
+		},
+
+		["WhitelistGroups"] = {
+			[591239665] = 3,   -- Example: must have rank 150+ in group 123456789 to bypass anti-cheat
+		},
+
+	},
+
+	["Detections"] = {
+		["Studs"] = 3, -- studs moved in one frame
+		["Speed-Threshold"] = 20, -- Speed threshold
+		["Speed-Margin"] = 4, -- Speed_Threshold + margin = max speed to help stop false positives
+		["Invis-Threshold"] = 0.5, -- Invis Threshold
+		["NoClip-Threshold"] = 1, -- NoClip Threshold
+		["Lag-Threshold"] = 2, -- Lag Threshold (Keep above 2 to stop false positives)
+	},</code></pre>
       </section>
 
       <section id="permissions" class="doc-section">
         <h2>Types of punishments</h2>
-        <pre>Kick / Ban explanation…</pre>
+        <pre>When you are editing settings in the Anti-Cheat Module you will see <code>["Punishment"] = "???"</code> and you have 2 choice:
+Kick : Kicks the user who has tripped the anti-cheat. (They can rejoin)
+Ban : Bans user permantly. (Cannot rejoin)
+        </pre>
       </section>
 
       <section id="security" class="doc-section">
