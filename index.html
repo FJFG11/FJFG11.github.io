@@ -157,7 +157,20 @@
       }
     }
 
-  </style>
+    /* Parallax Background */
+    .hero {
+      background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1950&q=80');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    /* Loader Fade Keyframe */
+    @keyframes loaderFadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+
+</style>
   <script>
     // Smooth scroll reveal
     const revealElements = () => {
@@ -176,6 +189,13 @@
   </script>
 </head>
 <body>
+
+  <!-- Loading Intro -->
+  <div id="loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0b0b;display:flex;justify-content:center;align-items:center;z-index:9999;transition:opacity 0.6s ease;">
+    <h2 style="font-size:2rem;color:white;opacity:0;animation:fadeIn 1.2s forwards;">Loading...</h2>
+  </div>
+
+
 
   <header>
     <div class="logo">MyPortfolio</div>
@@ -230,6 +250,23 @@
       header.style.boxShadow = '0 0 0 rgba(0,0,0,0)';
       header.style.background = 'rgba(20,20,20,0.35)';
     }
+  });
+</script>
+<script>
+  // Parallax motion
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const hero = document.querySelector('.hero');
+    hero.style.backgroundPositionY = `${scrolled * 0.4}px`;
+  });
+
+  // Loading Intro Animation
+  window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    setTimeout(() => {
+      loader.style.opacity = '0';
+      setTimeout(() => loader.style.display = 'none', 600);
+    }, 900);
   });
 </script>
 </body>
