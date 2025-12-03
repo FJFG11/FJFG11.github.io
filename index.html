@@ -13,7 +13,7 @@
     }
 
     body {
-      background: #0e0e0e;
+      background: #0b0b0b;
       color: #ffffff;
       overflow-x: hidden;
     }
@@ -26,15 +26,18 @@
       align-items: center;
       position: fixed;
       top: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(10px);
+      z-index: 50;
+      background: rgba(20, 20, 20, 0.4);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     header nav a {
       margin-left: 30px;
       text-decoration: none;
-      color: #afafaf;
-      transition: 0.3s;
+      color: #cfcfcf;
+      transition: color 0.3s ease;
     }
 
     header nav a:hover {
@@ -50,54 +53,69 @@
       align-items: center;
       text-align: center;
       padding: 0 20px;
+      animation: fadeIn 1.3s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .hero h1 {
-      font-size: 3.2rem;
+      font-size: 3.4rem;
       font-weight: 700;
       margin-bottom: 20px;
+      background: linear-gradient(90deg, #fff, #cfcfcf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .hero p {
       font-size: 1.3rem;
       max-width: 650px;
-      color: #cfcfcf;
+      color: #bfbfbf;
       margin-bottom: 35px;
     }
 
     .btn {
       padding: 12px 26px;
       border: none;
-      border-radius: 8px;
-      background: #ffffff;
-      color: #000;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.1);
+      color: #fff;
       cursor: pointer;
       font-size: 1rem;
       transition: 0.3s;
       text-decoration: none;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.15);
     }
 
     .btn:hover {
-      opacity: 0.85;
+      background: rgba(255,255,255,0.2);
     }
 
     .projects {
-      padding: 140px 60px;
+      padding: 160px 60px;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
       gap: 40px;
     }
 
     .project-card {
-      background: #1a1a1a;
+      background: rgba(255,255,255,0.05);
       padding: 30px;
-      border-radius: 14px;
-      box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
-      transition: 0.3s;
+      border-radius: 18px;
+      box-shadow: 0 0 60px rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      animation: fadeIn 1.4s ease forwards;
     }
 
     .project-card:hover {
-      transform: translateY(-6px);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
     }
 
     .project-card h3 {
@@ -107,7 +125,7 @@
 
     .project-card p {
       margin-bottom: 18px;
-      color: #b6b6b6;
+      color: #c7c7c7;
     }
 
     footer {
@@ -116,6 +134,26 @@
       color: #777;
       font-size: 0.9rem;
     }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      header {
+        padding: 20px;
+      }
+
+      .hero h1 {
+        font-size: 2.3rem;
+      }
+
+      .hero p {
+        font-size: 1.1rem;
+      }
+
+      .projects {
+        padding: 120px 20px;
+      }
+    }
+
   </style>
 </head>
 <body>
