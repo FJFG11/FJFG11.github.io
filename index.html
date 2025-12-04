@@ -140,6 +140,31 @@
       font-size: 0.9rem;
     }
 
+    .card {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Top-right project thumbnail */
+.card-img {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 55px;        /* Adjust size here */
+    height: 55px;
+    object-fit: cover;
+    border-radius: 12px;
+    opacity: 0.9;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 12px rgba(0,0,0,0.4);
+    transition: opacity 0.25s ease;
+}
+
+.card:hover .card-img {
+    opacity: 1;
+}
+
+
     /* ===== TOOLS SECTION ===== */
     .tool-card {
       padding: 25px 35px;
@@ -245,6 +270,7 @@
 
       <div class="card">
         <h3>BloxOLite</h3>
+        <img class="card-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png?ex=6933141f&is=6931c29f&hm=141d405480062ba207321b55f0179bebab4988f8b34f7b80b73a2e4a13220c9d&=&format=webp&quality=lossless&width=1000&height=1000">
         <p>Previously CEO for Roblox game studio.</p>
         <span class="subtitle">Former CEO</span>
       </div>
