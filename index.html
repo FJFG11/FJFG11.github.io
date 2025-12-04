@@ -1,9 +1,20 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Developer Portfolio</title>
+
+  <!-- ====== GLOBAL STYLES ====== -->
   <style>
+    :root {
+      --bg: #0b0b0b;
+      --glass-dark: rgba(255, 255, 255, 0.05);
+      --glass-light: rgba(255, 255, 255, 0.15);
+      --text-light: #e0e0e0;
+      --text-muted: #c7c7c7;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -12,42 +23,44 @@
     }
 
     body {
-      background: #0b0b0b;
+      background: var(--bg);
       color: #ffffff;
       overflow-x: hidden;
     }
 
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ===== HEADER ===== */
     header {
-      transition: background 0.4s ease, box-shadow 0.4s ease;
+      position: fixed;
+      top: 0;
       width: 100%;
-      padding: 30px 60px;
+      z-index: 50;
+      padding: 25px 60px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: fixed;
-      box-shadow: 0 0 0 rgba(0,0,0,0);
-      transition: box-shadow 0.4s ease, background 0.4s ease;
-      top: 0;
-      z-index: 50;
       background: rgba(20, 20, 20, 0.4);
       backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
       border-bottom: 1px solid rgba(255,255,255,0.05);
+      transition: 0.4s ease;
     }
 
     header nav a {
       margin-left: 30px;
-      text-decoration: none;
       color: #cfcfcf;
-      transition: color 0.3s ease;
+      transition: 0.3s;
     }
 
     header nav a:hover {
-      color: #ffffff;
+      color: #fff;
     }
 
+    /* ===== HERO ===== */
     .hero {
-      width: 100%;
       height: 100vh;
       display: flex;
       flex-direction: column;
@@ -55,16 +68,10 @@
       align-items: center;
       text-align: center;
       padding: 0 20px;
-      animation: fadeIn 1.3s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
     }
 
     .hero h1 {
-      font-size: 3.4rem;
+      font-size: 3.5rem;
       font-weight: 700;
       margin-bottom: 20px;
       background: linear-gradient(90deg, #fff, #cfcfcf);
@@ -75,281 +82,289 @@
     .hero p {
       font-size: 1.3rem;
       max-width: 650px;
-      color: #bfbfbf;
       margin-bottom: 35px;
+      color: #bfbfbf;
     }
 
     .btn {
       padding: 12px 26px;
-      border: none;
       border-radius: 10px;
+      backdrop-filter: blur(10px);
       background: rgba(255,255,255,0.1);
-      color: #fff;
-      cursor: pointer;
-      font-size: 1rem;
-      transition: 0.3s;
-      text-decoration: none;
-      backdrop-filter: blur(12px);
       border: 1px solid rgba(255,255,255,0.15);
+      transition: 0.3s ease;
     }
 
     .btn:hover {
       background: rgba(255,255,255,0.2);
     }
 
-    .projects {
-      padding: 160px 60px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 40px;
+    /* ===== SECTION WRAPPER ===== */
+    section {
+      padding: 150px 60px;
     }
 
-    .project-card {
-      background: rgba(255,255,255,0.05);
+    /* ===== PROJECTS GRID ===== */
+    .grid {
+      display: grid;
+      gap: 40px;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .card {
       padding: 30px;
       border-radius: 18px;
-      box-shadow: 0 0 60px rgba(0, 0, 0, 0.45);
-      backdrop-filter: blur(18px);
-      border: 1px solid rgba(255,255,255,0.1);
-      transition: transform 0.35s ease, box-shadow 0.35s ease;
-      animation: fadeIn 1.4s ease forwards;
+      background: var(--glass-dark);
+      border: 1px solid var(--glass-light);
+      backdrop-filter: blur(16px);
+      box-shadow: 0 0 50px rgba(0,0,0,0.5);
+      transition: 0.35s ease;
     }
 
-    .project-card:hover {
-      transform: translateY(-8px) scale(1.02);
-      box-shadow: 0 0 80px rgba(0, 0, 0, 0.6);
+    .card:hover {
+      transform: translateY(-7px) scale(1.02);
+      box-shadow: 0 0 70px rgba(0,0,0,0.65);
     }
 
-    .project-card h3 {
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: var(--text-muted);
       margin-bottom: 12px;
-      font-size: 1.3rem;
     }
 
-    .project-card p {
-      margin-bottom: 18px;
-      color: #c7c7c7;
-    }
-
-    footer {
-      text-align: center;
-      padding: 60px;
-      color: #777;
+    .subtitle {
+      color: #aaa;
       font-size: 0.9rem;
     }
 
-    /* Responsive */
+    /* ===== TOOLS SECTION ===== */
+    .tool-card {
+      padding: 25px 35px;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 0 25px rgba(0,0,0,0.25);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: 0.3s;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .tools-wrapper {
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      padding: 60px;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+      margin-top: 60px;
+    }
+
+    /* ===== RESPONSIVE ===== */
     @media (max-width: 768px) {
       header {
         padding: 20px;
       }
 
       .hero h1 {
-        font-size: 2.3rem;
+        font-size: 2.4rem;
       }
 
       .hero p {
         font-size: 1.1rem;
       }
 
-      .projects {
+      section {
         padding: 120px 20px;
       }
     }
-
-    /* Parallax Background */
-    .hero {
-      
-      
-      background-position: center;
-      
-    }
-
-    /* Loader Fade Keyframe */
-    @keyframes loaderFadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-
-</style>
-  <script>
-    // Smooth scroll reveal
-    const revealElements = () => {
-      const reveals = document.querySelectorAll('.reveal');
-      for (let i = 0; i < reveals.length; i++) {
-        const windowHeight = window.innerHeight;
-        const elementTop = reveals[i].getBoundingClientRect().top;
-        const revealPoint = 120;
-        if (elementTop < windowHeight - revealPoint) {
-          reveals[i].classList.add('active');
-        }
-      }
-    };
-    window.addEventListener('scroll', revealElements);
-    window.addEventListener('load', revealElements);
-  </script>
+  </style>
 </head>
+
 <body>
 
-  <!-- Particle Background -->
+  <!-- PARTICLES BACKGROUND -->
   <canvas id="particles-js" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;"></canvas>
 
-
-  <!-- Loading Intro -->
-  <div id="loader" style="position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0b0b;display:flex;justify-content:center;align-items:center;z-index:9999;transition:opacity 0.6s ease;">
-    <h2 style="font-size:2rem;color:white;opacity:0;animation:fadeIn 1.2s forwards;">Loading...</h2>
+  <!-- LOADER -->
+  <div id="loader" style="
+    position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0b0b;
+    display:flex;justify-content:center;align-items:center;z-index:9999;transition:0.6s;
+  ">
+    <h2 style="font-size:2rem;">Loading...</h2>
   </div>
 
-
-
+  <!-- HEADER -->
   <header>
     <div class="logo">MyPortfolio</div>
     <nav>
       <a href="#hero">Home</a>
       <a href="#projects">Projects</a>
+      <a href="#tools">Tools</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
-    <section class="hero" id="hero">
+  <!-- HERO -->
+  <section class="hero" id="hero">
     <h1>Roblox Programmer & GUI Creator</h1>
-    <p>With over 2 years of experience designing interfaces and scripting engaging game systems on Roblox, I specialize in clean UI, optimized systems, and polished player experiences.</p>
-    <a href="#portfolio" class="btn">View Portfolio</a>
+    <p>With over 2 years of experience designing interfaces and scripting engaging game systems on Roblox.</p>
+    <a href="#projects" class="btn">View Portfolio</a>
   </section>
 
-    <section class="projects reveal" id="portfolio">
+  <!-- PROJECTS -->
+  <section id="projects">
+    <h2 style="text-align:center;font-size:2.3rem;margin-bottom:50px;">Projects</h2>
 
-    <div class="project-card">
-      <h3>Sparks Shopping</h3>
-      <p>A Roblox shopping-system experience featuring UI, optimized scripts, and smooth user flow.</p>
-      <span class="subtitle">Former Developer</span>
+    <div class="grid">
+      <div class="card">
+        <h3>Sparks Shopping</h3>
+        <p>A Roblox shopping-system experience with polished flow.</p>
+        <span class="subtitle">Former Developer</span>
+      </div>
+
+      <div class="card">
+        <h3>Coastal Island</h3>
+        <p>A tropical adventure with custom UI & systems.</p>
+        <span class="subtitle">Former Developer</span>
+      </div>
+
+      <div class="card">
+        <h3>BloxOLite</h3>
+        <p>Previously CEO for Roblox game studio.</p>
+        <span class="subtitle">Former CEO</span>
+      </div>
+
+      <div class="card">
+        <h3>Variable</h3>
+        <p>Developing Discord bots & mod tools for Roblox.</p>
+        <span class="subtitle">Current CEO</span>
+      </div>
     </div>
-
-    <div class="project-card">
-      <h3>Coastal Island</h3>
-      <p>A tropical-themed adventure game with custom UI and gameplay systems.</p>
-      <span class="subtitle">Former Developer</span>
-    </div>
-
-    <div class="project-card">
-      <h3>BloxOLite</h3>
-      <p>Previously CEO a for a Roblox-based studio.</p>
-      <span class="subtitle">Former CEO</span>
-    </div>
-
-    <div class="project-card">
-      <h3>Variable</h3>
-      <p>Current head of Variable, focusing on discord bots and moderation panel for roblox.</p>
-      <span class="subtitle">Current CEO</span>
-    </div>
-
   </section>
 
+  <!-- TOOLS -->
+  <section id="tools">
+    <h2 style="text-align:center;font-size:2.3rem;margin-bottom:50px;">Tools I Use</h2>
+
+    <div class="tools-wrapper">
+      <div class="tool-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="70">
+        <p style="margin-top:12px;color:var(--text-light);">GitHub</p>
+      </div>
+
+      <div class="tool-card">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Roblox_Studio_logo_2021_present.svg/2048px-Roblox_Studio_logo_2021_present.svg.png" width="70">
+        <p style="margin-top:12px;color:var(--text-light);">Roblox Studio</p>
+      </div>
+
+      <div class="tool-card">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="70">
+        <p style="margin-top:12px;color:var(--text-light);">VS Code</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer id="contact">
     © 2025 FJFG11 — All Rights Reserved
-    <section id="tools" class="reveal" style="padding:120px 60px;text-align:center;">
-    <h2 style="font-size:2.2rem;margin-bottom:40px;">Tools I Use</h2>
-    <div style="display:flex;justify-content:center;gap:40px;flex-wrap:wrap;">
-      <div class="tool-card" style="backdrop-filter:blur(12px);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);padding:25px 35px;border-radius:20px;display:flex;flex-direction:column;align-items:center;box-shadow:0 0 20px rgba(0,0,0,0.25);transition:0.3s ease;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="70" />
-        <p style="margin-top:12px;color:#e0e0e0;">GitHub</p>
-      </div>
-      <div class="tool-card" style="backdrop-filter:blur(12px);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);padding:25px 35px;border-radius:20px;display:flex;flex-direction:column;align-items:center;box-shadow:0 0 20px rgba(0,0,0,0.25);transition:0.3s ease;">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Roblox_Studio_logo_2021_present.svg/2048px-Roblox_Studio_logo_2021_present.svg.png" width="70" />
-        <p style="margin-top:12px;color:#e0e0e0;">Roblox Studio</p>
-      </div>
-      <div class="tool-card" style="backdrop-filter:blur(12px);background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);padding:25px 35px;border-radius:20px;display:flex;flex-direction:column;align-items:center;box-shadow:0 0 20px rgba(0,0,0,0.25);transition:0.3s ease;">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="70" />
-        <p style="margin-top:12px;color:#e0e0e0;">VS Code</p>
-      </div>
-  </section>
+  </footer>
 
-</footer>
+  <!-- ===== SCRIPTS (Particles, Loader, Scroll Effects) ===== -->
+  <script>
+    // Header shadow on scroll
+    window.addEventListener("scroll", () => {
+      const h = document.querySelector("header");
+      if (scrollY > 50) {
+        h.style.background = "rgba(10,10,10,0.65)";
+        h.style.backdropFilter = "blur(22px)";
+        h.style.boxShadow = "0 8px 25px rgba(0,0,0,0.35)";
+      } else {
+        h.style.background = "rgba(20,20,20,0.35)";
+        h.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
+      }
+    });
 
-<script>
-  // Navbar shadow on scroll
-  window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-      header.style.boxShadow = '0 8px 25px rgba(0,0,0,0.35)';
-      header.style.background = 'rgba(10,10,10,0.65)';
-      header.style.backdropFilter = 'blur(22px)';
-    } else {
-      header.style.boxShadow = '0 0 0 rgba(0,0,0,0)';
-      header.style.background = 'rgba(20,20,20,0.35)';
-    }
-  });
-</script>
-<script>
-  // Parallax motion
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY;
-    const hero = document.querySelector('.hero');
-    hero.style.backgroundPositionY = `${scrolled * 0.4}px`;
-  });
+    // Loader fade-out
+    window.addEventListener("load", () => {
+      const loader = document.getElementById("loader");
+      setTimeout(() => {
+        loader.style.opacity = "0";
+        setTimeout(() => (loader.style.display = "none"), 600);
+      }, 900);
+    });
 
-  // Loading Intro Animation
-  window.addEventListener('load', () => {
-    const loader = document.getElementById('loader');
-    setTimeout(() => {
-      loader.style.opacity = '0';
-      setTimeout(() => loader.style.display = 'none', 600);
-    }, 900);
-  });
-</script>
-<script>
-  // Moving Particles Background
-  const canvas = document.getElementById('particles-js');
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+    // Parallax (Hero)
+    window.addEventListener("scroll", () => {
+      const hero = document.querySelector(".hero");
+      hero.style.backgroundPositionY = `${scrollY * 0.4}px`;
+    });
 
-  const particles = [];
-  const particleCount = 70;
+    // Particles
+    const canvas = document.getElementById("particles-js");
+    const ctx = canvas.getContext("2d");
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
 
-  class Particle {
-    constructor() {
-      this.x = Math.random() * canvas.width;
-      this.y = Math.random() * canvas.height;
-      this.size = Math.random() * 2 + 1;
-      this.speedX = (Math.random() - 0.5) * 0.7;
-      this.speedY = (Math.random() - 0.5) * 0.7;
+    const particles = [];
+    const count = 70;
+
+    class Particle {
+      constructor() {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.size = Math.random() * 2 + 1;
+        this.speedX = (Math.random() - 0.5) * 0.7;
+        this.speedY = (Math.random() - 0.5) * 0.7;
+      }
+      update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+      }
+      draw() {
+        ctx.fillStyle = "rgba(255,255,255,0.7)";
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
 
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-
-      if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-      if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+    function initParticles() {
+      for (let i = 0; i < count; i++) particles.push(new Particle());
     }
 
-    draw() {
-      ctx.fillStyle = 'rgba(255,255,255,0.7)';
-      ctx.beginPath();
-      ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      ctx.closePath();
-      ctx.fill();
+    function animate() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+      requestAnimationFrame(animate);
     }
-  }
 
-  function initParticles() {
-    for (let i = 0; i < particleCount; i++) {
-      particles.push(new Particle());
-    }
-  }
+    window.addEventListener("resize", () => {
+      canvas.width = innerWidth;
+      canvas.height = innerHeight;
+    });
 
-  function animateParticles() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    particles.forEach(p => { p.update(); p.draw(); });
-    requestAnimationFrame(animateParticles);
-  }
-
-  window.addEventListener('resize', () => {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  });
-
-  initParticles();
-  animateParticles();
-</script>
+    initParticles();
+    animate();
+  </script>
 </body>
 </html>
