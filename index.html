@@ -8,16 +8,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    body {
+    :root {
+      --bg: #0d0d0f;
+      --text: #ffffff;
+      --accent1: #a56bff;
+      --accent2: #6fd5ff;
+      --accent3: #ff6bd3;
+      --card-bg: rgba(255,255,255,0.05);
+      --card-border: rgba(255,255,255,0.12);
+    }
+
+    * {
       margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
       font-family: "Inter", sans-serif;
-      background: #0d0d0f;
-      color: #fff;
+      background: var(--bg);
+      color: var(--text);
       overflow-x: hidden;
       position: relative;
     }
 
-    /* ANIMATED BACKGROUND ----------------------------------- */
+    /* BACKGROUND BLOBS */
     .bg {
       position: fixed;
       inset: 0;
@@ -27,111 +43,163 @@
 
     .blob {
       position: absolute;
-      width: 500px;
-      height: 500px;
-      filter: blur(180px);
-      opacity: 0.55;
-      animation: float 22s infinite ease-in-out;
+      width: 480px;
+      height: 480px;
+      filter: blur(150px);
+      opacity: 0.45;
+      animation: float 20s infinite ease-in-out;
     }
 
-    .b1 { background: #a56bff; top: -100px; left: -100px; animation-delay: 0s; }
-    .b2 { background: #6fd5ff; bottom: -100px; right: -150px; animation-delay: 5s; }
-    .b3 { background: #ff6bd3; top: 40%; left: 50%; animation-delay: 10s; }
+    .b1 { background: var(--accent1); top: -100px; left: -150px; }
+    .b2 { background: var(--accent2); bottom: -120px; right: -140px; animation-delay: 4s; }
+    .b3 { background: var(--accent3); top: 45%; left: 50%; animation-delay: 8s; }
 
     @keyframes float {
       0%   { transform: translate(0,0) scale(1); }
-      50%  { transform: translate(80px, -60px) scale(1.15); }
+      50%  { transform: translate(60px, -40px) scale(1.2); }
       100% { transform: translate(0,0) scale(1); }
     }
 
-    /* DARK OVERLAY FOR READABILITY */
     .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.5);
+      background: rgba(0,0,0,0.4);
       z-index: -1;
     }
 
-    /* CONTENT ----------------------------------------------- */
+    /* NAVBAR */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      backdrop-filter: blur(14px);
+      background: rgba(0,0,0,0.3);
+      padding: 16px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    nav h1 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--accent1);
+    }
+
+    nav ul {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #fff;
+      opacity: 0.85;
+      font-size: 15px;
+      transition: 0.25s;
+    }
+
+    nav a:hover {
+      opacity: 1;
+      color: var(--accent2);
+    }
+
+    /* CONTAINER */
     .container {
       width: 90%;
       max-width: 1200px;
       margin: auto;
+      padding-top: 120px;
     }
 
-    header {
-      padding: 30px 0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      font-size: 28px;
-      font-weight: 700;
-      color: #b887ff;
-    }
-
-    /* HERO --------------------------------------------------- */
+    /* HERO */
     .hero {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 80px 0;
+      padding: 90px 0;
       gap: 40px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     .hero-text h2 {
-      font-size: 42px;
+      font-size: 46px;
+      margin-bottom: 12px;
       font-weight: 700;
-      margin: 0 0 15px;
     }
 
     .hero-text p {
       font-size: 20px;
       opacity: 0.75;
+      margin-bottom: 25px;
     }
 
     .hero-img {
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
+      width: 190px;
+      height: 190px;
       border-radius: 50%;
+      object-fit: cover;
       border: 3px solid rgba(255,255,255,0.15);
-      box-shadow: 0 0 30px rgba(155,77,255,0.4);
+      box-shadow: 0 0 35px rgba(165,107,255,0.5);
     }
 
-    /* SECTION TITLE ------------------------------------------ */
+    /* BUTTONS WITH ICONS */
+    .icon-buttons {
+      display: flex;
+      gap: 14px;
+    }
+
+    .icon-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: 0.25s ease;
+      font-size: 15px;
+      text-decoration: none;
+      color: #fff;
+    }
+
+    .icon-btn:hover {
+      transform: translateY(-5px);
+      background: rgba(255,255,255,0.15);
+    }
+
+    .icon-btn svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    /* SECTION TITLE */
     .section-title {
       font-size: 32px;
-      margin: 70px 0 30px;
+      margin: 70px 0 35px;
       font-weight: 700;
-      color: #c59aff;
+      color: var(--accent1);
       text-shadow: 0 0 10px rgba(190,150,255,0.35);
     }
 
-    /* ABOUT --------------------------------------------------- */
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .about img {
-      width: 100%;
-      border-radius: 16px;
-      object-fit: cover;
-      box-shadow: 0 0 30px rgba(0,0,0,0.4);
-    }
-
+    /* ABOUT */
     .about p {
       font-size: 18px;
       line-height: 1.8;
       opacity: 0.82;
+      max-width: 750px;
     }
 
-    /* SKILLS -------------------------------------------------- */
+    /* SKILLS */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -139,20 +207,20 @@
     }
 
     .skill-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       padding: 25px;
       border-radius: 16px;
       text-align: center;
-      transition: 0.25s ease;
+      transition: 0.25s;
     }
 
     .skill-card:hover {
       transform: translateY(-6px);
-      background: rgba(255,255,255,0.09);
+      background: rgba(255,255,255,0.12);
     }
 
-    /* PROJECTS ------------------------------------------------ */
+    /* PROJECTS */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -161,29 +229,16 @@
 
     .project-card {
       position: relative;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
       padding: 25px;
       border-radius: 18px;
-      transition: 0.25s ease;
-      overflow: hidden;
+      transition: 0.25s;
     }
 
     .project-card:hover {
       transform: translateY(-8px);
-      background: rgba(255,255,255,0.09);
-    }
-
-    .project-card h3 {
-      margin: 0;
-      font-size: 20px;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .project-card .subtitle {
-      font-size: 14px;
-      opacity: 0.6;
+      background: rgba(255,255,255,0.12);
     }
 
     .project-img {
@@ -196,22 +251,15 @@
       border-radius: 10px;
       padding: 4px;
       background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
+      border: 1px solid var(--card-border);
     }
 
-    /* FOOTER -------------------------------------------------- */
+    /* FOOTER */
     footer {
       text-align: center;
       opacity: 0.5;
       font-size: 14px;
       padding: 60px 0 20px;
-    }
-
-    /* MOBILE -------------------------------------------------- */
-    @media (max-width: 800px) {
-      .hero { flex-direction: column; text-align: center; }
-      .about { grid-template-columns: 1fr; }
-      .hero-img { margin-top: 30px; }
     }
   </style>
 </head>
@@ -226,57 +274,78 @@
   </div>
   <div class="overlay"></div>
 
+  <!-- NAV -->
+  <nav>
+    <h1>FJFG11</h1>
+    <ul>
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+    </ul>
+  </nav>
+
   <div class="container">
+
     <!-- HERO -->
     <section class="hero">
       <div class="hero-text">
         <h2>Hello, I'm FJFG11.</h2>
         <p>Moderation Systems Developer • UI/UX Builder • Roblox Creator</p>
+
+        <div class="icon-buttons">
+
+          <!-- ROBLOX BUTTON -->
+          <a class="icon-btn" href="https://www.roblox.com/users/YOUR_USERID/profile" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white"><rect width="18" height="18" transform="rotate(45)" /></svg>
+            Roblox
+          </a>
+
+          <!-- DISCORD BUTTON -->
+          <a class="icon-btn" href="https://discord.gg/YOUR_INVITE_CODE" target="_blank">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="white" viewBox="0 0 24 24"><path d="M20 0H4C1.8 0 0 1.8 0 4v16c0 2.2 1.8 4 4 4h14l-1.3-4.5L20 24h0c2.2 0 4-1.8 4-4V4c0-2.2-1.8-4-4-4z"/></svg>
+            Discord
+          </a>
+
+        </div>
       </div>
 
-      <img class="hero-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446212190867816449/IMG_0108.jpeg?ex=6933298f&is=6931d80f&hm=baa0e28992f8c4625664d1fb688a23bc14b6418fc0d45da7bea71d144589ee0d&=&format=webp&width=1050&height=1400" alt="">
+      <img class="hero-img" src="YOUR_PROFILE_IMAGE_LINK" alt="">
     </section>
 
     <!-- ABOUT -->
-    <h2 class="section-title">About me</h2>
+    <h2 id="about" class="section-title">About Me</h2>
     <section class="about">
       <p>
-        I'm FJFG11 a UK teen trying to support roblox developers with pre-made moderation systems in roblox and even discord.
+        I'm FJFG11 — a UK teen supporting Roblox developers with high-quality, pre-made moderation systems for both Roblox and Discord.
       </p>
     </section>
 
     <!-- SKILLS -->
-    <h2 class="section-title">Skills</h2>
+    <h2 id="skills" class="section-title">Skills</h2>
     <section class="skills-grid">
       <div class="skill-card">Lua</div>
       <div class="skill-card">Roblox Studio</div>
       <div class="skill-card">UI/UX Design</div>
       <div class="skill-card">Python</div>
-  
     </section>
 
     <!-- PROJECTS -->
-    <h2 class="section-title">Current/Former projects</h2>
+    <h2 id="projects" class="section-title">Current/Former Projects</h2>
     <section class="projects-grid">
 
-
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190334676701365/V_3.png?ex=69331534&is=6931c3b4&hm=be590d70bbf0491d792429f43a064c05d6c2038688321622000096400b0696d6&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="URL" alt="">
         <h3>Variable</h3>
-        <p>A hub for people to buy discord bots</p>
-        <p>and roblox moderation panels.</p>
+        <p>A hub for people to buy Discord bots and Roblox moderation panels.</p>
         <span class="subtitle">Current CEO</span>
       </div>
 
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190335293391070/B_3.png?ex=69331534&is=6931c3b4&hm=fc734a37c38e6f830ea5c75f0602ed521d6760df025e091f99d2a3a867ffc4b4&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="URL" alt="">
         <h3>BloxOLite</h3>
-        <p>A roblox moderation product hub created </p>
-        <p>by FJFG11 in 2024 sold to essentials+.</p>
+        <p>A Roblox moderation product hub created by FJFG11 in 2024 and sold to Essentials+.</p>
         <span class="subtitle">Former CEO</span>
       </div>
-
-      
 
     </section>
 
