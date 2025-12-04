@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Portfolio — Sparks</title>
+  <title>Portfolio — FJFG11</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
 
@@ -14,28 +14,65 @@
       background: #0d0d0f;
       color: #fff;
       overflow-x: hidden;
+      position: relative;
     }
 
+    /* ANIMATED BACKGROUND ----------------------------------- */
+    .bg {
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      overflow: hidden;
+    }
+
+    .blob {
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      filter: blur(180px);
+      opacity: 0.55;
+      animation: float 22s infinite ease-in-out;
+    }
+
+    .b1 { background: #a56bff; top: -100px; left: -100px; animation-delay: 0s; }
+    .b2 { background: #6fd5ff; bottom: -100px; right: -150px; animation-delay: 5s; }
+    .b3 { background: #ff6bd3; top: 40%; left: 50%; animation-delay: 10s; }
+
+    @keyframes float {
+      0%   { transform: translate(0,0) scale(1); }
+      50%  { transform: translate(80px, -60px) scale(1.15); }
+      100% { transform: translate(0,0) scale(1); }
+    }
+
+    /* DARK OVERLAY FOR READABILITY */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.5);
+      z-index: -1;
+    }
+
+    /* CONTENT ----------------------------------------------- */
     .container {
       width: 90%;
       max-width: 1200px;
       margin: auto;
     }
 
-    /* HEADER -------------------------- */
     header {
       padding: 30px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
+
     header h1 {
       font-size: 28px;
       font-weight: 700;
-      color: #9a6bff;
+      color: #b887ff;
     }
 
-    /* HERO ---------------------------- */
+    /* HERO --------------------------------------------------- */
     .hero {
       display: flex;
       align-items: center;
@@ -61,19 +98,19 @@
       object-fit: cover;
       border-radius: 50%;
       border: 3px solid rgba(255,255,255,0.15);
-      box-shadow: 0 0 30px rgba(155, 77, 255, 0.4);
+      box-shadow: 0 0 30px rgba(155,77,255,0.4);
     }
 
-    /* SECTION TITLES ----------------- */
+    /* SECTION TITLE ------------------------------------------ */
     .section-title {
       font-size: 32px;
       margin: 70px 0 30px;
       font-weight: 700;
-      color: #b48aff;
-      text-shadow: 0 0 10px rgba(180,138,255,0.35);
+      color: #c59aff;
+      text-shadow: 0 0 10px rgba(190,150,255,0.35);
     }
 
-    /* ABOUT --------------------------- */
+    /* ABOUT --------------------------------------------------- */
     .about {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -91,10 +128,10 @@
     .about p {
       font-size: 18px;
       line-height: 1.8;
-      opacity: 0.8;
+      opacity: 0.82;
     }
 
-    /* SKILLS GRID -------------------- */
+    /* SKILLS -------------------------------------------------- */
     .skills-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -115,7 +152,7 @@
       background: rgba(255,255,255,0.09);
     }
 
-    /* PROJECTS ------------------------ */
+    /* PROJECTS ------------------------------------------------ */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -162,7 +199,7 @@
       border: 1px solid rgba(255,255,255,0.12);
     }
 
-    /* FOOTER -------------------------- */
+    /* FOOTER -------------------------------------------------- */
     footer {
       text-align: center;
       opacity: 0.5;
@@ -170,7 +207,7 @@
       padding: 60px 0 20px;
     }
 
-    /* RESPONSIVE ---------------------- */
+    /* MOBILE -------------------------------------------------- */
     @media (max-width: 800px) {
       .hero { flex-direction: column; text-align: center; }
       .about { grid-template-columns: 1fr; }
@@ -180,30 +217,39 @@
 </head>
 
 <body>
+
+  <!-- BACKGROUND -->
+  <div class="bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+  </div>
+  <div class="overlay"></div>
+
   <div class="container">
 
     <!-- HEADER -->
     <header>
-      <h1>Sparks</h1>
+      <h1>FJFG11</h1>
     </header>
 
     <!-- HERO -->
     <section class="hero">
       <div class="hero-text">
-        <h2>Hello, I'm Sparks.</h2>
-        <p>Game Systems Developer • UI/UX Enthusiast • Roblox Creator</p>
+        <h2>Hello, I'm FJFG11.</h2>
+        <p>Game Systems Developer • UI/UX Builder • Roblox Creator</p>
       </div>
 
-      <img class="hero-img" src="YOUR-IMAGE.png" alt="">
+      <img class="hero-img" src="YOUR-PFP.png" alt="">
     </section>
 
     <!-- ABOUT -->
     <h2 class="section-title">About Me</h2>
     <section class="about">
-      <img src="YOUR-PHOTO.png" alt="">
+      <img src="YOUR-ABOUT-PHOTO.png" alt="">
       <p>
-        I'm a systems-focused developer specializing in Roblox Lua, UI flow, and clean gameplay experiences.
-        I create polished game systems, live-ops tools, and streamlined interfaces designed for clarity and engagement.
+        I'm FJFG11 — a systems-focused developer specializing in Roblox Lua, UI flows, and creating smooth gameplay frameworks. 
+        I build clean, functional interfaces and reliable in-game systems designed for long-term scalability.
       </p>
     </section>
 
@@ -214,7 +260,7 @@
       <div class="skill-card">Roblox Studio</div>
       <div class="skill-card">UI/UX Design</div>
       <div class="skill-card">Systems Engineering</div>
-      <div class="skill-card">Git & Version Control</div>
+      <div class="skill-card">Git</div>
       <div class="skill-card">JavaScript</div>
     </section>
 
@@ -223,13 +269,11 @@
     <section class="projects-grid">
 
       <div class="project-card">
-        <img class="project-img" src="sparks-shopping-img.png" alt="">
+        <img class="project-img" src="IMG1.png" alt="">
         <h3>Sparks Shopping</h3>
-        <p>A polished shopping system experience with smooth flow.</p>
+        <p>A polished shopping-system with smooth purchase flow.</p>
         <span class="subtitle">Former Developer</span>
       </div>
-
-      <!-- Add more project cards here -->
 
     </section>
 
