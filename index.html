@@ -3,403 +3,240 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Developer Portfolio</title>
+  <title>Portfolio — Sparks</title>
 
-  <!-- ====== GLOBAL STYLES ====== -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
   <style>
-    :root {
-      --bg: #0b0b0b;
-      --glass-dark: rgba(255, 255, 255, 0.05);
-      --glass-light: rgba(255, 255, 255, 0.15);
-      --text-light: #e0e0e0;
-      --text-muted: #c7c7c7;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
     body {
-      background: var(--bg);
-      color: #ffffff;
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: #0d0d0f;
+      color: #fff;
       overflow-x: hidden;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    .container {
+      width: 90%;
+      max-width: 1200px;
+      margin: auto;
     }
 
-    /* ===== HEADER ===== */
+    /* HEADER -------------------------- */
     header {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      z-index: 50;
-      padding: 25px 60px;
+      padding: 30px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      background: rgba(20, 20, 20, 0.4);
-      backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-      transition: 0.4s ease;
     }
-
-    header nav a {
-      margin-left: 30px;
-      color: #cfcfcf;
-      transition: 0.3s;
-    }
-
-    header nav a:hover {
-      color: #fff;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      padding: 0 20px;
-    }
-
-    .hero h1 {
-      font-size: 3.5rem;
+    header h1 {
+      font-size: 28px;
       font-weight: 700;
-      margin-bottom: 20px;
-      background: linear-gradient(90deg, #fff, #cfcfcf);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      color: #9a6bff;
     }
 
-    .hero p {
-      font-size: 1.3rem;
-      max-width: 650px;
-      margin-bottom: 35px;
-      color: #bfbfbf;
-    }
-
-    .btn {
-      padding: 12px 26px;
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.15);
-      transition: 0.3s ease;
-    }
-
-    .btn:hover {
-      background: rgba(255,255,255,0.2);
-    }
-
-    /* ===== SECTION WRAPPER ===== */
-    section {
-      padding: 150px 60px;
-    }
-
-    /* ===== PROJECTS GRID ===== */
-    .grid {
-      display: grid;
+    /* HERO ---------------------------- */
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 80px 0;
       gap: 40px;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     }
 
-    .card {
-      padding: 30px;
+    .hero-text h2 {
+      font-size: 42px;
+      font-weight: 700;
+      margin: 0 0 15px;
+    }
+
+    .hero-text p {
+      font-size: 20px;
+      opacity: 0.75;
+    }
+
+    .hero-img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid rgba(255,255,255,0.15);
+      box-shadow: 0 0 30px rgba(155, 77, 255, 0.4);
+    }
+
+    /* SECTION TITLES ----------------- */
+    .section-title {
+      font-size: 32px;
+      margin: 70px 0 30px;
+      font-weight: 700;
+      color: #b48aff;
+      text-shadow: 0 0 10px rgba(180,138,255,0.35);
+    }
+
+    /* ABOUT --------------------------- */
+    .about {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .about img {
+      width: 100%;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 0 30px rgba(0,0,0,0.4);
+    }
+
+    .about p {
+      font-size: 18px;
+      line-height: 1.8;
+      opacity: 0.8;
+    }
+
+    /* SKILLS GRID -------------------- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 20px;
+    }
+
+    .skill-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 25px;
+      border-radius: 16px;
+      text-align: center;
+      transition: 0.25s ease;
+    }
+
+    .skill-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.09);
+    }
+
+    /* PROJECTS ------------------------ */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 25px;
+    }
+
+    .project-card {
+      position: relative;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 25px;
       border-radius: 18px;
-      background: var(--glass-dark);
-      border: 1px solid var(--glass-light);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 0 50px rgba(0,0,0,0.5);
-      transition: 0.35s ease;
+      transition: 0.25s ease;
+      overflow: hidden;
     }
 
-    .card:hover {
-      transform: translateY(-7px) scale(1.02);
-      box-shadow: 0 0 70px rgba(0,0,0,0.65);
+    .project-card:hover {
+      transform: translateY(-8px);
+      background: rgba(255,255,255,0.09);
     }
 
-    .card h3 {
+    .project-card h3 {
+      margin: 0;
+      font-size: 20px;
+      font-weight: 600;
       margin-bottom: 10px;
     }
 
-    .card p {
-      color: var(--text-muted);
-      margin-bottom: 12px;
+    .project-card .subtitle {
+      font-size: 14px;
+      opacity: 0.6;
     }
 
-    .subtitle {
-      color: #aaa;
-      font-size: 0.9rem;
+    .project-img {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      width: 52px;
+      height: 52px;
+      object-fit: contain;
+      border-radius: 10px;
+      padding: 4px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
     }
 
-    .card {
-    position: relative;
-    overflow: hidden;
-}
-
-/* Top-right project thumbnail */
-.card-img {
-    position: absolute;
-    top: 14px;
-    right: 14px;
-    width: 55px;        /* Adjust size here */
-    height: 55px;
-    object-fit: cover;
-    border-radius: 12px;
-    opacity: 0.9;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow: 0 0 12px rgba(0,0,0,0.4);
-    transition: opacity 0.25s ease;
-}
-
-.card:hover .card-img {
-    opacity: 1;
-}
-
-
-    /* ===== TOOLS SECTION ===== */
-.card-img {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 50px;
-  height: 50px;
-  object-fit: contain;   /* keeps proportions */
-  border-radius: 10px;
-  background: rgba(255,255,255,0.03);
-  padding: 3px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 0 10px rgba(0,0,0,0.35);
-  transition: 0.25s ease;
-}
-
-
-    .tool-card:hover {
-      transform: translateY(-5px);
-    }
-
-    .tools-wrapper {
-      display: flex;
-      justify-content: center;
-      gap: 40px;
-      flex-wrap: wrap;
-    }
-
-    /* ===== FOOTER ===== */
+    /* FOOTER -------------------------- */
     footer {
-      padding: 60px;
       text-align: center;
-      color: #777;
-      font-size: 0.9rem;
-      margin-top: 60px;
+      opacity: 0.5;
+      font-size: 14px;
+      padding: 60px 0 20px;
     }
 
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 768px) {
-      header {
-        padding: 20px;
-      }
-
-      .hero h1 {
-        font-size: 2.4rem;
-      }
-
-      .hero p {
-        font-size: 1.1rem;
-      }
-
-      section {
-        padding: 120px 20px;
-      }
+    /* RESPONSIVE ---------------------- */
+    @media (max-width: 800px) {
+      .hero { flex-direction: column; text-align: center; }
+      .about { grid-template-columns: 1fr; }
+      .hero-img { margin-top: 30px; }
     }
   </style>
 </head>
 
 <body>
+  <div class="container">
 
-  <!-- PARTICLES BACKGROUND -->
-  <canvas id="particles-js" style="position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;"></canvas>
+    <!-- HEADER -->
+    <header>
+      <h1>Sparks</h1>
+    </header>
 
-  <!-- LOADER -->
-  <div id="loader" style="
-    position:fixed;top:0;left:0;width:100%;height:100%;background:#0b0b0b;
-    display:flex;justify-content:center;align-items:center;z-index:9999;transition:0.6s;
-  ">
-    <h2 style="font-size:2rem;">Loading...</h2>
-  </div>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <h2>Hello, I'm Sparks.</h2>
+        <p>Game Systems Developer • UI/UX Enthusiast • Roblox Creator</p>
+      </div>
 
-  <!-- HEADER -->
-  <header>
-    <div class="logo">MyPortfolio</div>
-    <nav>
-      <a href="#hero">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#tools">Tools</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
+      <img class="hero-img" src="YOUR-IMAGE.png" alt="">
+    </section>
 
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <h1>Roblox Programmer & GUI Creator</h1>
-    <p>With over 2 years of experience designing interfaces and scripting engaging game systems on Roblox.</p>
-    <a href="#projects" class="btn">View Portfolio</a>
-  </section>
+    <!-- ABOUT -->
+    <h2 class="section-title">About Me</h2>
+    <section class="about">
+      <img src="YOUR-PHOTO.png" alt="">
+      <p>
+        I'm a systems-focused developer specializing in Roblox Lua, UI flow, and clean gameplay experiences.
+        I create polished game systems, live-ops tools, and streamlined interfaces designed for clarity and engagement.
+      </p>
+    </section>
 
-  <!-- PROJECTS -->
-  <section id="projects">
-    <h2 style="text-align:center;font-size:2.3rem;margin-bottom:50px;">Projects</h2>
+    <!-- SKILLS -->
+    <h2 class="section-title">Skills</h2>
+    <section class="skills-grid">
+      <div class="skill-card">Lua</div>
+      <div class="skill-card">Roblox Studio</div>
+      <div class="skill-card">UI/UX Design</div>
+      <div class="skill-card">Systems Engineering</div>
+      <div class="skill-card">Git & Version Control</div>
+      <div class="skill-card">JavaScript</div>
+    </section>
 
-    <div class="grid">
-      <div class="card">
-        <img class="card-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png?ex=6933141f&is=6931c29f&hm=141d405480062ba207321b55f0179bebab4988f8b34f7b80b73a2e4a13220c9d&=&format=webp&quality=lossless&width=1000&height=1000">
+    <!-- PROJECTS -->
+    <h2 class="section-title">Projects</h2>
+    <section class="projects-grid">
+
+      <div class="project-card">
+        <img class="project-img" src="sparks-shopping-img.png" alt="">
         <h3>Sparks Shopping</h3>
-        <p>A Roblox shopping-system experience with polished flow.</p>
+        <p>A polished shopping system experience with smooth flow.</p>
         <span class="subtitle">Former Developer</span>
       </div>
 
-      <div class="card">
-        <img class="card-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png?ex=6933141f&is=6931c29f&hm=141d405480062ba207321b55f0179bebab4988f8b34f7b80b73a2e4a13220c9d&=&format=webp&quality=lossless&width=1000&height=1000">
-        <h3>Coastal Island</h3>
-        <p>A tropical adventure with 
-          custom UI & systems.</p>
-        <span class="subtitle">Former Developer</span>
-      </div>
+      <!-- Add more project cards here -->
 
-      <div class="card">
-        <img class="card-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190335293391070/B_3.png?ex=69331534&is=6931c3b4&hm=fc734a37c38e6f830ea5c75f0602ed521d6760df025e091f99d2a3a867ffc4b4&=&format=webp&quality=lossless&width=1024&height=1024">
-        <h3>BloxOLite</h3>
-        <p>Previously CEO of BloxOLite
-          studio.</p>
-        <span class="subtitle">Former CEO</span>
-      </div>
+    </section>
 
-      <div class="card">
-        <img class="card-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190334676701365/V_3.png?ex=69331534&is=6931c3b4&hm=be590d70bbf0491d792429f43a064c05d6c2038688321622000096400b0696d6&=&format=webp&quality=lossless&width=1024&height=1024">
-        <h3>Variable</h3>
-        <p>Developing Discord bots & 
-          mod tools for Roblox.</p>
-        <span class="subtitle">Current CEO</span>
-      </div>
-    </div>
-  </section>
+    <footer>
+      © 2025 FJFG11 — All Rights Reserved.
+    </footer>
 
-  <!-- TOOLS -->
-  <section id="tools">
-    <h2 style="text-align:center;font-size:2.3rem;margin-bottom:50px;">Tools I Use</h2>
-
-    <div class="tools-wrapper">
-      <div class="tool-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="70">
-        <p style="margin-top:12px;color:var(--text-light);">GitHub</p>
-      </div>
-
-      <div class="tool-card">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Roblox_Studio_logo_2021_present.svg/2048px-Roblox_Studio_logo_2021_present.svg.png" width="70">
-        <p style="margin-top:12px;color:var(--text-light);">Roblox Studio</p>
-      </div>
-
-      <div class="tool-card">
-        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" width="70">
-        <p style="margin-top:12px;color:var(--text-light);">VS Code</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer id="contact">
-    © 2025 FJFG11 — All Rights Reserved
-  </footer>
-
-  <!-- ===== SCRIPTS (Particles, Loader, Scroll Effects) ===== -->
-  <script>
-    // Header shadow on scroll
-    window.addEventListener("scroll", () => {
-      const h = document.querySelector("header");
-      if (scrollY > 50) {
-        h.style.background = "rgba(10,10,10,0.65)";
-        h.style.backdropFilter = "blur(22px)";
-        h.style.boxShadow = "0 8px 25px rgba(0,0,0,0.35)";
-      } else {
-        h.style.background = "rgba(20,20,20,0.35)";
-        h.style.boxShadow = "0 0 0 rgba(0,0,0,0)";
-      }
-    });
-
-    // Loader fade-out
-    window.addEventListener("load", () => {
-      const loader = document.getElementById("loader");
-      setTimeout(() => {
-        loader.style.opacity = "0";
-        setTimeout(() => (loader.style.display = "none"), 600);
-      }, 900);
-    });
-
-    // Parallax (Hero)
-    window.addEventListener("scroll", () => {
-      const hero = document.querySelector(".hero");
-      hero.style.backgroundPositionY = `${scrollY * 0.4}px`;
-    });
-
-    // Particles
-    const canvas = document.getElementById("particles-js");
-    const ctx = canvas.getContext("2d");
-    canvas.width = innerWidth;
-    canvas.height = innerHeight;
-
-    const particles = [];
-    const count = 70;
-
-    class Particle {
-      constructor() {
-        this.x = Math.random() * canvas.width;
-        this.y = Math.random() * canvas.height;
-        this.size = Math.random() * 2 + 1;
-        this.speedX = (Math.random() - 0.5) * 0.7;
-        this.speedY = (Math.random() - 0.5) * 0.7;
-      }
-      update() {
-        this.x += this.speedX;
-        this.y += this.speedY;
-        if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-        if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-      }
-      draw() {
-        ctx.fillStyle = "rgba(255,255,255,0.7)";
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    function initParticles() {
-      for (let i = 0; i < count; i++) particles.push(new Particle());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      particles.forEach(p => {
-        p.update();
-        p.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-
-    window.addEventListener("resize", () => {
-      canvas.width = innerWidth;
-      canvas.height = innerHeight;
-    });
-
-    initParticles();
-    animate();
-  </script>
+  </div>
 </body>
 </html>
