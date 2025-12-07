@@ -44,7 +44,6 @@
       100% { transform: translate(0,0) scale(1); }
     }
 
-    /* DARK OVERLAY FOR READABILITY */
     .overlay {
       position: fixed;
       inset: 0;
@@ -52,7 +51,6 @@
       z-index: -1;
     }
 
-    /* CONTENT ----------------------------------------------- */
     .container {
       width: 90%;
       max-width: 1200px;
@@ -155,8 +153,20 @@
     /* PROJECTS ------------------------------------------------ */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(3, 1fr); /* Force 3 per row */
       gap: 25px;
+    }
+
+    @media (max-width: 900px) {
+      .projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .project-card {
@@ -165,13 +175,35 @@
       border: 1px solid rgba(255,255,255,0.12);
       padding: 25px;
       border-radius: 18px;
-      transition: 0.25s ease;
       overflow: hidden;
+
+      /* hover animation */
+      transition: transform 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
     }
 
     .project-card:hover {
-      transform: translateY(-8px);
-      background: rgba(255,255,255,0.09);
+      transform: translateY(-10px) scale(1.03); /* why: depth + interactivity */
+      background: rgba(255,255,255,0.12);       /* why: stronger glass effect */
+      box-shadow: 0 0 25px rgba(175,120,255,0.35);
+    }
+
+    /* glow sweep */
+    .project-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        120deg,
+        transparent 0%,
+        rgba(255,255,255,0.18) 50%,
+        transparent 100%
+      );
+      transform: translateX(-120%);
+      transition: 0.6s ease;
+    }
+
+    .project-card:hover::before {
+      transform: translateX(120%);
     }
 
     .project-card h3 {
@@ -199,7 +231,6 @@
       border: 1px solid rgba(255,255,255,0.12);
     }
 
-    /* FOOTER -------------------------------------------------- */
     footer {
       text-align: center;
       opacity: 0.5;
@@ -207,7 +238,6 @@
       padding: 60px 0 20px;
     }
 
-    /* MOBILE -------------------------------------------------- */
     @media (max-width: 800px) {
       .hero { flex-direction: column; text-align: center; }
       .about { grid-template-columns: 1fr; }
@@ -218,7 +248,6 @@
 
 <body>
 
-  <!-- BACKGROUND -->
   <div class="bg">
     <div class="blob b1"></div>
     <div class="blob b2"></div>
@@ -227,69 +256,62 @@
   <div class="overlay"></div>
 
   <div class="container">
-    <!-- HERO -->
+
     <section class="hero">
       <div class="hero-text">
         <h2>Hello, I'm FJFG11.</h2>
         <p>Roblox Developer • Product Hub CEO</p>
       </div>
 
-      <img class="hero-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446212190867816449/IMG_0108.jpeg?ex=6936754f&is=693523cf&hm=3b139aae4d316546fad9f8945d7bd5050a0980dc87627b470faf75fb0bdf5528&=&format=webp&width=510&height=680" alt="">
+      <img class="hero-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446212190867816449/IMG_0108.jpeg" alt="">
     </section>
 
-    <!-- ABOUT -->
     <h2>About me</h2>
     <section class="about">
-      <img src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png?ex=6933141f&is=6931c29f&hm=141d405480062ba207321b55f0179bebab4988f8b34f7b80b73a2e4a13220c9d&=&format=webp&quality=lossless&width=1000&height=1000" alt="">
+      <img src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png" alt="">
       <p>
-        I'm FJFG11 a UK teen helping out developers where i can. I have 2yrs of LuaU and Gui experience.
+        I'm FJFG11 a UK teen helping out developers where I can. I have 2yrs of LuaU and Gui experience.
       </p>
     </section>
 
-    <!-- SKILLS -->
     <h2 class="section-title">Skills</h2>
     <section class="skills-grid">
       <div class="skill-card">Lua</div>
       <div class="skill-card">Roblox Studio</div>
       <div class="skill-card">UI/UX Design</div>
       <div class="skill-card">Google Docs</div>
-  
     </section>
 
-    <!-- PROJECTS -->
     <h2 class="section-title">Current/Former projects</h2>
     <section class="projects-grid">
 
-
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190334676701365/V_3.png?ex=69331534&is=6931c3b4&hm=be590d70bbf0491d792429f43a064c05d6c2038688321622000096400b0696d6&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190334676701365/V_3.png" alt="">
         <h3>Variable</h3>
         <p>A roblox & discord moderation hub.</p>
         <span class="subtitle">Current CEO</span>
       </div>
 
-       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447256338932699186/IMG_2334-removebg-preview_1.png?ex=6936f5ff&is=6935a47f&hm=73a01bbeb326764503c65b71c4ace3697c3b2ec8361257bdb16b1a68b513fa07&=&format=webp&quality=lossless" alt="">
+      <div class="project-card">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447256338932699186/IMG_2334-removebg-preview_1.png" alt="">
         <h3>Blood Haven</h3>
         <p>VPRP Role-play server.</p>
         <span class="subtitle">Developer</span>
       </div>
 
-        <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447260049591504946/noFilter.png?ex=6936f974&is=6935a7f4&hm=047f9e8ca5dc1091613151131348cc88a505529ad3fa7e846904d40f6e5af97c&=&format=webp&quality=lossless" alt="">
+      <div class="project-card">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447260049591504946/noFilter.png" alt="">
         <h3>Sparks Shopping</h3>
         <p>A roblox shopping experience.</p>
         <span class="subtitle">Former Lead Developer</span>
       </div>
 
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190335293391070/B_3.png?ex=69331534&is=6931c3b4&hm=fc734a37c38e6f830ea5c75f0602ed521d6760df025e091f99d2a3a867ffc4b4&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190335293391070/B_3.png" alt="">
         <h3>BloxOLite</h3>
         <p>A roblox moderation product hub.</p>
         <span class="subtitle">Former CEO</span>
       </div>
-
-      
 
     </section>
 
