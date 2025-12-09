@@ -150,10 +150,23 @@
       background: rgba(255,255,255,0.09);
     }
 
+    /* TAGS ---------------------------------------------------- */
+    .tag {
+      display: inline-block;
+      margin-top: 6px;
+      margin-right: 6px;
+      padding: 4px 10px;
+      font-size: 12px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 8px;
+      white-space: nowrap;
+    }
+
     /* PROJECTS ------------------------------------------------ */
     .projects-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr); /* Force 3 per row */
+      grid-template-columns: repeat(3, 1fr);
       gap: 25px;
     }
 
@@ -176,18 +189,15 @@
       padding: 25px;
       border-radius: 18px;
       overflow: hidden;
-
-      /* hover animation */
-      transition: transform 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+      transition: 0.35s ease;
     }
 
     .project-card:hover {
-      transform: translateY(-10px) scale(1.03); /* why: depth + interactivity */
-      background: rgba(255,255,255,0.12);       /* why: stronger glass effect */
+      transform: translateY(-10px) scale(1.03);
+      background: rgba(255,255,255,0.12);
       box-shadow: 0 0 25px rgba(175,120,255,0.35);
     }
 
-    /* glow sweep */
     .project-card::before {
       content: "";
       position: absolute;
@@ -207,15 +217,18 @@
     }
 
     .project-card h3 {
-      margin: 0;
+      margin: 0 0 10px;
       font-size: 20px;
       font-weight: 600;
-      margin-bottom: 10px;
     }
 
-    .project-card .subtitle {
-      font-size: 14px;
-      opacity: 0.6;
+    .project-card p {
+      margin-bottom: 10px;
+      opacity: 0.75;
+    }
+
+    .tag-container {
+      margin-top: 10px;
     }
 
     .project-img {
@@ -263,7 +276,7 @@
         <p>Roblox Developer • Product Hub CEO</p>
       </div>
 
-      <img class="hero-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446212190867816449/IMG_0108.jpeg?ex=6936754f&is=693523cf&hm=3b139aae4d316546fad9f8945d7bd5050a0980dc87627b470faf75fb0bdf5528&=&format=webp&width=510&height=680" alt="">
+      <img class="hero-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446212190867816449/IMG_0108.jpeg" alt="">
     </section>
 
     <h2>About me</h2>
@@ -286,47 +299,70 @@
     <h2 class="section-title">Current/Former workplaces</h2>
     <section class="projects-grid">
 
+      <!-- VARIABLE -->
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190334676701365/V_3.png?ex=693660f4&is=69350f74&hm=4b9439e625ec99193a477b6b651ae4f0996042fc8289672e944a8ea5a45d20f9&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190334676701365/V_3.png" alt="">
         <h3>Variable</h3>
         <p>A roblox & discord moderation hub.</p>
-        <span class="subtitle">Current CEO</span>
+        <div class="tag-container">
+          <span class="tag">CEO</span>
+          <span class="tag">Programmer, Gui Creator</span>
+        </div>
       </div>
 
+      <!-- VALLEY PRISON -->
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png?ex=6937089f&is=6935b71f&hm=10e1bc02f8d0cceb0fdc6e6d50686e04d3786ca3926f0949cb5809ceedb1a549&=&format=webp&quality=lossless&width=1000&height=1000" alt="">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png" alt="">
         <h3>Valley Prison</h3>
         <p>A roblox prison game.</p>
-        <span class="subtitle">Tester</span>
-        <span class="subtitle">50M+ Visits</span>
+        <div class="tag-container">
+          <span class="tag">Tester</span>
+          <span class="tag">50M+ Visits</span>
+        </div>
       </div>
 
+      <!-- BLOOD HAVEN -->
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447256338932699186/IMG_2334-removebg-preview_1.png?ex=6936f5ff&is=6935a47f&hm=73a01bbeb326764503c65b71c4ace3697c3b2ec8361257bdb16b1a68b513fa07&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447256338932699186/IMG_2334-removebg-preview_1.png" alt="">
         <h3>Blood Haven</h3>
         <p>VPRP Role-play server.</p>
-        <span class="subtitle">Developer</span>
+        <div class="tag-container">
+          <span class="tag">Developer</span>
+          <span class="tag">Google Docs</span>
+        </div>
       </div>
 
+      <!-- SPARKS SHOPPING -->
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447260049591504946/noFilter.png?ex=6936f974&is=6935a7f4&hm=047f9e8ca5dc1091613151131348cc88a505529ad3fa7e846904d40f6e5af97c&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447260049591504946/noFilter.png" alt="">
         <h3>Sparks Shopping</h3>
         <p>A roblox shopping experience.</p>
-        <span class="subtitle">Former Lead Developer</span>
+        <div class="tag-container">
+          <span class="tag">Former Lead Developer</span>
+          <span class="tag">UI Creator, Programmer</span>
+        </div>
       </div>
 
+      <!-- BLOXOLITE -->
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190335293391070/B_3.png?ex=693660f4&is=69350f74&hm=f95376ef76490ecd9049486fc4b7834b02598621ce9eca26ca5ebd7a5ecbee42&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190335293391070/B_3.png" alt="">
         <h3>BloxOLite</h3>
         <p>A roblox moderation product hub.</p>
-        <span class="subtitle">Former CEO</span>
+        <div class="tag-container">
+          <span class="tag">Former CEO</span>
+          <span class="tag">Programmer</span>
+        </div>
       </div>
 
+      <!-- COASTAL ISLAND -->
       <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447264220268859413/noFilter.png?ex=6936fd56&is=6935abd6&hm=a7889764b5580172f9017c49aab15967935bd5bfc5c7bb7c2fd05d253a845303&=&format=webp&quality=lossless" alt="">
+        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447264220268859413/noFilter.png" alt="">
         <h3>Coastal Island</h3>
         <p>A roblox hotel experience.</p>
-        <span class="subtitle">Former Co-Founder</span>
+        <div class="tag-container">
+          <span class="tag">Former Co-Founder</span>
+          <span class="tag">GUI Creator, Programmer</span>
+        </div>
       </div>
 
     </section>
