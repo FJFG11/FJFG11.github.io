@@ -3,20 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Flux-Style Landing Page</title>
+  <title>New Page • YourBrand</title>
 
-  <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Optional smooth font -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    body {
-      font-family: 'Inter', sans-serif;
-    }
+    body { font-family: 'Inter', sans-serif; }
   </style>
 </head>
 
@@ -26,29 +22,34 @@
   <nav class="max-w-7xl mx-auto flex items-center justify-between px-6 py-6">
     <div class="text-xl font-bold">YourBrand</div>
     <div class="hidden md:flex space-x-8 text-sm font-medium">
+      <a href="index.html" class="hover:text-blue-600">Home</a>
       <a href="#features" class="hover:text-blue-600">Features</a>
-      <a href="#pricing" class="hover:text-blue-600">Pricing</a>
       <a href="#faq" class="hover:text-blue-600">FAQ</a>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="text-center max-w-5xl mx-auto px-6 pt-24 pb-32">
+    <span class="inline-block mb-6 text-sm font-semibold text-blue-600">
+      New Page
+    </span>
+
     <h1 class="text-5xl md:text-6xl font-extrabold tracking-tight">
-      Master Your Administration.
+      Product Overview
     </h1>
+
     <p class="mt-6 text-xl text-gray-600">
-      The all-in-one management platform built for modern Roblox teams.
+      This page is separate from the main index and introduces new content.
     </p>
 
     <div class="mt-10 flex justify-center gap-4">
       <a href="#features"
          class="bg-blue-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-blue-700 transition">
-        Get Started
+        Explore Features
       </a>
-      <a href="#demo"
+      <a href="index.html"
          class="border border-gray-300 px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition">
-        Schedule Demo
+        Back to Home
       </a>
     </div>
   </section>
@@ -56,74 +57,27 @@
   <!-- FEATURES -->
   <section id="features" class="bg-gray-50 py-24">
     <div class="max-w-6xl mx-auto px-6">
-      <h2 class="text-4xl font-bold text-center">Powerful Features</h2>
-      <p class="text-center text-gray-600 mt-4">
-        Everything you need to run your game efficiently.
-      </p>
+      <h2 class="text-4xl font-bold text-center">What This Page Adds</h2>
 
       <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-10">
         <div class="bg-white p-8 rounded-xl shadow-sm">
-          <h3 class="text-xl font-semibold">Advanced Logs</h3>
+          <h3 class="text-xl font-semibold">Extended Details</h3>
           <p class="mt-3 text-gray-600">
-            Track staff actions and moderation events in real time.
+            Deeper explanations that don’t belong on the homepage.
           </p>
         </div>
 
         <div class="bg-white p-8 rounded-xl shadow-sm">
-          <h3 class="text-xl font-semibold">Permission Control</h3>
+          <h3 class="text-xl font-semibold">Showcases</h3>
           <p class="mt-3 text-gray-600">
-            Fully customizable rank-based command permissions.
+            Visuals and demos specific to this product.
           </p>
         </div>
 
         <div class="bg-white p-8 rounded-xl shadow-sm">
-          <h3 class="text-xl font-semibold">Fast Setup</h3>
+          <h3 class="text-xl font-semibold">Documentation</h3>
           <p class="mt-3 text-gray-600">
-            Install and configure in minutes, not hours.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHY SECTION -->
-  <section class="py-24">
-    <div class="max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-      <div>
-        <h2 class="text-4xl font-bold">Built for Scale</h2>
-        <p class="mt-6 text-gray-600 text-lg">
-          Designed to grow with your community, from small teams to enterprise-level operations.
-        </p>
-        <ul class="mt-6 space-y-3 text-gray-600">
-          <li>✔ Modular command system</li>
-          <li>✔ Centralized datastore logging</li>
-          <li>✔ Secure server-side execution</li>
-        </ul>
-      </div>
-
-      <div class="bg-gray-100 rounded-xl h-72 flex items-center justify-center text-gray-400">
-        Screenshot / Preview
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ -->
-  <section id="faq" class="bg-gray-50 py-24">
-    <div class="max-w-4xl mx-auto px-6">
-      <h2 class="text-4xl font-bold text-center">FAQ</h2>
-
-      <div class="mt-12 space-y-6">
-        <div class="bg-white p-6 rounded-xl shadow-sm">
-          <h4 class="font-semibold">Is this secure?</h4>
-          <p class="mt-2 text-gray-600">
-            Yes. All actions are validated server-side with permission checks.
-          </p>
-        </div>
-
-        <div class="bg-white p-6 rounded-xl shadow-sm">
-          <h4 class="font-semibold">Does it support DataStores?</h4>
-          <p class="mt-2 text-gray-600">
-            Full support for logs, bans, and history tracking.
+            Linked guides and usage information.
           </p>
         </div>
       </div>
@@ -132,7 +86,7 @@
 
   <!-- FOOTER -->
   <footer class="py-10 text-center text-sm text-gray-500">
-    © 2025 YourBrand. All rights reserved.
+    © 2025 YourBrand • Secondary Page
   </footer>
 
 </body>
