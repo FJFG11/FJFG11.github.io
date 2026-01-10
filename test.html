@@ -1,1 +1,68 @@
-<h1>Test Page</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Roblox Moderation Panel</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<div class="app">
+  <aside class="sidebar">
+    <h2 class="logo">🛡️ ModPanel</h2>
+    <nav>
+      <a class="active">Dashboard</a>
+      <a>Players</a>
+      <a>Reports</a>
+      <a>Bans</a>
+      <a>Logs</a>
+    </nav>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <input type="text" placeholder="Search player..." />
+      <div class="user">Moderator</div>
+    </header>
+
+    <section class="content">
+      <h1>Active Players</h1>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>UserId</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>NoobMaster123</td>
+            <td>48299123</td>
+            <td class="online">Online</td>
+            <td>
+              <button class="warn">Warn</button>
+              <button class="kick">Kick</button>
+              <button class="ban">Ban</button>
+            </td>
+          </tr>
+          <tr>
+            <td>ExploitGuy</td>
+            <td>99381233</td>
+            <td class="offline">Offline</td>
+            <td>
+              <button class="warn">Warn</button>
+              <button class="kick">Kick</button>
+              <button class="ban">Ban</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </main>
+</div>
+
+</body>
+</html>
