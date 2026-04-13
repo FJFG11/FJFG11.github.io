@@ -3,385 +3,209 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet" />
-
+  <title>FJFG11</title>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      margin: 0;
-      font-family: "Inter", sans-serif;
-      background: #0d0d0f;
-      color: #fff;
-      overflow-x: hidden;
-      position: relative;
+      background: #111113;
+      color: #e2e2e6;
+      font-family: 'Geist', system-ui, sans-serif;
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* ANIMATED BACKGROUND ----------------------------------- */
-    .bg {
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      overflow: hidden;
+    a { color: inherit; text-decoration: none; }
+
+    .page {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 80px 24px 100px;
     }
 
-    .blob {
-      position: absolute;
-      width: 500px;
-      height: 500px;
-      filter: blur(180px);
-      opacity: 0.55;
-      animation: float 22s infinite ease-in-out;
-    }
-
-    .b1 { background: #a56bff; top: -100px; left: -100px; animation-delay: 0s; }
-    .b2 { background: #6fd5ff; bottom: -100px; right: -150px; animation-delay: 5s; }
-    .b3 { background: #ff6bd3; top: 40%; left: 50%; animation-delay: 10s; }
-
-    @keyframes float {
-      0%   { transform: translate(0,0) scale(1); }
-      50%  { transform: translate(80px, -60px) scale(1.15); }
-      100% { transform: translate(0,0) scale(1); }
-    }
-
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: -1;
-    }
-
-    .container {
-      width: 90%;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    header {
-      padding: 30px 0;
+    nav {
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      margin-bottom: 80px;
     }
 
-    header h1 {
-      font-size: 28px;
-      font-weight: 700;
-      color: #b887ff;
-    }
+    .nav-name { font-size: 15px; font-weight: 500; color: #e2e2e6; }
 
-    /* HERO --------------------------------------------------- */
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 13px; color: #666; transition: color 0.15s; }
+    .nav-links a:hover { color: #e2e2e6; }
+
     .hero {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      padding: 80px 0;
-      gap: 40px;
+      gap: 32px;
+      margin-bottom: 72px;
     }
 
-    .hero-text h2 {
-      font-size: 42px;
-      font-weight: 700;
-      margin: 0 0 15px;
-    }
+    .hero-text { flex: 1; }
 
-    .hero-text p {
-      font-size: 20px;
-      opacity: 0.75;
-    }
-
-    .hero-img {
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 50%;
-      border: 3px solid rgba(255,255,255,0.15);
-      box-shadow: 0 0 30px rgba(155,77,255,0.4);
-    }
-
-    /* SECTION TITLE ------------------------------------------ */
-    .section-title {
-      font-size: 32px;
-      margin: 70px 0 30px;
-      font-weight: 700;
-      color: #c59aff;
-      text-shadow: 0 0 10px rgba(190,150,255,0.35);
-    }
-
-    /* ABOUT --------------------------------------------------- */
-    .about {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
-    }
-
-    .about img {
-      width: 100%;
-      border-radius: 16px;
-      object-fit: cover;
-      box-shadow: 0 0 30px rgba(0,0,0,0.4);
-    }
-
-    .about p {
-      font-size: 18px;
-      line-height: 1.8;
-      opacity: 0.82;
-    }
-
-    /* SKILLS -------------------------------------------------- */
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 20px;
-    }
-
-    .skill-card {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 25px;
-      border-radius: 16px;
-      text-align: center;
-      transition: 0.25s ease;
-    }
-
-    .skill-card:hover {
-      transform: translateY(-6px);
-      background: rgba(255,255,255,0.09);
-    }
-
-    /* TAGS ---------------------------------------------------- */
-    .tag {
-      display: inline-block;
-      margin-top: 6px;
-      margin-right: 6px;
-      padding: 4px 10px;
-      font-size: 12px;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 8px;
-      white-space: nowrap;
-    }
-
-    /* PROJECTS ------------------------------------------------ */
-    .projects-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 25px;
-    }
-
-    @media (max-width: 900px) {
-      .projects-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 600px) {
-      .projects-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .project-card {
-      position: relative;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 25px;
-      border-radius: 18px;
-      overflow: hidden;
-      transition: 0.35s ease;
-    }
-
-    .project-card:hover {
-      transform: translateY(-10px) scale(1.03);
-      background: rgba(255,255,255,0.12);
-      box-shadow: 0 0 25px rgba(175,120,255,0.35);
-    }
-
-    .project-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        120deg,
-        transparent 0%,
-        rgba(255,255,255,0.18) 50%,
-        transparent 100%
-      );
-      transform: translateX(-120%);
-      transition: 0.6s ease;
-    }
-
-    .project-card:hover::before {
-      transform: translateX(120%);
-    }
-
-    .project-card h3 {
-      margin: 0 0 10px;
-      font-size: 20px;
+    .hero-text h1 {
+      font-size: 26px;
       font-weight: 600;
+      color: #f0f0f4;
+      margin-bottom: 8px;
+      letter-spacing: -0.4px;
     }
 
-    .project-card p {
-      margin-bottom: 10px;
-      opacity: 0.75;
+    .hero-role { font-size: 13px; color: #555; margin-bottom: 16px; }
+
+    .hero-text p { font-size: 14px; color: #888; line-height: 1.75; max-width: 400px; }
+
+    .avatar {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      border: 1px solid #222226;
+      flex-shrink: 0;
+      object-fit: cover;
     }
 
-    .tag-container {
-      margin-top: 10px;
+    hr { border: none; border-top: 1px solid #1c1c20; margin: 0 0 56px; }
+
+    .section { margin-bottom: 60px; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 18px;
     }
 
-    .project-img {
-      position: absolute;
-      top: 15px;
-      right: 15px;
-      width: 52px;
-      height: 52px;
-      object-fit: contain;
-      border-radius: 10px;
-      padding: 4px;
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.12);
+    .skills { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .skill {
+      padding: 5px 12px;
+      font-size: 13px;
+      color: #888;
+      background: #18181c;
+      border: 1px solid #242428;
+      border-radius: 6px;
     }
+
+    .work-list { display: flex; flex-direction: column; }
+
+    .work-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid #18181c;
+    }
+    .work-item:last-child { border-bottom: none; }
+
+    .work-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 8px;
+      border: 1px solid #222226;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: #18181c;
+    }
+
+    .work-info { flex: 1; min-width: 0; }
+
+    .work-name { font-size: 14px; font-weight: 500; color: #d4d4d8; margin-bottom: 2px; }
+
+    .work-desc { font-size: 12px; color: #555; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    .work-role { font-size: 12px; color: #444; white-space: nowrap; flex-shrink: 0; }
 
     footer {
-      text-align: center;
-      opacity: 0.5;
-      font-size: 14px;
-      padding: 60px 0 20px;
+      font-size: 12px;
+      color: #3a3a3e;
+      margin-top: 72px;
+      padding-top: 24px;
+      border-top: 1px solid #18181c;
     }
 
-    @media (max-width: 800px) {
-      .hero { flex-direction: column; text-align: center; }
-      .about { grid-template-columns: 1fr; }
-      .hero-img { margin-top: 30px; }
+    @media (max-width: 480px) {
+      .work-role { display: none; }
     }
   </style>
 </head>
-
 <body>
+<div class="page">
 
-  <div class="bg">
-    <div class="blob b1"></div>
-    <div class="blob b2"></div>
-    <div class="blob b3"></div>
+  <nav>
+    <span class="nav-name">FJFG11</span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#work">Work</a></li>
+    </ul>
+  </nav>
+
+  <div class="hero" id="about">
+    <div class="hero-text">
+      <h1>Hey, I'm FJFG11.</h1>
+      <div class="hero-role">Roblox Developer · Moderation Systems · UK</div>
+      <p>A UK teen with 2+ years of LuaU and GUI experience. I build moderation infrastructure — admin panels, anti-cheats, and product hubs.</p>
+    </div>
+    <img class="avatar" src="https://github.com/FJFG11.png" alt="FJFG11" onerror="this.style.opacity='0'" />
   </div>
-  <div class="overlay"></div>
 
-  <div class="container">
+  <hr />
 
-    <section class="hero">
-      <div class="hero-text">
-        <h2>Hello, I'm FJFG11.</h2>
-        <p>Roblox Developer • Moderation System Developer</p>
-      </div>
-
-     <img src="./assets/images/ChatGPT Image Jan 13, 2026,  04_40_57 PM.png" alt="Profile">
-
-    </section>
-
-    <h2>About me</h2>
-    <section class="about">
-      <img src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png" alt="">
-      <p>
-        I'm FJFG11, a UK teen who enjoys helping developers. I’ve got around 2 years of LuaU and GUI experience, and I usually focus on building moderation systems such as admin panels, anti-cheats.
-      </p>
-    </section>
-
-    <h2 class="section-title">Skills</h2>
-    <section class="skills-grid">
-      <div class="skill-card">Lua</div>
-      <div class="skill-card">Tester</div>
-      <div class="skill-card">Roblox Studio</div>
-      <div class="skill-card">UI/UX Design</div>
-      <div class="skill-card">Google Docs</div>
-    </section>
-
-    <h2 class="section-title">Current/Former workplaces</h2>
-    <section class="projects-grid">
-
-      <!-- VARIABLE -->
-      <div class="project-card">
-         <img src="./assets/images/IMG_0409.jpeg" alt="Profile">
-        <h3>Variable</h3>
-        <p>A roblox & discord moderation hub.</p>
-        <div class="tag-container">
-          <span class="tag">CEO</span>
-          <span class="tag">Programmer, Gui Creator</span>
-        </div>
-      </div>
-
-      <!-- VALLEY PRISON -->
-      <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446189173550878760/Untitled_design__84_-removebg-preview.png?ex=6939ab9f&is=69385a1f&hm=462ca01128809726fbcccc729765a0ada53087e27983bd7b4b717abdcbc7b2d0&=&format=webp&quality=lossless&width=1000&height=1000" alt="">
-        <h3>Valley Prison</h3>
-        <p>A roblox prison game.</p>
-        <div class="tag-container">
-          <span class="tag">Tester</span>
-          <span class="tag">50M+ Visits</span>
-        </div>
-      </div>
-
-         <!-- FLUX -->
-      <div class="project-card">
-        <img src="./assets/images/InEzNUB.webp" alt="Profile">
-        <h3>Flux Studio</h3>
-        <p>A roblox product hub.</p>
-        <div class="tag-container">
-          <span class="tag">Product Tester</span>
-        </div>
-      </div>
-
-      <!-- BLOOD HAVEN -->
-      <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447256338932699186/IMG_2334-removebg-preview_1.png?ex=694181ff&is=6940307f&hm=349f7b1e69e830083c0c729a67f347d6f9bf5e0f37e522395238eaa5f60c6fa9&=&format=webp&quality=lossless&width=936&height=1066" alt="">
-        <h3>Blood Haven</h3>
-        <p>VPRP Role-play server.</p>
-        <div class="tag-container">
-          <span class="tag">Developer</span>
-          <span class="tag">Google Docs</span>
-        </div>
-      </div>
-
-      <!-- SPARKS SHOPPING -->
-      <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447260049591504946/noFilter.png?ex=69399c74&is=69384af4&hm=033e74ccd44763f0c41ba7992876d357ecce3862d38efce1c60cb77879315f1a&=&format=webp&quality=lossless&width=300&height=300" alt="">
-        <h3>Sparks Shopping</h3>
-        <p>A roblox shopping experience.</p>
-        <div class="tag-container">
-          <span class="tag">Former Lead Developer</span>
-          <span class="tag">UI Creator, Programmer</span>
-        </div>
-      </div>
-
-      <!-- BLOXOLITE -->
-      <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1446190335293391070/B_3.png?ex=6939acb4&is=69385b34&hm=a4d0b717ce451d41b7770130d46fe21bae1363940d1ac93d658b59f27061797b&=&format=webp&quality=lossless&width=1024&height=1024" alt="">
-        <h3>BloxOLite</h3>
-        <p>A roblox moderation product hub.</p>
-        <div class="tag-container">
-          <span class="tag">Former CEO</span>
-          <span class="tag">Programmer</span>
-        </div>
-      </div>
-
-      <!-- COASTAL ISLAND -->
-      <div class="project-card">
-        <img class="project-img" src="https://media.discordapp.net/attachments/1404277820066107453/1447264220268859413/noFilter.png?ex=6939a056&is=69384ed6&hm=95b748e4561360701cd1807dad95bb3ae0697caec9a7835bf42773880ccaecf4&=&format=webp&quality=lossless&width=300&height=300" alt="">
-        <h3>Coastal Island</h3>
-        <p>A roblox hotel experience.</p>
-        <div class="tag-container">
-          <span class="tag">Former Co-Founder</span>
-          <span class="tag">GUI Creator, Programmer</span>
-        </div>
-      </div>
-
-    </section>
-
-    <footer>
-      © 2025 FJFG11 — All Rights Reserved.
-    </footer>
-
+  <div class="section" id="skills">
+    <div class="section-label">Skills</div>
+    <div class="skills">
+      <span class="skill">LuaU</span>
+      <span class="skill">Roblox Studio</span>
+      <span class="skill">UI / GUI Design</span>
+      <span class="skill">Anti-Cheat</span>
+      <span class="skill">Admin Panels</span>
+      <span class="skill">QA Testing</span>
+      <span class="skill">Google Docs</span>
+    </div>
   </div>
+
+  <div class="section" id="work">
+    <div class="section-label">Work</div>
+    <div class="work-list">
+
+      <div class="work-item">
+        <img class="work-icon" src="images/InEzNUB.webp" alt="Flux Studio" onerror="this.style.opacity='0'">
+        <div class="work-info">
+          <div class="work-name">Flux Studio</div>
+          <div class="work-desc">Roblox product hub</div>
+        </div>
+        <span class="work-role">Product Tester</span>
+      </div>
+      
+      <div class="work-item">
+        <img class="work-icon" src="images/sparksimage.webp"  alt="SparksShopping" onerror="this.style.opacity='0'>
+        <div class="work-info">
+          <div class="work-name">Sparks Shopping</div>
+          <div class="work-desc">Roblox shopping experience</div>
+        </div>
+        <span class="work-role">Former Lead Dev</span>
+      </div>
+
+      <div class="work-item">
+        <img class="work-icon" src="images/COASTAL_ISLANDS_4-removebg-preview.png" alt="CoastalIsland" onerror="this.style.opacity='0'>
+        <div class="work-info">
+          <div class="work-name">Coastal Island</div>
+          <div class="work-desc">Roblox hotel experience</div>
+        </div>
+        <span class="work-role">Former Co-Founder</span>
+      </div>
+
+    </div>
+  </div>
+
+  <footer>© 2025 FJFG11 — All Rights Reserved.</footer>
+
+</div>
 </body>
 </html>
