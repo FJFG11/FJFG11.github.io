@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>FJFG11 - Portfolio</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -37,7 +38,9 @@
       font-size: 15px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      transition: background 0.25s, color 0.25s;
+      transition:
+        background 0.25s,
+        color 0.25s;
     }
 
     a {
@@ -58,15 +61,16 @@
       margin-bottom: 80px;
     }
 
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
-
     .nav-name {
       font-size: 15px;
       font-weight: 500;
+      color: var(--text);
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
     }
 
     .nav-links {
@@ -78,7 +82,7 @@
     .nav-links a {
       font-size: 13px;
       color: var(--muted);
-      transition: 0.15s;
+      transition: color 0.15s;
     }
 
     .nav-links a:hover {
@@ -93,7 +97,7 @@
       color: var(--text);
       cursor: pointer;
       font-size: 12px;
-      transition: 0.2s;
+      transition: 0.15s;
     }
 
     .theme-toggle:hover {
@@ -115,6 +119,7 @@
     .hero-text h1 {
       font-size: 26px;
       font-weight: 600;
+      color: var(--text);
       margin-bottom: 8px;
       letter-spacing: -0.4px;
     }
@@ -141,6 +146,8 @@
       object-fit: cover;
     }
 
+    /* SOCIALS */
+
     .socials {
       display: flex;
       flex-wrap: wrap;
@@ -158,17 +165,22 @@
       background: var(--panel);
       border: 1px solid var(--border);
       border-radius: 6px;
-      transition: 0.15s;
+      transition:
+        color 0.15s,
+        border-color 0.15s,
+        background 0.15s;
+      cursor: pointer;
     }
 
     .social-btn:hover {
       color: var(--text);
-      opacity: 0.9;
+      border-color: #38383e;
     }
 
     .social-btn svg {
       width: 14px;
       height: 14px;
+      flex-shrink: 0;
       fill: currentColor;
     }
 
@@ -186,9 +198,60 @@
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--muted);
+      color: #444;
       margin-bottom: 18px;
     }
+
+    /* DISCORD */
+
+    .discord-card {
+      padding: 18px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .discord-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .discord-avatar {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+
+    .discord-name {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .discord-status {
+      font-size: 13px;
+      margin-top: 2px;
+    }
+
+    .discord-status.online {
+      color: #22c55e;
+    }
+
+    .discord-status.idle {
+      color: #f59e0b;
+    }
+
+    .discord-status.dnd {
+      color: #ef4444;
+    }
+
+    .discord-status.offline {
+      color: #777;
+    }
+
+    /* SKILLS */
 
     .skills {
       display: flex;
@@ -205,75 +268,16 @@
       border-radius: 6px;
     }
 
-    .discord-card {
-      padding: 18px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-    }
-
-    .discord-top {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .discord-avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-    }
-
-    .discord-name {
-      font-size: 15px;
-      font-weight: 600;
-    }
-
-    .discord-status {
-      font-size: 13px;
-      margin-top: 2px;
-    }
-
-    .online { color: #22c55e; }
-    .idle { color: #f59e0b; }
-    .dnd { color: #ef4444; }
-    .offline { color: #777; }
-
-    .badges-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      gap: 12px;
-    }
-
-    .badge-card {
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-    }
-
-    .badge-card img {
-      width: 64px;
-      height: 64px;
-      border-radius: 10px;
-      margin-bottom: 8px;
-    }
-
-    .badge-card span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-
     footer {
       font-size: 12px;
-      color: var(--muted);
+      color: #3a3a3e;
       margin-top: 72px;
       padding-top: 24px;
       border-top: 1px solid var(--border);
     }
 
-    @media (max-width: 700px) {
+    @media (max-width: 640px) {
+
       nav {
         flex-direction: column;
         align-items: flex-start;
@@ -291,28 +295,47 @@
     }
   </style>
 </head>
+
 <body>
 
 <div class="page">
 
+  <!-- NAV -->
+
   <nav>
-    <span class="nav-name">FJFG11</span>
+
+    <span class="nav-name">
+      FJFG11
+    </span>
 
     <div class="nav-right">
+
       <ul class="nav-links">
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
+        <li><a href="#discord">Discord</a></li>
       </ul>
 
-      <button class="theme-toggle" id="themeToggle">
+      <button
+        class="theme-toggle"
+        id="themeToggle"
+      >
         Theme
       </button>
+
     </div>
+
   </nav>
 
+  <!-- HERO -->
+
   <div class="hero" id="about">
+
     <div class="hero-text">
-      <h1>Hey, I'm FJFG11.</h1>
+
+      <h1>
+        Hey, I'm FJFG11.
+      </h1>
 
       <div class="hero-role">
         Roblox Developer · Moderation Developer · UK
@@ -322,52 +345,72 @@
         Im a UK teen with ~2yrs+ of LuaU and GUI creation experience.
         I've built multiple admin panels, anti-exploits and moderation systems.
       </p>
+
     </div>
 
     <img
       class="avatar"
       src="https://github.com/FJFG11.png"
       alt="FJFG11"
+      onerror="this.style.opacity='0'"
     />
+
   </div>
+
+  <!-- SOCIALS -->
 
   <div class="socials">
 
-    <a class="social-btn"
-       href="https://github.com/FJFG11"
-       target="_blank">
-
-      <svg viewBox="0 0 24 24">
-        <path d="M12 .297c-6.63 0-12 5.373-12 12"/>
-      </svg>
-
+    <a
+      class="social-btn"
+      href="https://github.com/FJFG11"
+      target="_blank"
+      rel="noopener"
+    >
       GitHub
     </a>
 
-    <a class="social-btn"
-       href="https://www.roblox.com/users/421517931/profile"
-       target="_blank">
-
+    <a
+      class="social-btn"
+      href="https://www.roblox.com/users/421517931/profile"
+      target="_blank"
+      rel="noopener"
+    >
       Roblox
     </a>
 
-    <a class="social-btn"
-       href="https://discord.com/users/1193285201783181361"
-       target="_blank">
-
+    <a
+      class="social-btn"
+      href="https://discord.com/users/1193285201783181361"
+      target="_blank"
+      rel="noopener"
+    >
       Discord
+    </a>
+
+    <a
+      class="social-btn"
+      href="https://x.com/The_Real_FJFG11"
+      target="_blank"
+      rel="noopener"
+    >
+      X
     </a>
 
   </div>
 
   <hr />
 
-  <div class="section">
+  <!-- DISCORD -->
+
+  <div class="section" id="discord">
+
     <div class="section-label">
       Discord Presence
     </div>
 
     <div class="discord-card">
+
       <div class="discord-top">
 
         <img
@@ -378,18 +421,30 @@
         >
 
         <div>
-          <div id="discordName" class="discord-name">
+
+          <div
+            id="discordName"
+            class="discord-name"
+          >
             Loading...
           </div>
 
-          <div id="discordStatus" class="discord-status">
+          <div
+            id="discordStatus"
+            class="discord-status"
+          >
             Fetching status...
           </div>
+
         </div>
 
       </div>
+
     </div>
+
   </div>
+
+  <!-- SKILLS -->
 
   <div class="section" id="skills">
 
@@ -398,21 +453,13 @@
     </div>
 
     <div class="skills">
+
       <span class="skill">LuaU</span>
       <span class="skill">Roblox Studio</span>
       <span class="skill">UI / GUI Design</span>
       <span class="skill">QA Testing</span>
+
     </div>
-
-  </div>
-
-  <div class="section">
-
-    <div class="section-label">
-      Roblox Badges
-    </div>
-
-    <div id="badgesGrid" class="badges-grid"></div>
 
   </div>
 
@@ -423,7 +470,10 @@
 </div>
 
 <script>
-  // THEME
+
+  // ─────────────────────────────
+  // THEME SYSTEM
+  // ─────────────────────────────
 
   const themeToggle =
     document.getElementById("themeToggle");
@@ -442,82 +492,59 @@
         : "dark";
   };
 
-  // DISCORD
+  // ─────────────────────────────
+  // DISCORD PRESENCE
+  // ─────────────────────────────
 
-  fetch(
-    "https://api.lanyard.rest/v1/users/1193285201783181361"
-  )
-  .then(r => r.json())
-  .then(data => {
-
-    const user = data.data;
-
-    const avatar =
-      `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.png`;
-
-    document.getElementById("discordAvatar").src =
-      avatar;
-
-    document.getElementById("discordName").textContent =
-      user.discord_user.username;
-
-    const status =
-      document.getElementById("discordStatus");
-
-    status.textContent =
-      user.discord_status.charAt(0).toUpperCase() +
-      user.discord_status.slice(1);
-
-    status.classList.add(user.discord_status);
-  });
-
-  // ROBLOX BADGES
-
-  const ROBLOX_USER_ID = 421517931;
-
-  async function loadBadges() {
-
-    const grid =
-      document.getElementById("badgesGrid");
+  async function loadDiscord() {
 
     try {
 
-      const res = await fetch(
-        `https://badges.roblox.com/v1/users/${ROBLOX_USER_ID}/badges?limit=6&sortOrder=Desc`
+      const response = await fetch(
+        "https://api.lanyard.rest/v1/users/1193285201783181361"
       );
 
-      const data = await res.json();
+      const json = await response.json();
 
-      for (const badge of data.data) {
-
-        const thumb = await fetch(
-          `https://thumbnails.roblox.com/v1/badges/icons?badgeIds=${badge.id}&size=150x150&format=Png`
-        );
-
-        const thumbData = await thumb.json();
-
-        const image =
-          thumbData.data[0]?.imageUrl;
-
-        const card =
-          document.createElement("div");
-
-        card.className = "badge-card";
-
-        card.innerHTML = `
-          <img src="${image}">
-          <span>${badge.name}</span>
-        `;
-
-        grid.appendChild(card);
+      if (!json.success || !json.data) {
+        throw new Error("Lanyard unavailable");
       }
 
+      const user = json.data;
+
+      const avatar =
+        `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.png`;
+
+      document.getElementById("discordAvatar").src =
+        avatar;
+
+      document.getElementById("discordName").textContent =
+        user.discord_user.username;
+
+      const statusEl =
+        document.getElementById("discordStatus");
+
+      statusEl.textContent =
+        user.discord_status.charAt(0).toUpperCase() +
+        user.discord_status.slice(1);
+
+      statusEl.className =
+        `discord-status ${user.discord_status}`;
+
     } catch (err) {
+
       console.error(err);
+
+      document.getElementById("discordName").textContent =
+        "Discord unavailable";
+
+      document.getElementById("discordStatus").textContent =
+        "Lanyard not connected";
     }
   }
 
-  loadBadges();
+  loadDiscord();
+
 </script>
 
 </body>
