@@ -947,44 +947,67 @@
 
   });
 
-  // DISCORD PRESENCE MOCK
-  // Replace with real API later if wanted
+const DISCORD_ID = "1193285201783181361";
 
-  const presenceText = document.getElementById('presenceText');
-  const presenceDot = document.getElementById('presenceDot');
+const presenceText = document.getElementById("presenceText");
+const presenceDot = document.getElementById("presenceDot");
+const avatar = document.querySelector(".presence-avatar");
 
-  const statuses = [
-    {
-      text: 'Working on Roblox Studio',
-      class: 'online'
-    },
-    {
-      text: 'Listening to Spotify',
-      class: 'idle'
-    },
-    {
-      text: 'Online on Discord',
-      class: 'online'
+function updatePresence(data) {
+  if (!data || !data.d) return;
+
+  const d = data.d;
+
+  // Status dot
+  const statusMap = {
+    online: "online",
+    idle: "idle",
+    dnd: "dnd",
+    offline: ""
+  };
+
+  const status = d.discord_status || "offline";
+
+  presenceDot.className = "presence-status " + (statusMap[status] || "");
+
+  // Activity text
+  let activityText = "Offline on Discord";
+
+  if (d.activities && d.activities.length > 0) {
+    const a = d.activities.find(x => x.type !== 4); // ignore custom status
+    if (a) {
+      activityText = `${a.name}${a.details ? " - " + a.details : ""}`;
+    } else {
+      activityText = "Online on Discord";
     }
-  ];
+  } else {
+    activityText = status === "online"
+      ? "Online on Discord"
+      : "Offline on Discord";
+  }
 
-  let current = 0;
+  presenceText.textContent = activityText;
 
-  setInterval(() => {
+  // Avatar
+  if (d.discord_user?.avatar) {
+    avatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${d.discord_user.avatar}.png`;
+  }
+}
 
-    current++;
+// REST fallback (simple + reliable)
+async function fetchPresence() {
+  try {
+    const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+    const data = await res.json();
+    updatePresence(data);
+  } catch (err) {
+    console.log("Lanyard error:", err);
+  }
+}
 
-    if (current >= statuses.length) {
-      current = 0;
-    }
-
-    presenceText.textContent = statuses[current].text;
-
-    presenceDot.className =
-      'presence-status ' + statuses[current].class;
-
-  }, 5000);
-
+// initial + refresh
+fetchPresence();
+setInterval(fetchPresence, 15000);
 </script>
 
 </body>
