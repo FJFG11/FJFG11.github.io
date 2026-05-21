@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>FJFG11 - Portfolio</title>
 
   <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -15,32 +14,14 @@
       padding: 0;
     }
 
-    :root {
-      --bg: #111113;
-      --text: #e2e2e6;
-      --muted: #888;
-      --panel: #18181c;
-      --border: #242428;
-    }
-
-    body.light {
-      --bg: #f5f5f7;
-      --text: #111113;
-      --muted: #555;
-      --panel: #ffffff;
-      --border: #d8d8dd;
-    }
-
     body {
-      background: var(--bg);
-      color: var(--text);
+      background: #111113;
+      color: #e2e2e6;
       font-family: 'Geist', system-ui, sans-serif;
       font-size: 15px;
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      transition:
-        background 0.25s,
-        color 0.25s;
+      transition: background 0.2s, color 0.2s;
     }
 
     a {
@@ -64,13 +45,7 @@
     .nav-name {
       font-size: 15px;
       font-weight: 500;
-      color: var(--text);
-    }
-
-    .nav-right {
-      display: flex;
-      align-items: center;
-      gap: 18px;
+      color: #e2e2e6;
     }
 
     .nav-links {
@@ -81,27 +56,29 @@
 
     .nav-links a {
       font-size: 13px;
-      color: var(--muted);
+      color: #666;
       transition: color 0.15s;
     }
 
     .nav-links a:hover {
-      color: var(--text);
+      color: #e2e2e6;
     }
 
     .theme-toggle {
-      padding: 6px 12px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      color: var(--text);
+      padding: 6px 14px;
+      font-size: 13px;
+      color: #999;
+      background: #18181c;
+      border: 1px solid #242428;
+      border-radius: 6px;
       cursor: pointer;
-      font-size: 12px;
-      transition: 0.15s;
+      transition: all 0.15s;
     }
 
     .theme-toggle:hover {
-      opacity: 0.8;
+      color: #e2e2e6;
+      border-color: #38383e;
+      background: #1e1e22;
     }
 
     .hero {
@@ -119,20 +96,20 @@
     .hero-text h1 {
       font-size: 26px;
       font-weight: 600;
-      color: var(--text);
+      color: #f0f0f4;
       margin-bottom: 8px;
       letter-spacing: -0.4px;
     }
 
     .hero-role {
       font-size: 13px;
-      color: var(--muted);
+      color: #555;
       margin-bottom: 16px;
     }
 
     .hero-text p {
       font-size: 14px;
-      color: var(--muted);
+      color: #888;
       line-height: 1.75;
       max-width: 400px;
     }
@@ -141,18 +118,16 @@
       width: 68px;
       height: 68px;
       border-radius: 50%;
-      border: 1px solid var(--border);
+      border: 1px solid #222226;
       flex-shrink: 0;
       object-fit: cover;
     }
-
-    /* SOCIALS */
 
     .socials {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-bottom: 72px;
+      margin-bottom: 28px;
     }
 
     .social-btn {
@@ -161,20 +136,18 @@
       gap: 7px;
       padding: 6px 14px;
       font-size: 13px;
-      color: var(--muted);
-      background: var(--panel);
-      border: 1px solid var(--border);
+      color: #999;
+      background: #18181c;
+      border: 1px solid #242428;
       border-radius: 6px;
-      transition:
-        color 0.15s,
-        border-color 0.15s,
-        background 0.15s;
+      transition: color 0.15s, border-color 0.15s, background 0.15s;
       cursor: pointer;
     }
 
     .social-btn:hover {
-      color: var(--text);
+      color: #e2e2e6;
       border-color: #38383e;
+      background: #1e1e22;
     }
 
     .social-btn svg {
@@ -184,54 +157,34 @@
       fill: currentColor;
     }
 
-    hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 0 0 56px;
-    }
-
-    .section {
+    .discord-widget {
       margin-bottom: 60px;
-    }
-
-    .section-label {
-      font-size: 11px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #444;
-      margin-bottom: 18px;
-    }
-
-    /* DISCORD */
-
-    .discord-card {
-      padding: 18px;
-      background: var(--panel);
-      border: 1px solid var(--border);
-      border-radius: 14px;
+      padding: 14px 16px;
+      background: #18181c;
+      border: 1px solid #242428;
+      border-radius: 10px;
     }
 
     .discord-top {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .discord-avatar {
-      width: 58px;
-      height: 58px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      border: 1px solid var(--border);
     }
 
     .discord-name {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
-      color: var(--text);
     }
 
     .discord-status {
-      font-size: 13px;
+      font-size: 12px;
+      color: #666;
       margin-top: 2px;
     }
 
@@ -248,10 +201,26 @@
     }
 
     .discord-status.offline {
-      color: #777;
+      color: #666;
     }
 
-    /* SKILLS */
+    hr {
+      border: none;
+      border-top: 1px solid #1c1c20;
+      margin: 0 0 56px;
+    }
+
+    .section {
+      margin-bottom: 60px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #444;
+      margin-bottom: 18px;
+    }
 
     .skills {
       display: flex;
@@ -262,9 +231,9 @@
     .skill {
       padding: 5px 12px;
       font-size: 13px;
-      color: var(--muted);
-      background: var(--panel);
-      border: 1px solid var(--border);
+      color: #888;
+      background: #18181c;
+      border: 1px solid #242428;
       border-radius: 6px;
     }
 
@@ -273,25 +242,39 @@
       color: #3a3a3e;
       margin-top: 72px;
       padding-top: 24px;
-      border-top: 1px solid var(--border);
+      border-top: 1px solid #18181c;
     }
 
-    @media (max-width: 640px) {
+    /* LIGHT MODE */
 
-      nav {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 18px;
-      }
+    body.light-mode {
+      background: #f4f4f5;
+      color: #111113;
+    }
 
-      .nav-right {
-        width: 100%;
-        justify-content: space-between;
-      }
+    body.light-mode .nav-name,
+    body.light-mode .hero-text h1,
+    body.light-mode .discord-name {
+      color: #111113;
+    }
 
-      .hero {
-        flex-direction: column-reverse;
-      }
+    body.light-mode .hero-role,
+    body.light-mode .section-label,
+    body.light-mode footer {
+      color: #666;
+    }
+
+    body.light-mode .social-btn,
+    body.light-mode .skill,
+    body.light-mode .discord-widget {
+      background: #ffffff;
+      border-color: #dcdcdc;
+      color: #222;
+    }
+
+    body.light-mode hr,
+    body.light-mode footer {
+      border-color: #dddddd;
     }
   </style>
 </head>
@@ -300,59 +283,39 @@
 
 <div class="page">
 
-  <!-- NAV -->
-
   <nav>
+    <span class="nav-name">FJFG11</span>
 
-    <span class="nav-name">
-      FJFG11
-    </span>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+    </ul>
 
-    <div class="nav-right">
-
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#discord">Discord</a></li>
-      </ul>
-
-      <button
-        class="theme-toggle"
-        id="themeToggle"
-      >
-        Theme
-      </button>
-
-    </div>
-
+    <button class="theme-toggle" id="themeToggle">
+      Light
+    </button>
   </nav>
-
-  <!-- HERO -->
 
   <div class="hero" id="about">
 
     <div class="hero-text">
-
-      <h1>
-        Hey, I'm FJFG11.
-      </h1>
+      <h1>Hey, I'm FJFG11.</h1>
 
       <div class="hero-role">
         Roblox Developer · Moderation Developer · UK
       </div>
 
       <p>
-        Im a UK teen with ~2yrs+ of LuaU and GUI creation experience.
-        I've built multiple admin panels, anti-exploits and moderation systems.
+        Im a UK teen with ~2yrs+ of LuaU and Gui creation experience.
+        I've built mutiple admin panels, anti-exploits and i still do now.
+        You can find some of these on my roblox product hub linked below.
       </p>
-
     </div>
 
     <img
       class="avatar"
       src="https://github.com/FJFG11.png"
       alt="FJFG11"
-      onerror="this.style.opacity='0'"
     />
 
   </div>
@@ -361,81 +324,46 @@
 
   <div class="socials">
 
-    <a
-      class="social-btn"
-      href="https://github.com/FJFG11"
-      target="_blank"
-      rel="noopener"
-    >
+    <a class="social-btn"
+       href="https://github.com/FJFG11"
+       target="_blank">
       GitHub
     </a>
 
-    <a
-      class="social-btn"
-      href="https://www.roblox.com/users/421517931/profile"
-      target="_blank"
-      rel="noopener"
-    >
+    <a class="social-btn"
+       href="https://www.roblox.com/users/421517931/profile"
+       target="_blank">
       Roblox
     </a>
 
-    <a
-      class="social-btn"
-      href="https://discord.com/users/1193285201783181361"
-      target="_blank"
-      rel="noopener"
-    >
+    <a class="social-btn"
+       href="https://discord.com/users/1193285201783181361"
+       target="_blank">
       Discord
-    </a>
-
-    <a
-      class="social-btn"
-      href="https://x.com/The_Real_FJFG11"
-      target="_blank"
-      rel="noopener"
-    >
-      X
     </a>
 
   </div>
 
-  <hr />
+  <!-- DISCORD WIDGET -->
 
-  <!-- DISCORD -->
+  <div class="discord-widget">
 
-  <div class="section" id="discord">
+    <div class="discord-top">
 
-    <div class="section-label">
-      Discord Presence
-    </div>
+      <img
+        id="discordAvatar"
+        class="discord-avatar"
+        src="https://cdn.discordapp.com/embed/avatars/0.png"
+      >
 
-    <div class="discord-card">
+      <div>
 
-      <div class="discord-top">
+        <div class="discord-name" id="discordName">
+          Discord
+        </div>
 
-        <img
-          id="discordAvatar"
-          class="discord-avatar"
-          src=""
-          alt=""
-        >
-
-        <div>
-
-          <div
-            id="discordName"
-            class="discord-name"
-          >
-            Loading...
-          </div>
-
-          <div
-            id="discordStatus"
-            class="discord-status"
-          >
-            Fetching status...
-          </div>
-
+        <div class="discord-status offline" id="discordStatus">
+          Status unavailable
         </div>
 
       </div>
@@ -444,7 +372,7 @@
 
   </div>
 
-  <!-- SKILLS -->
+  <hr />
 
   <div class="section" id="skills">
 
@@ -453,48 +381,47 @@
     </div>
 
     <div class="skills">
-
       <span class="skill">LuaU</span>
       <span class="skill">Roblox Studio</span>
       <span class="skill">UI / GUI Design</span>
       <span class="skill">QA Testing</span>
-
     </div>
 
   </div>
 
   <footer>
-    © 2026 FJFG11 — All Rights Reserved.
+    © 2025 FJFG11 — All Rights Reserved.
   </footer>
 
 </div>
 
 <script>
+  // THEME TOGGLE
 
-  // ─────────────────────────────
-  // THEME SYSTEM
-  // ─────────────────────────────
+  const toggleBtn = document.getElementById("themeToggle");
 
-  const themeToggle =
-    document.getElementById("themeToggle");
-
-  if (localStorage.theme === "light") {
-    document.body.classList.add("light");
+  if (localStorage.getItem("theme") === "light") {
+    document.body.classList.add("light-mode");
+    toggleBtn.textContent = "Dark";
   }
 
-  themeToggle.onclick = () => {
+  toggleBtn.addEventListener("click", () => {
 
-    document.body.classList.toggle("light");
+    document.body.classList.toggle("light-mode");
 
-    localStorage.theme =
-      document.body.classList.contains("light")
-        ? "light"
-        : "dark";
-  };
+    const isLight =
+      document.body.classList.contains("light-mode");
 
-  // ─────────────────────────────
-  // DISCORD PRESENCE
-  // ─────────────────────────────
+    toggleBtn.textContent =
+      isLight ? "Dark" : "Light";
+
+    localStorage.setItem(
+      "theme",
+      isLight ? "light" : "dark"
+    );
+  });
+
+  // DISCORD STATUS
 
   async function loadDiscord() {
 
@@ -506,44 +433,40 @@
 
       const json = await response.json();
 
-      if (!json.success || !json.data) {
-        throw new Error("Lanyard unavailable");
-      }
+      if (!json.success) return;
 
-      const user = json.data;
-
-      const avatar =
-        `https://cdn.discordapp.com/avatars/${user.discord_user.id}/${user.discord_user.avatar}.png`;
-
-      document.getElementById("discordAvatar").src =
-        avatar;
+      const data = json.data;
+      const user = data.discord_user;
 
       document.getElementById("discordName").textContent =
-        user.discord_user.username;
+        user.display_name || user.username;
+
+      document.getElementById("discordAvatar").src =
+        `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`;
 
       const statusEl =
         document.getElementById("discordStatus");
 
+      const status = data.discord_status;
+
       statusEl.textContent =
-        user.discord_status.charAt(0).toUpperCase() +
-        user.discord_status.slice(1);
+        status.charAt(0).toUpperCase() +
+        status.slice(1);
 
       statusEl.className =
-        `discord-status ${user.discord_status}`;
+        "discord-status " + status;
 
     } catch (err) {
 
-      console.error(err);
+      console.log("Discord status unavailable");
 
-      document.getElementById("discordName").textContent =
-        "Discord unavailable";
-
-      document.getElementById("discordStatus").textContent =
-        "Lanyard not connected";
     }
+
   }
 
   loadDiscord();
+
+  setInterval(loadDiscord, 30000);
 
 </script>
 
