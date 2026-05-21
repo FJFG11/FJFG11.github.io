@@ -945,67 +945,71 @@
   const avatar = document.querySelector(".presence-avatar");
 
   function updatePresence(data) {
-    if (!data || !data.data) return;
+  if (!data || !data.data) return;
 
-    const d = data.data;
+  const d = data.data;
 
-    const statusMap = {
-      online: "online",
-      idle: "idle",
-      dnd: "dnd",
-      offline: ""
-    };
+  const statusMap = {
+    online: "online",
+    idle: "idle",
+    dnd: "dnd",
+    offline: ""
+  };
 
-    const status = d.discord_status || "offline";
-    presenceDot.className = "presence-status " + (statusMap[status] || "");
+  const status = d.discord_status || "offline";
+  presenceDot.className = "presence-status " + (statusMap[status] || "");
 
-    let text = "Offline on Discord";
+  let text = "Offline on Discord";
 
-    // 🎧 SPOTIFY (highest priority)
-    if (d.spotify) {
-      const s = d.spotify;
-      text = `Listening to ${s.song} — ${s.artist}`;
+  let icon = "";
+
+  // 🎧 Spotify (HIGHEST PRIORITY)
+  if (d.spotify) {
+    const s = d.spotify;
+    text = `${s.song} — ${s.artist}`;
+    icon = "🎧";
+  }
+
+  // 🎮 GAME ACTIVITY
+  else if (d.activities && d.activities.length > 0) {
+
+    const game = d.activities.find(a => a.type === 0);
+    const activity = d.activities.find(a => a.type !== 4);
+
+    if (game) {
+      text = `Playing ${game.name}`;
+      if (game.details) text += ` — ${game.details}`;
+      icon = "🎮";
     }
 
-    // 🎮 GAME DETECTION
-    else if (d.activities && d.activities.length > 0) {
-
-      // find playing activity
-      const game = d.activities.find(a => a.type === 0);
-      const custom = d.activities.find(a => a.type === 4);
-      const other = d.activities.find(a => a.type !== 4);
-
-      if (game) {
-        text = `Playing ${game.name}`;
-        if (game.details) text += ` - ${game.details}`;
-      }
-
-      else if (other) {
-        text = `${other.name}`;
-        if (other.details) text += ` - ${other.details}`;
-      }
-
-      else if (custom) {
-        text = custom.state || "Online on Discord";
-      }
+    else if (activity) {
+      text = activity.details
+        ? `${activity.name} — ${activity.details}`
+        : activity.name;
+      icon = "🟣";
     }
 
-    // fallback status
     else {
-      text = status === "online"
-        ? "Online on Discord"
-        : "Offline on Discord";
-    }
-
-    presenceText.textContent = text;
-
-    // avatar
-    if (d.discord_user?.avatar) {
-      avatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${d.discord_user.avatar}.png`;
-    } else {
-      avatar.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
+      text = status === "online" ? "Online on Discord" : "Offline on Discord";
+      icon = "🟢";
     }
   }
+
+  else {
+    text = status === "online" ? "Online on Discord" : "Offline on Discord";
+    icon = status === "online" ? "🟢" : "⚫";
+  }
+
+  // FINAL OUTPUT
+  presenceText.textContent = `${icon} ${text}`;
+
+  // avatar
+  if (d.discord_user?.avatar) {
+    avatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${d.discord_user.avatar}.png`;
+  } else {
+    avatar.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
+  }
+}
 
   async function fetchPresence() {
     try {
