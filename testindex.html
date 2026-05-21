@@ -956,10 +956,8 @@
   function updatePresence(data) {
     if (!data || !data.data) return;
 
-    // FIX: correct Lanyard structure
     const d = data.data;
 
-    // Status dot
     const statusMap = {
       online: "online",
       idle: "idle",
@@ -968,28 +966,49 @@
     };
 
     const status = d.discord_status || "offline";
-
     presenceDot.className = "presence-status " + (statusMap[status] || "");
 
-    // Activity text
-    let activityText = "Offline on Discord";
+    let text = "Offline on Discord";
 
-    if (d.activities && d.activities.length > 0) {
-      const a = d.activities.find(x => x.type !== 4); // ignore custom status
-      if (a) {
-        activityText = `${a.name}${a.details ? " - " + a.details : ""}`;
-      } else {
-        activityText = "Online on Discord";
+    // 🎧 SPOTIFY (highest priority)
+    if (d.spotify) {
+      const s = d.spotify;
+      text = `Listening to ${s.song} — ${s.artist}`;
+    }
+
+    // 🎮 GAME DETECTION
+    else if (d.activities && d.activities.length > 0) {
+
+      // find playing activity
+      const game = d.activities.find(a => a.type === 0);
+      const custom = d.activities.find(a => a.type === 4);
+      const other = d.activities.find(a => a.type !== 4);
+
+      if (game) {
+        text = `Playing ${game.name}`;
+        if (game.details) text += ` - ${game.details}`;
       }
-    } else {
-      activityText = status === "online"
+
+      else if (other) {
+        text = `${other.name}`;
+        if (other.details) text += ` - ${other.details}`;
+      }
+
+      else if (custom) {
+        text = custom.state || "Online on Discord";
+      }
+    }
+
+    // fallback status
+    else {
+      text = status === "online"
         ? "Online on Discord"
         : "Offline on Discord";
     }
 
-    presenceText.textContent = activityText;
+    presenceText.textContent = text;
 
-    // Avatar (fixed fallback handling)
+    // avatar
     if (d.discord_user?.avatar) {
       avatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${d.discord_user.avatar}.png`;
     } else {
@@ -997,7 +1016,6 @@
     }
   }
 
-  // REST fallback (simple + reliable)
   async function fetchPresence() {
     try {
       const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
@@ -1008,11 +1026,9 @@
     }
   }
 
-  // initial + refresh
   fetchPresence();
   setInterval(fetchPresence, 15000);
 
 </script>
-
 </body>
 </html>
