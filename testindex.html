@@ -967,7 +967,7 @@
   if (d.spotify) {
     const s = d.spotify;
     text = `${s.song} — ${s.artist}`;
-    icon = "🎧";
+    icon = "";
   }
 
   // 🎮 GAME ACTIVITY
@@ -979,25 +979,25 @@
     if (game) {
       text = `Playing ${game.name}`;
       if (game.details) text += ` — ${game.details}`;
-      icon = "🎮";
+      icon = "";
     }
 
     else if (activity) {
       text = activity.details
         ? `${activity.name} — ${activity.details}`
         : activity.name;
-      icon = "🟣";
+      icon = "";
     }
 
     else {
       text = status === "online" ? "Online on Discord" : "Offline on Discord";
-      icon = "🟢";
+      icon = "";
     }
   }
 
   else {
     text = status === "online" ? "Online on Discord" : "Offline on Discord";
-    icon = status === "online" ? "🟢" : "⚫";
+    icon = status === "online" ? "" : "";
   }
 
   // FINAL OUTPUT
