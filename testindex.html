@@ -947,67 +947,71 @@
 
   });
 
-const DISCORD_ID = "1193285201783181361";
+  const DISCORD_ID = "1193285201783181361";
 
-const presenceText = document.getElementById("presenceText");
-const presenceDot = document.getElementById("presenceDot");
-const avatar = document.querySelector(".presence-avatar");
+  const presenceText = document.getElementById("presenceText");
+  const presenceDot = document.getElementById("presenceDot");
+  const avatar = document.querySelector(".presence-avatar");
 
-function updatePresence(data) {
-  if (!data || !data.d) return;
+  function updatePresence(data) {
+    if (!data || !data.data) return;
 
-  const d = data.d;
+    // FIX: correct Lanyard structure
+    const d = data.data;
 
-  // Status dot
-  const statusMap = {
-    online: "online",
-    idle: "idle",
-    dnd: "dnd",
-    offline: ""
-  };
+    // Status dot
+    const statusMap = {
+      online: "online",
+      idle: "idle",
+      dnd: "dnd",
+      offline: ""
+    };
 
-  const status = d.discord_status || "offline";
+    const status = d.discord_status || "offline";
 
-  presenceDot.className = "presence-status " + (statusMap[status] || "");
+    presenceDot.className = "presence-status " + (statusMap[status] || "");
 
-  // Activity text
-  let activityText = "Offline on Discord";
+    // Activity text
+    let activityText = "Offline on Discord";
 
-  if (d.activities && d.activities.length > 0) {
-    const a = d.activities.find(x => x.type !== 4); // ignore custom status
-    if (a) {
-      activityText = `${a.name}${a.details ? " - " + a.details : ""}`;
+    if (d.activities && d.activities.length > 0) {
+      const a = d.activities.find(x => x.type !== 4); // ignore custom status
+      if (a) {
+        activityText = `${a.name}${a.details ? " - " + a.details : ""}`;
+      } else {
+        activityText = "Online on Discord";
+      }
     } else {
-      activityText = "Online on Discord";
+      activityText = status === "online"
+        ? "Online on Discord"
+        : "Offline on Discord";
     }
-  } else {
-    activityText = status === "online"
-      ? "Online on Discord"
-      : "Offline on Discord";
+
+    presenceText.textContent = activityText;
+
+    // Avatar (fixed fallback handling)
+    if (d.discord_user?.avatar) {
+      avatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${d.discord_user.avatar}.png`;
+    } else {
+      avatar.src = `https://cdn.discordapp.com/embed/avatars/0.png`;
+    }
   }
 
-  presenceText.textContent = activityText;
-
-  // Avatar
-  if (d.discord_user?.avatar) {
-    avatar.src = `https://cdn.discordapp.com/avatars/${DISCORD_ID}/${d.discord_user.avatar}.png`;
+  // REST fallback (simple + reliable)
+  async function fetchPresence() {
+    try {
+      const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
+      const data = await res.json();
+      updatePresence(data);
+    } catch (err) {
+      console.log("Lanyard error:", err);
+    }
   }
-}
 
-// REST fallback (simple + reliable)
-async function fetchPresence() {
-  try {
-    const res = await fetch(`https://api.lanyard.rest/v1/users/${DISCORD_ID}`);
-    const data = await res.json();
-    updatePresence(data);
-  } catch (err) {
-    console.log("Lanyard error:", err);
-  }
-}
+  // initial + refresh
+  fetchPresence();
+  setInterval(fetchPresence, 15000);
 
-// initial + refresh
-fetchPresence();
-setInterval(fetchPresence, 15000);
 </script>
 
 </body>
