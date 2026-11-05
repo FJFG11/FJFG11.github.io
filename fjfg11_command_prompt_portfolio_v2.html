@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0c0c0c">
+<title>FJFG11 — Command Prompt</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { width:100%; min-height:100%; margin:0; }
+  body {
+    background:#0c0c0c;
+    color:#cccccc;
+    font-family:Consolas,"Lucida Console",monospace;
+    font-size:15px;
+    line-height:1.42;
+    overflow-x:hidden;
+  }
+  .window {
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    background:#0c0c0c;
+  }
+  .titlebar {
+    height:32px;
+    flex:0 0 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-left:10px;
+    background:#202020;
+    color:#f2f2f2;
+    font:12px "Segoe UI",Arial,sans-serif;
+    user-select:none;
+  }
+  .title-left { display:flex; align-items:center; gap:8px; min-width:0; }
+  .app-icon {
+    width:15px;height:13px;border:1px solid #b9c6d5;
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#dce8f7;font:9px Consolas,monospace;
+  }
+  .title { white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+  .window-buttons { display:flex;height:32px; }
+  .window-buttons span {
+    width:46px;display:grid;place-items:center;
+    color:#ddd;font:13px "Segoe UI",sans-serif;
+  }
+  .window-buttons span:hover { background:#3a3a3a; }
+  .window-buttons .close:hover { background:#c42b1c; }
+  .menu {
+    height:25px;flex:0 0 25px;display:flex;align-items:center;
+    gap:20px;padding:0 10px;background:#0c0c0c;
+    color:#cccccc;font:12px "Segoe UI",Arial,sans-serif;
+    border-bottom:1px solid #252525;
+  }
+  .screen {
+    flex:1;
+    padding:12px 14px 22px;
+    min-height:calc(100vh - 57px);
+    overflow:auto;
+    outline:none;
+    cursor:text;
+  }
+  #history { white-space:pre-wrap;overflow-wrap:anywhere; }
+  .out { min-height:1.42em; }
+  .dim { color:#999999; }
+  .bright { color:#ffffff; }
+  .green { color:#00ff00; }
+  .yellow { color:#ffff00; }
+  .cyan { color:#00ffff; }
+  a { color:#9cdcfe;text-decoration:underline; }
+  a:hover { color:#fff; }
+  .input-line { display:flex;align-items:baseline;min-height:1.42em; }
+  .prompt { color:#cccccc;white-space:pre; }
+  #command {
+    flex:1;min-width:0;padding:0;margin:0;border:0;outline:0;
+    background:transparent;color:#cccccc;
+    font:inherit;line-height:inherit;caret-color:#cccccc;
+  }
+  .caret {
+    display:inline-block;width:8px;height:1.05em;background:#cccccc;
+    vertical-align:-2px;animation:blink 1s steps(2,start) infinite;
+  }
+  @keyframes blink { to { visibility:hidden; } }
+  .help-line { padding-left:25px; }
+  .gap { height:1.42em; }
+  @media(max-width:600px) {
+    body { font-size:13px; }
+    .screen { padding:10px 9px 20px; }
+    .window-buttons span { width:37px; }
+    .menu { gap:15px; }
+  }
+  @media(prefers-reduced-motion:reduce) { .caret { animation:none; } }
+</style>
+</head>
+<body>
+<div class="window">
+  <header class="titlebar">
+    <div class="title-left">
+      <span class="app-icon">C:\</span>
+      <span class="title">Command Prompt — C:\Users\FJFG11\portfolio</span>
+    </div>
+    <div class="window-buttons" aria-hidden="true">
+      <span>—</span><span>□</span><span class="close">×</span>
+    </div>
+  </header>
+  <nav class="menu" aria-label="Window menu">
+    <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+  </nav>
+  <main class="screen" id="screen">
+    <div id="history" aria-live="polite">Microsoft Windows [Version 10.0.22631.XXXX]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\FJFG11&gt;portfolio.exe
+
+FJFG11 PORTFOLIO SYSTEM
+=======================
+
+Welcome. This is an interactive command-line portfolio.
+Type <span class="yellow">help</span> to list available commands.
+
+</div>
+    <form class="input-line" id="form" autocomplete="off">
+      <label class="prompt" for="command">C:\Users\FJFG11&gt;</label><input id="command" autofocus spellcheck="false" autocomplete="off" aria-label="Command input"><span class="caret" aria-hidden="true"></span>
+    </form>
+  </main>
+</div>
+<script>
+(() => {
+  const history = document.getElementById('history');
+  const form = document.getElementById('form');
+  const input = document.getElementById('command');
+  const screen = document.getElementById('screen');
+  const promptText = 'C:\\Users\\FJFG11>';
+
+  const jobs = [
+    ['Zenth', 'Engineer', 'Discord Server', 'Active', '~5', 'N/A'],
+    ['Luxor', 'Chief Executive Officer', 'Roblox product hub', 'Inactive', '~50', 'N/A'],
+    ['Flux Studio', 'Partner, Staff Manager', 'Roblox product hub', 'Active', '~800', 'N/A'],
+    ['Ablazed Studios', 'Former Tester', 'Roblox game development', 'Active', '~287', '~1.4M'],
+    ['Sparks Shopping', 'Former Lead Developer', 'Roblox shopping experience', 'Active', 'N/A', 'N/A'],
+    ['Wizard Studios', 'Former Quality Assurance', 'Roblox game development', 'Inactive', '~975', '~5,400'],
+    ['Coastal Island', 'Former Co-Founder', 'Roblox hotel experience', 'Inactive', 'N/A', 'N/A']
+  ];
+
+  const socials = [
+    ['GitHub', 'https://github.com/FJFG11'],
+    ['Roblox', 'https://www.roblox.com/users/421517931/profile'],
+    ['Discord', 'https://discord.com/users/1193285201783181361'],
+    ['X', 'https://x.com/The_Real_FJFG11']
+  ];
+
+  function append(text = '', className = '') {
+    const row = document.createElement('div');
+    row.className = 'out ' + className;
+    row.textContent = text;
+    history.appendChild(row);
+    return row;
+  }
+  function htmlLine(html, className = '') {
+    const row = document.createElement('div');
+    row.className = 'out ' + className;
+    row.innerHTML = html;
+    history.appendChild(row);
+    return row;
+  }
+  function blank() { append(''); }
+  function commandEcho(value) {
+    const row = document.createElement('div');
+    row.className = 'out';
+    row.textContent = promptText + value;
+    history.appendChild(row);
+  }
+  function scrollDown() { screen.scrollTop = screen.scrollHeight; }
+  function help() {
+    append('FJFG11 PORTFOLIO COMMANDS');
+    append('------------------------');
+    append('  help          Displays this list of commands.');
+    append('  about         Displays information about me.');
+    append('  skills        Lists my development skills.');
+    append('  work          Displays my work history.');
+    append('  projects      Opens my creations page.');
+    append('  contact       Displays my social links.');
+    append('  commissions   Displays commission availability.');
+    append('  cls           Clears the command prompt screen.');
+    append('  exit          Displays a friendly sign-off.');
+  }
+  function run(raw) {
+    const value = raw.trim();
+    if (!value) return;
+    const cmd = value.toLowerCase();
+    if (cmd === 'cls' || cmd === 'clear') {
+      history.textContent = '';
+      return;
+    }
+    commandEcho(value);
+    switch (cmd) {
+      case 'help':
+        blank(); help(); break;
+      case 'about':
+        blank();
+        append('FJFG11 — ROBLOX DEVELOPER');
+        append('-------------------------');
+        append('Location : United Kingdom');
+        append('Focus    : Roblox development, moderation systems and interface design');
+        append('Experience: 2+ years of Luau scripting and GUI creation');
+        blank();
+        append('I build admin panels, anti-exploit systems and custom interfaces.');
+        append('You can find some of my creations on my Roblox product hub.');
+        break;
+      case 'skills':
+        blank();
+        append('SKILLS');
+        append('------');
+        append('  LuaU');
+        append('  Roblox Studio');
+        append('  UI / GUI Design');
+        append('  QA Testing');
+        break;
+      case 'work':
+        blank();
+        append('FORMER / CURRENT WORKPLACES');
+        append('--------------------------');
+        jobs.forEach((job, i) => {
+          append(`${i + 1}. ${job[0]}`);
+          append(`   Position : ${job[1]}`);
+          append(`   Type     : ${job[2]}`);
+          append(`   Status   : ${job[3]}`);
+          append(`   Discord  : ${job[4]} members`);
+          append(`   Visits   : ${job[5]}`);
+          blank();
+        });
+        break;
+      case 'projects':
+        blank();
+        append('Opening creations page in your browser...');
+        append('https://fjfg11.github.io/creations.html');
+        window.open('https://fjfg11.github.io/creations.html', '_blank', 'noopener');
+        break;
+      case 'contact':
+        blank();
+        append('CONTACT / SOCIAL LINKS');
+        append('----------------------');
+        socials.forEach(([name, url]) => {
+          const row = htmlLine('');
+          const label = document.createElement('span');
+          label.textContent = name.padEnd(9, ' ') + ' ';
+          const link = document.createElement('a');
+          link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';
+          link.textContent = url;
+          row.append(label, link);
+        });
+        break;
+      case 'commissions':
+        blank();
+        append('COMMISSION STATUS');
+        append('-----------------');
+        append('Status : CLOSED');
+        append('To enquire, contact me on Discord:');
+        htmlLine('<a href="https://discord.com/users/1193285201783181361" target="_blank" rel="noopener noreferrer">discord.com/users/1193285201783181361</a>');
+        break;
+      case 'exit':
+        blank();
+        append('Thanks for visiting the FJFG11 portfolio.');
+        append('Session ended. (Not really — type another command.)');
+        break;
+      default:
+        blank();
+        append(`'${value}' is not recognized as an internal or external command,`);
+        append('operable program or batch file.');
+        append('');
+        append("Type 'help' to see a list of available commands.");
+    }
+    blank();
+    scrollDown();
+  }
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    const value = input.value;
+    input.value = '';
+    run(value);
+    scrollDown();
+  });
+  screen.addEventListener('click', () => input.focus());
+  document.addEventListener('keydown', event => {
+    if (event.key === '/' && document.activeElement !== input) {
+      event.preventDefault(); input.focus();
+    }
+  });
+  input.focus();
+})();
+</script>
+</body>
+</html>
