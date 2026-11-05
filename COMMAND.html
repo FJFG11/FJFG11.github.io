@@ -154,7 +154,7 @@
   <div class="ghost-window ghost-one" aria-hidden="true">
     <div class="titlebar"><div class="title-left"><span class="app-icon">C:\\</span><span class="title">FJFG11 Terminal</span></div><div class="window-buttons"><span>—</span><span>□</span><span class="close">×</span></div></div>
     <nav class="menu"><span>Session</span><span>Edit</span><span>Display</span><span>Help</span></nav>
-    <div class="ghost-screen">C:\\Users\\FJFG11&gt;dir<br><br> Directory of C:\\Users\\FJFG11<br><br> portfolio<br> projects<br> socials<br> README.txt<br><br> C:\\Users\\FJFG11&gt;_</div>
+    <div class="ghost-screen">C:\\Users\\FJFG11&gt;dir<br><br> Directory of C:\\Users\\FJFG11<br><br> projects<br> socials<br> README.txt<br><br> C:\\Users\\FJFG11&gt;_</div>
   </div>
   <div class="ghost-window ghost-two" aria-hidden="true">
     <div class="titlebar"><div class="title-left"><span class="app-icon">C:\\</span><span class="title">FJFG11 Terminal — projects</span></div><div class="window-buttons"><span>—</span><span>□</span><span class="close">×</span></div></div>
@@ -340,7 +340,14 @@ Type <span class="yellow">help</span> to list available commands.
         append('Experience: 2+ years of Luau scripting and GUI creation');
         break;
       case 'larp':
-        htmlLine(` <imgsrc="https://imgs.search.brave.com/twY04pNTMHx4qEVzpQrCbJQloO9bDsRAgwHHtXRyeOY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZGlzcGxhdGUuY29t/L2FydHdvcmsvMjAy/Ni0wNy0xNS8yZGE1/ZjRiOC0xNWE4LTRj/NjktYTgzZS0wZjJj/ZTQyMGI0YjEuanBn/P3NwZWVkc2l6ZT13/XzY4MQ"alt="Loaded image"style="max-width:400px; max-height:300px; display:block; margin-top:10px;"onerror="this.outerHTML='Image failed to load.'">`);
+        htmlLine(`
+    <img
+        src="https://imgs.search.brave.com/twY04pNTMHx4qEVzpQrCbJQloO9bDsRAgwHHtXRyeOY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZGlzcGxhdGUuY29t/L2FydHdvcmsvMjAy/Ni0wNy0xNS8yZGE1/ZjRiOC0xNWE4LTRjNjktYTgzZS0wZjJjZ TQyMGI0YjEuanBnP3NwZWVkc2l6ZT13XzY4MQ"
+        alt="Loaded image"
+        style="max-width:400px; max-height:300px; display:block; margin-top:10px;"
+        onerror="this.outerHTML='Image failed to load.'"
+    >
+`);
         break;
       case 'skills':
         blank();
