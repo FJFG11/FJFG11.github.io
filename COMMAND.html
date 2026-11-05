@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#0c0c0c">
-<title>FJFG11 — FJFG11 Terminal</title>
+<title>FJFG11 - WIP</title>
 <style>
   :root { color-scheme: dark; }
   * { box-sizing: border-box; }
@@ -216,10 +216,9 @@ Type <span class="yellow">help</span> to list available commands.
   ];
 
   const socials = [
-    ['GitHub', 'https://github.com/FJFG11'],
-    ['Roblox', 'https://www.roblox.com/users/421517931/profile'],
-    ['Discord', 'https://discord.com/users/1193285201783181361'],
-    ['X', 'https://x.com/The_Real_FJFG11']
+    ['GITHUB', 'https://github.com/FJFG11'],
+    ['GAME', 'https://www.roblox.com/users/421517931/profile'],
+    ['COMMUNICATIONS', 'https://discord.com/users/1193285201783181361'],
   ];
 
   const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -314,17 +313,14 @@ Type <span class="yellow">help</span> to list available commands.
   function scrollDown() { screen.scrollTop = screen.scrollHeight; }
 
   function help() {
-    append('FJFG11 PORTFOLIO COMMANDS');
+    append('COMMANDS');
     append('------------------------');
     append('  help          Displays this list of commands.');
-    append('  about         Displays information about me.');
     append('  skills        Lists my development skills.');
-    append('  work          Displays my work history.');
     append('  projects      Opens my creations page.');
     append('  contact       Displays my social links.');
     append('  commissions   Displays commission availability.');
     append('  cls           Clears the command prompt screen.');
-    append('  exit          Displays a friendly sign-off.');
   }
 
   function run(raw) {
@@ -342,23 +338,22 @@ Type <span class="yellow">help</span> to list available commands.
         blank(); help(); break;
       case 'about':
         blank();
-        append('FJFG11 — ROBLOX DEVELOPER');
+        append('FJFG11 — DEVELOPER');
         append('-------------------------');
         append('Location : United Kingdom');
-        append('Focus    : Roblox development, moderation systems and interface design');
+        append('Focus    : Game Development, moderation systems and interface design');
         append('Experience: 2+ years of Luau scripting and GUI creation');
-        blank();
-        append('I build admin panels, anti-exploit systems and custom interfaces.');
-        append('You can find some of my creations on my Roblox product hub.');
+        break;
+      case 'LARP':
+        htmlLine(` <imgsrc="https://imgs.search.brave.com/twY04pNTMHx4qEVzpQrCbJQloO9bDsRAgwHHtXRyeOY/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly9jZG4u/ZGlzcGxhdGUuY29t/L2FydHdvcmsvMjAy/Ni0wNy0xNS8yZGE1/ZjRiOC0xNWE4LTRj/NjktYTgzZS0wZjJj/ZTQyMGI0YjEuanBn/P3NwZWVkc2l6ZT13/XzY4MQ"alt="Loaded image"style="max-width:400px; max-height:300px; display:block; margin-top:10px;"onerror="this.outerHTML='Image failed to load.'">`);
         break;
       case 'skills':
         blank();
         append('SKILLS');
         append('------');
-        append('  LuaU');
-        append('  Roblox Studio');
-        append('  UI / GUI Design');
-        append('  QA Testing');
+        append(' LuaU');
+        append(' UI / GUI Design');
+        append(' QA Testing');
         break;
       case 'work':
         blank();
