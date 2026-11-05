@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0c0c0c">
+<title>FJFG11 — FJFG11 Terminal</title>
+<style>
+  :root { color-scheme: dark; }
+  * { box-sizing: border-box; }
+  html, body { width:100%; min-height:100%; margin:0; }
+  body {
+    background:#0c0c0c;
+    color:#cccccc;
+    font-family:Consolas,"Lucida Console",monospace;
+    font-size:15px;
+    line-height:1.42;
+    overflow-x:hidden;
+  }
+  .desktop {
+    min-height:100vh;
+    display:grid;
+    place-items:center;
+    position:relative;
+    isolation:isolate;
+    overflow:hidden;
+    padding:7vh 4vw;
+    background:
+      radial-gradient(ellipse at 50% 45%, #202020 0%, #111 48%, #080808 100%);
+  }
+  .window {
+    width:min(1080px, 92vw);
+    height:min(760px, 86vh);
+    min-height:420px;
+    display:flex;
+    flex-direction:column;
+    background:#0c0c0c;
+    border:1px solid #555;
+    box-shadow:0 24px 70px #000b, 0 0 0 1px #000;
+    position:relative;
+    z-index:3;
+  }
+  .ghost-window {
+    position:absolute;
+    width:min(780px, 65vw);
+    height: min(430px, 52vh);
+    min-height:250px;
+    background:#0c0c0c;
+    border:1px solid #4b4b4b;
+    box-shadow:0 18px 45px #0009;
+    opacity:.78;
+    pointer-events:none;
+    overflow:hidden;
+  }
+  .ghost-one { z-index:1; top:7vh; left:4vw; transform:rotate(-2deg); }
+  .ghost-two { z-index:2; right:4vw; bottom:6vh; transform:rotate(2deg); opacity:.62; }
+  .ghost-screen {
+    padding:12px 14px;
+    color:#aaa;
+    font:14px/1.5 Consolas,"Lucida Console",monospace;
+    white-space:pre-wrap;
+  }
+  .ghost-window .titlebar { height:30px; }
+  .ghost-window .menu { height:24px; }
+  .titlebar {
+    height:32px;
+    flex:0 0 32px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-left:10px;
+    background:#202020;
+    color:#f2f2f2;
+    font:12px "Segoe UI",Arial,sans-serif;
+    user-select:none;
+  }
+  .title-left { display:flex; align-items:center; gap:8px; min-width:0; }
+  .app-icon {
+    width:15px;height:13px;border:1px solid #b9c6d5;
+    display:inline-flex;align-items:center;justify-content:center;
+    color:#dce8f7;font:9px Consolas,monospace;
+  }
+  .title { white-space:nowrap;overflow:hidden;text-overflow:ellipsis; }
+  .window-buttons { display:flex;height:32px; }
+  .window-buttons span {
+    width:46px;display:grid;place-items:center;
+    color:#ddd;font:13px "Segoe UI",sans-serif;
+  }
+  .window-buttons span:hover { background:#3a3a3a; }
+  .window-buttons .close:hover { background:#c42b1c; }
+  .menu {
+    height:25px;flex:0 0 25px;display:flex;align-items:center;
+    gap:20px;padding:0 10px;background:#0c0c0c;
+    color:#cccccc;font:12px "Segoe UI",Arial,sans-serif;
+    border-bottom:1px solid #252525;
+  }
+  .screen {
+    flex:1;
+    padding:12px 14px 22px;
+    min-height:0;
+    overflow:auto;
+    outline:none;
+    cursor:text;
+  }
+  #history { white-space:pre-wrap;overflow-wrap:anywhere; }
+  .out { min-height:1.42em; }
+  .dim { color:#999999; }
+  .bright { color:#ffffff; }
+  .green { color:#00ff00; }
+  .yellow { color:#ffff00; }
+  .cyan { color:#00ffff; }
+  a { color:#9cdcfe;text-decoration:underline; }
+  a:hover { color:#fff; }
+  .input-line { display:flex;align-items:baseline;min-height:1.42em; }
+  .prompt { color:#cccccc;white-space:pre; }
+  #command {
+    flex:1;min-width:0;padding:0;margin:0;border:0;outline:0;
+    background:transparent;color:#cccccc;
+    font:inherit;line-height:inherit;caret-color:#cccccc;
+  }
+  #command:disabled { opacity:.75; }
+  .caret {
+    display:inline-block;width:8px;height:1.05em;background:#cccccc;
+    vertical-align:-2px;animation:blink 1s steps(2,start) infinite;
+  }
+  .typing-caret {
+    display:inline-block;width:8px;height:1.05em;background:#cccccc;
+    vertical-align:-2px;margin-left:1px;
+    animation:blink 1s steps(2,start) infinite;
+  }
+  .window.is-minimized { display:none; }
+  @media(max-width:700px) {
+    .desktop { display:block; padding:0; background:#0c0c0c; }
+    .ghost-window { display:none; }
+    .window { width:100%; height:100vh; min-height:100vh; border:0; }
+  }
+  @keyframes blink { to { visibility:hidden; } }
+  .help-line { padding-left:25px; }
+  .gap { height:1.42em; }
+  @media(max-width:600px) {
+    body { font-size:13px; }
+    .screen { padding:10px 9px 20px; }
+    .window-buttons span { width:37px; }
+    .menu { gap:15px; }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    .caret,.typing-caret { animation:none; }
+    .ghost-one,.ghost-two { transform:none; }
+  }
+</style>
+</head>
+<body>
+<div class="desktop">
+  <div class="ghost-window ghost-one" aria-hidden="true">
+    <div class="titlebar"><div class="title-left"><span class="app-icon">C:\\</span><span class="title">FJFG11 Terminal</span></div><div class="window-buttons"><span>—</span><span>□</span><span class="close">×</span></div></div>
+    <nav class="menu"><span>Session</span><span>Edit</span><span>Display</span><span>Help</span></nav>
+    <div class="ghost-screen">C:\\Users\\FJFG11&gt;dir<br><br> Directory of C:\\Users\\FJFG11<br><br> portfolio<br> projects<br> socials<br> README.txt<br><br> C:\\Users\\FJFG11&gt;_</div>
+  </div>
+  <div class="ghost-window ghost-two" aria-hidden="true">
+    <div class="titlebar"><div class="title-left"><span class="app-icon">C:\\</span><span class="title">FJFG11 Terminal — projects</span></div><div class="window-buttons"><span>—</span><span>□</span><span class="close">×</span></div></div>
+    <nav class="menu"><span>Session</span><span>Edit</span><span>Display</span><span>Help</span></nav>
+    <div class="ghost-screen">C:\\Users\\FJFG11\\projects&gt;list<br><br> Roblox systems<br> Custom interfaces<br> Moderation tools<br> QA testing<br><br> C:\\Users\\FJFG11\\projects&gt;_</div>
+  </div>
+  <div class="window">
+  <header class="titlebar">
+    <div class="title-left">
+      <span class="app-icon">C:\</span>
+      <span class="title">FJFG11 Terminal — C:\Users\FJFG11\portfolio</span>
+    </div>
+    <div class="window-buttons" aria-hidden="true">
+      <span>—</span><span>□</span><span class="close">×</span>
+    </div>
+  </header>
+  <nav class="menu" aria-label="Window menu">
+    <span>File</span><span>Edit</span><span>View</span><span>Help</span>
+  </nav>
+  <main class="screen" id="screen">
+    <div id="history" aria-live="polite">FJFG11 Command Line Interface [Version 1.0]
+(c) FJFG11. All rights reserved.
+
+C:\Users\FJFG11&gt;portfolio.exe
+
+FJFG11 PORTFOLIO SYSTEM
+=======================
+
+Welcome. This is an interactive command-line portfolio.
+Type <span class="yellow">help</span> to list available commands.
+
+</div>
+    <form class="input-line" id="form" autocomplete="off">
+      <label class="prompt" for="command">C:\Users\FJFG11&gt;</label><input id="command" autofocus spellcheck="false" autocomplete="off" aria-label="Command input"><span class="caret" aria-hidden="true"></span>
+    </form>
+  </main>
+  </div>
+</div>
+<script>
+(() => {
+  const history = document.getElementById('history');
+  const form = document.getElementById('form');
+  const input = document.getElementById('command');
+  const screen = document.getElementById('screen');
+  const promptText = 'C:\\Users\\FJFG11>';
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const TYPE_SPEED = reducedMotion ? 0 : 11;
+  let outputQueue = Promise.resolve();
+  let isTyping = false;
+
+  const jobs = [
+    ['Zenth', 'Engineer', 'Discord Server', 'Active', '~5', 'N/A'],
+    ['Luxor', 'Chief Executive Officer', 'Roblox product hub', 'Inactive', '~50', 'N/A'],
+    ['Flux Studio', 'Partner, Staff Manager', 'Roblox product hub', 'Active', '~800', 'N/A'],
+    ['Ablazed Studios', 'Former Tester', 'Roblox game development', 'Active', '~287', '~1.4M'],
+    ['Sparks Shopping', 'Former Lead Developer', 'Roblox shopping experience', 'Active', 'N/A', 'N/A'],
+    ['Wizard Studios', 'Former Quality Assurance', 'Roblox game development', 'Inactive', '~975', '~5,400'],
+    ['Coastal Island', 'Former Co-Founder', 'Roblox hotel experience', 'Inactive', 'N/A', 'N/A']
+  ];
+
+  const socials = [
+    ['GitHub', 'https://github.com/FJFG11'],
+    ['Roblox', 'https://www.roblox.com/users/421517931/profile'],
+    ['Discord', 'https://discord.com/users/1193285201783181361'],
+    ['X', 'https://x.com/The_Real_FJFG11']
+  ];
+
+  const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+
+  async function typeNode(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent;
+      node.textContent = '';
+      for (const char of text) {
+        node.textContent += char;
+        if (TYPE_SPEED) await wait(TYPE_SPEED);
+        scrollDown();
+      }
+      return;
+    }
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const children = Array.from(node.childNodes);
+      for (const child of children) await typeNode(child);
+    }
+  }
+
+  function enqueueRow(row, contentBuilder) {
+    outputQueue = outputQueue.then(async () => {
+      isTyping = true;
+      input.disabled = true;
+      await contentBuilder(row);
+      isTyping = false;
+      input.disabled = false;
+      input.focus();
+      scrollDown();
+    });
+    return outputQueue;
+  }
+
+  function append(text = '', className = '') {
+    const row = document.createElement('div');
+    row.className = 'out ' + className;
+    history.appendChild(row);
+    enqueueRow(row, async target => {
+      target.textContent = text;
+      if (TYPE_SPEED) {
+        const fullText = target.textContent;
+        target.textContent = '';
+        for (const char of fullText) {
+          target.textContent += char;
+          await wait(TYPE_SPEED);
+          scrollDown();
+        }
+      }
+    });
+    return row;
+  }
+
+  function htmlLine(html, className = '') {
+    const row = document.createElement('div');
+    row.className = 'out ' + className;
+    history.appendChild(row);
+    enqueueRow(row, async target => {
+      target.innerHTML = html;
+      if (TYPE_SPEED) {
+        const fragment = target.cloneNode(true);
+        target.textContent = '';
+        for (const child of Array.from(fragment.childNodes)) {
+          const copy = child.cloneNode(true);
+          target.appendChild(copy);
+          if (copy.nodeType === Node.TEXT_NODE) {
+            const full = copy.textContent;
+            copy.textContent = '';
+            for (const char of full) {
+              copy.textContent += char;
+              await wait(TYPE_SPEED);
+              scrollDown();
+            }
+          } else {
+            // Preserve clickable links while revealing their labels character by character.
+            const label = copy.textContent;
+            copy.textContent = '';
+            for (const char of label) {
+              copy.textContent += char;
+              await wait(TYPE_SPEED);
+              scrollDown();
+            }
+          }
+        }
+      }
+    });
+    return row;
+  }
+
+  function blank() { append(''); }
+  function commandEcho(value) { append(promptText + value); }
+  function scrollDown() { screen.scrollTop = screen.scrollHeight; }
+
+  function help() {
+    append('FJFG11 PORTFOLIO COMMANDS');
+    append('------------------------');
+    append('  help          Displays this list of commands.');
+    append('  about         Displays information about me.');
+    append('  skills        Lists my development skills.');
+    append('  work          Displays my work history.');
+    append('  projects      Opens my creations page.');
+    append('  contact       Displays my social links.');
+    append('  commissions   Displays commission availability.');
+    append('  cls           Clears the command prompt screen.');
+    append('  exit          Displays a friendly sign-off.');
+  }
+
+  function run(raw) {
+    const value = raw.trim();
+    if (!value) return;
+    const cmd = value.toLowerCase();
+    if (cmd === 'cls' || cmd === 'clear') {
+      history.textContent = '';
+      outputQueue = Promise.resolve();
+      return;
+    }
+    commandEcho(value);
+    switch (cmd) {
+      case 'help':
+        blank(); help(); break;
+      case 'about':
+        blank();
+        append('FJFG11 — ROBLOX DEVELOPER');
+        append('-------------------------');
+        append('Location : United Kingdom');
+        append('Focus    : Roblox development, moderation systems and interface design');
+        append('Experience: 2+ years of Luau scripting and GUI creation');
+        blank();
+        append('I build admin panels, anti-exploit systems and custom interfaces.');
+        append('You can find some of my creations on my Roblox product hub.');
+        break;
+      case 'skills':
+        blank();
+        append('SKILLS');
+        append('------');
+        append('  LuaU');
+        append('  Roblox Studio');
+        append('  UI / GUI Design');
+        append('  QA Testing');
+        break;
+      case 'work':
+        blank();
+        append('FORMER / CURRENT WORKPLACES');
+        append('--------------------------');
+        jobs.forEach((job, i) => {
+          append(`${i + 1}. ${job[0]}`);
+          append(`   Position : ${job[1]}`);
+          append(`   Type     : ${job[2]}`);
+          append(`   Status   : ${job[3]}`);
+          append(`   Discord  : ${job[4]} members`);
+          append(`   Visits   : ${job[5]}`);
+          blank();
+        });
+        break;
+      case 'projects':
+        blank();
+        append('Opening creations page in your browser...');
+        htmlLine('<a href="https://fjfg11.github.io/creations.html" target="_blank" rel="noopener noreferrer">https://fjfg11.github.io/creations.html</a>');
+        window.open('https://fjfg11.github.io/creations.html', '_blank', 'noopener');
+        break;
+      case 'contact':
+        blank();
+        append('CONTACT / SOCIAL LINKS');
+        append('----------------------');
+        socials.forEach(([name, url]) => {
+          const row = document.createElement('div');
+          row.className = 'out';
+          history.appendChild(row);
+          enqueueRow(row, async target => {
+            const label = document.createElement('span');
+            label.textContent = name.padEnd(9, ' ') + ' ';
+            target.appendChild(label);
+            const link = document.createElement('a');
+            link.href = url; link.target = '_blank'; link.rel = 'noopener noreferrer';
+            link.textContent = url;
+            target.appendChild(link);
+            if (TYPE_SPEED) {
+              const full = link.textContent;
+              link.textContent = '';
+              for (const char of full) {
+                link.textContent += char;
+                await wait(TYPE_SPEED);
+                scrollDown();
+              }
+            }
+          });
+        });
+        break;
+      case 'commissions':
+        blank();
+        append('COMMISSION STATUS');
+        append('-----------------');
+        append('Status : CLOSED');
+        append('To enquire, contact me on Discord:');
+        htmlLine('<a href="https://discord.com/users/1193285201783181361" target="_blank" rel="noopener noreferrer">discord.com/users/1193285201783181361</a>');
+        break;
+      case 'exit':
+        blank();
+        append('Thanks for visiting the FJFG11 portfolio.');
+        append('Session ended. (Not really — type another command.)');
+        break;
+      default:
+        blank();
+        append(`'${value}' is not recognized as an internal or external command,`);
+        append('operable program or batch file.');
+        append('');
+        append("Type 'help' to see a list of available commands.");
+    }
+    blank();
+    scrollDown();
+  }
+
+  form.addEventListener('submit', event => {
+    event.preventDefault();
+    if (isTyping) return;
+    const value = input.value;
+    input.value = '';
+    run(value);
+    scrollDown();
+  });
+  screen.addEventListener('click', () => input.focus());
+  document.addEventListener('keydown', event => {
+    if (event.key === '/' && document.activeElement !== input) {
+      event.preventDefault(); input.focus();
+    }
+  });
+
+  // Animated boot sequence: every line is revealed like live CMD output.
+  append('FJFG11 Command Line Interface [Version 1.0]');
+  append('(c) FJFG11. All rights reserved.');
+  blank();
+  commandEcho('portfolio.exe');
+  blank();
+  append('FJFG11 PORTFOLIO SYSTEM', 'bright');
+  append('=======================');
+  blank();
+  append('Welcome. This is an interactive command-line portfolio.');
+  append('Type help to list available commands.');
+  blank();
+  input.focus();
+})();
+</script>
+</body>
+</html>
